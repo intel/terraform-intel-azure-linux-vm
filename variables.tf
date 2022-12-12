@@ -1,18 +1,18 @@
 #variable "azure_subscription_id" {
-  #type        = string
-  #description = "Azure Subscription ID"
+#type        = string
+#description = "Azure Subscription ID"
 #}
 #variable "azure_client_id" {
-  #type        = string
-  #description = "Azure Client ID"
+#type        = string
+#description = "Azure Client ID"
 #}
 #variable "azure_client_secret" {
-  #type        = string
-  #description = "Azure Client Secret"
+#type        = string
+#description = "Azure Client Secret"
 #}
 #variable "azure_tenant_id" {
-  #type        = string
-  #description = "Azure Tenant ID"
+#type        = string
+#description = "Azure Tenant ID"
 #}
 
 variable "admin_username" {
@@ -81,15 +81,15 @@ variable "subnet_delegation" {
 }
 
 #variable "subnet_enforce_private_link_endpoint_network_policies" {
-  #description = "A map of subnet name to enable/disable private link endpoint network policies on the subnet."
-  #type        = map(bool)
-  #default     = {}
+#description = "A map of subnet name to enable/disable private link endpoint network policies on the subnet."
+#type        = map(bool)
+#default     = {}
 #}
 
 #variable "subnet_enforce_private_link_service_network_policies" {
-  #description = "A map of subnet name to enable/disable private link service network policies on the subnet."
-  #type        = map(bool)
-  #default     = {}
+#description = "A map of subnet name to enable/disable private link service network policies on the subnet."
+#type        = map(bool)
+#default     = {}
 #}
 
 variable "subnet_prefixes" {
@@ -99,14 +99,14 @@ variable "subnet_prefixes" {
 }
 
 variable "virtual_machine_size" {
-    type        = string
-    description = "The SKU which should be used for this Virtual Machine"
-    default        = "Standard_D2_v5"
+  type        = string
+  description = "The SKU which should be used for this Virtual Machine"
+  default     = "Standard_D2_v5"
 }
 
 variable "location" {
   description = "location of the default region"
-  default = "East US"
+  default     = "eastus"
 }
 
 variable "resource_group_name" {
@@ -115,16 +115,20 @@ variable "resource_group_name" {
   nullable    = false
 }
 
+#variable "azurerm_resource_group" {
+#type = 
+#}
+
 variable "vnet_location" {
   description = "The location of the vnet to create."
   type        = string
-  nullable    = false
+  default     = "eastus"
 }
 
 variable "vnet_tags" {
   description = "The tags to associate with network and subnets"
-  type = map(string)  
-    
+  type        = map(string)
+
   default = {
     environment = "testing"
   }
@@ -136,52 +140,96 @@ variable "nic_name" {
   default     = "example-nic"
 }
 
-variable "ip_configuration_name" {
-  description = "A name used for this IP Configuration"
-  type        = string
-}
-
 variable "ip_configuration_subnet_id" {
   description = "The ID of the Subnet where this Network Interface should be located in."
   type        = string
+  default     = null
 }
 
 variable "ip_configuration_name" {
-  description = "A name used for this IP Configuration"
+  description = "A name for IP Configuration"
   type        = string
+  default     = "testing"
 }
 
 variable "ip_configuration_public_ip_address_id" {
-  description = "Reference to a Public IP Address to associate with this NIC."
+  description = "Reference to a Public IP Address for the NIC."
   type        = string
-}
-
-variable "dns_servers" {
-  description = "A list of IP Addresses defining the DNS Servers which should be used for this Network Interface."
-  type        = list
-  default     = []
+  default     = null
 }
 
 variable "enable_ip_forwarding" {
-  description = "Should IP Forwarding be enabled? Defaults to 'false'."
+  description = "."
   type        = bool
   default     = false
 }
 
 variable "enable_accelerated_networking" {
-  description = "Should Accelerated Networking be enabled? Defaults to 'false'."
+  description = ""
   type        = bool
   default     = false
 }
 
 variable "internal_dns_name_label" {
-  description = "Should Accelerated Networking be enabled? Defaults to 'false'."
+  description = ""
   type        = bool
   default     = false
 }
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource."
-  type        = map
-  default     = {}
+  type        = map(any)
+  default = {
+    owner    = "kinder.wischmeier@intel.com"
+    duration = "4"
+  }
+}
+
+variable "os_disk_name" {
+  description = "The name which should be used for the Internal OS Disk"
+  default     = null
+}
+
+variable "os_disk_caching" {
+  description = "The Type of Caching which should be used for the Internal OS Disk. Possible values are `None`, `ReadOnly` and `ReadWrite`"
+  default     = "ReadOnly"
+}
+
+variable "os_disk_storage_account_type" {
+  description = "The Type of Storage Account which should back this the Internal OS Disk. Possible values include Standard_LRS, StandardSSD_LRS and Premium_LRS."
+  default     = "Standard_LRS"
+}
+
+variable "disk_size_gb" {
+  description = ""
+  default     = null
+}
+
+variable "enable_os_disk_write_accelerator" {
+  description = ""
+  default     = false
+}
+
+variable "source_image_reference_publisher" {
+  description = ""
+  default     = "Canonical"
+  type        = string
+}
+
+variable "source_image_reference_offer" {
+  description = ""
+  default     = "0001-com-ubuntu-server-jammy:"
+  type        = string
+}
+
+variable "source_image_reference_sku" {
+  description = ""
+  default     = "22_04-lts-gen2"
+  type        = string
+}
+
+variable "source_image_reference_version" {
+  description = ""
+  version     = "latest"
+  type        = string
 }
