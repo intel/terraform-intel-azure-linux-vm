@@ -19,16 +19,21 @@ resource "azurerm_subnet" "example" {
 }
 
 resource "azurerm_network_interface" "example" {
-  name                = "example-nic"
+  name                = var.nic_name
   location            = azurerm_resource_group.example.location
   resource_group_name = azurerm_resource_group.example.name
 
   ip_configuration {
-    name                          = "internal"
-    subnet_id                     = azurerm_subnet.example.id
-    private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = var.public_ip_enabled ? azurerm_public_ip.primary[0].id : ""
-  }
+    name                          = var.ip_configuration_name
+    subnet_id                     = var.ip_configuration_subnet_id
+    private_ip_address_allocation = var.ip_configuration_private_ip_address_allocation
+    public_ip_address_id          = var.ip_configuration_public_ip_address_id
+}
+    dns_servers                     = var.dns_servers
+    enable_ip_forwarding            = var.enable_ip_forwarding
+    enable_accelerated_networking   = var.enable_accelerated_networking
+    internal_dns_name_label         = var.internal_dns_name_label
+    tags                            = var.tags
 }
 
 

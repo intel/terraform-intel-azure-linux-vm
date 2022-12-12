@@ -129,3 +129,59 @@ variable "vnet_tags" {
     environment = "testing"
   }
 }
+
+variable "nic_name" {
+  description = "Name of the network interface"
+  type        = string
+  default     = "example-nic"
+}
+
+variable "ip_configuration_name" {
+  description = "A name used for this IP Configuration"
+  type        = string
+}
+
+variable "ip_configuration_subnet_id" {
+  description = "The ID of the Subnet where this Network Interface should be located in."
+  type        = string
+}
+
+variable "ip_configuration_name" {
+  description = "A name used for this IP Configuration"
+  type        = string
+}
+
+variable "ip_configuration_public_ip_address_id" {
+  description = "Reference to a Public IP Address to associate with this NIC."
+  type        = string
+}
+
+variable "dns_servers" {
+  description = "A list of IP Addresses defining the DNS Servers which should be used for this Network Interface."
+  type        = list
+  default     = []
+}
+
+variable "enable_ip_forwarding" {
+  description = "Should IP Forwarding be enabled? Defaults to 'false'."
+  type        = bool
+  default     = false
+}
+
+variable "enable_accelerated_networking" {
+  description = "Should Accelerated Networking be enabled? Defaults to 'false'."
+  type        = bool
+  default     = false
+}
+
+variable "internal_dns_name_label" {
+  description = "Should Accelerated Networking be enabled? Defaults to 'false'."
+  type        = bool
+  default     = false
+}
+
+variable "tags" {
+  description = "A mapping of tags to assign to the resource."
+  type        = map
+  default     = {}
+}
