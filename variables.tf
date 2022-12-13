@@ -1,20 +1,3 @@
-#variable "azure_subscription_id" {
-#type        = string
-#description = "Azure Subscription ID"
-#}
-#variable "azure_client_id" {
-#type        = string
-#description = "Azure Client ID"
-#}
-#variable "azure_client_secret" {
-#type        = string
-#description = "Azure Client Secret"
-#}
-#variable "azure_tenant_id" {
-#type        = string
-#description = "Azure Tenant ID"
-#}
-
 variable "admin_username" {
   type        = string
   description = "The username of the local administrator used for the Virtual Machine"
@@ -31,10 +14,10 @@ variable "admin_password" {
     error_message = "The admin_password value must be at least 8 characters in length."
   }
 }
-variable "name" {
+variable "vm_name" {
   type        = string
   description = "The name of the Linux Virtual Machine"
-  #name        = "example-vm"
+  default     = "example-vm"
 }
 
 variable "vnet_name" {
@@ -66,13 +49,13 @@ variable "nsg_ids" {
 variable "address_space" {
   type        = list(string)
   description = "The address space that is used by the virtual network."
-  default     = ["10.0.0.0/16"]
+  default     = ["10.3.0.0/24"]
 }
 
-variable "subnet_names" {
+variable "subnet_name" {
   description = "A list of public subnets inside the vNet."
   type        = list(string)
-  default     = ["subnet1", "subnet2", "subnet3"]
+  default     = ["default"]
 }
 variable "subnet_delegation" {
   description = "A map of subnet name to delegation block on the subnet"
@@ -92,10 +75,10 @@ variable "subnet_delegation" {
 #default     = {}
 #}
 
-variable "subnet_prefixes" {
+variable "subnet_prefix" {
   description = "The address prefix to use for the subnet."
   type        = list(string)
-  default     = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+  default     = ["10.0.1.0/24"]
 }
 
 variable "virtual_machine_size" {
@@ -114,10 +97,6 @@ variable "resource_group_name" {
   type        = string
   nullable    = false
 }
-
-#variable "azurerm_resource_group" {
-#type = 
-#}
 
 variable "vnet_location" {
   description = "The location of the vnet to create."
@@ -153,7 +132,13 @@ variable "ip_configuration_name" {
 }
 
 variable "ip_configuration_public_ip_address_id" {
-  description = "Reference to a Public IP Address for the NIC."
+  description = "Reference to a public IP Address for the NIC."
+  type        = string
+  default     = null
+}
+
+variable "ip_configuration_private_ip_address_allocation" {
+  description = "Reference to a private IP Address for the NIC."
   type        = string
   default     = null
 }
@@ -230,6 +215,10 @@ variable "source_image_reference_sku" {
 
 variable "source_image_reference_version" {
   description = ""
-  version     = "latest"
+  default     = "latest"
   type        = string
+}
+
+variable "azurerm_resource_group" {
+  default = null
 }

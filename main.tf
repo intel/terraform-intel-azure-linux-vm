@@ -19,10 +19,10 @@ resource "azurerm_virtual_network" "example" {
 }
 
 resource "azurerm_subnet" "example" {
-  name                 = var.subnet_names[count.index]
+  name                 = var.subnet_name
   resource_group_name  = var.azurerm_resource_group
   virtual_network_name = azurerm_virtual_network.example.name
-  address_prefixes     = [var.subnet_prefixes[count.index]]
+  address_prefixes     = var.subnet_prefix
 }
 
 resource "azurerm_network_interface" "example" {
@@ -32,7 +32,7 @@ resource "azurerm_network_interface" "example" {
 
   ip_configuration {
     name                          = var.ip_configuration_name
-    subnet_id                     = var.ip_configuration_subnet_id
+    #subnet_id                     = var.ip_configuration_subnet_id
     private_ip_address_allocation = var.ip_configuration_private_ip_address_allocation
     public_ip_address_id          = var.ip_configuration_public_ip_address_id
   }
@@ -44,22 +44,16 @@ resource "azurerm_network_interface" "example" {
 }
 
 resource "azurerm_linux_virtual_machine" "example" {
-  name                = var.name
+  name                = var.vm_name
   resource_group_name = azurerm_resource_group.example.name
   location            = azurerm_resource_group.example.location
-  size                = var.size
-  #subscription_id     = var.azure-subscription-id
-  #client_id           = var.azure-client-id
-  #client_secret       = var.azure-client-secret
-  #tenant_id           = var.azure-tenant-id
+  size                = var.virtual_machine_size
+  admin_username      = var.admin_username
+  admin_password      = var.admin_password
 
   network_interface_ids = [
     azurerm_network_interface.example.id,
   ]
-
-  username = var.admin_username
-  password = var.admin_password
-
   disable_password_authentication = false
 
   os_disk {
@@ -76,10 +70,4 @@ resource "azurerm_linux_virtual_machine" "example" {
     sku       = var.source_image_reference_sku
     version   = var.source_image_reference_version
   }
-  size {
-    type        = string
-    description = "The SKU which should be used for this Virtual Machine"
-    size        = "Standard_D2_v5"
-  }
-
 }
