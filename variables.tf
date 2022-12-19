@@ -20,10 +20,10 @@ variable "vm_name" {
   default     = "example-vm"
 }
 
-variable "vnet_name" {
-  description = "Name of the vnet to create"
+variable "virtual_network_name" {
+  description = "Name of the virtual network"
   type        = string
-  default     = "example-network"
+  default     = "mssql"
 }
 
 variable "route_tables_ids" {
@@ -46,6 +46,16 @@ variable "nsg_ids" {
   }
 }
 
+variable "azurerm_network_interface_name" {
+  default = "kinder_testing"
+  type    = string
+}
+
+# type = list(string)
+#     description = "network interface id"
+#     default = ["/subscriptions/d4ab7583-eee6-45fe-9487-a7a0b59a389a/resourceGroups/rg-intel-csa/providers/Microsoft.Network/networkInterfaces/test-bc924_z1"]
+# }
+
 variable "address_space" {
   type        = list(string)
   description = "The address space that is used by the virtual network."
@@ -54,8 +64,8 @@ variable "address_space" {
 
 variable "subnet_name" {
   description = "A list of public subnets inside the vNet."
-  type        = list(string)
-  default     = ["default"]
+  type        = string
+  default     = "default"
 }
 variable "subnet_delegation" {
   description = "A map of subnet name to delegation block on the subnet"
@@ -78,7 +88,7 @@ variable "subnet_delegation" {
 variable "subnet_prefix" {
   description = "The address prefix to use for the subnet."
   type        = list(string)
-  default     = ["10.0.1.0/24"]
+  default     = ["10.3.0.0/24"]
 }
 
 variable "virtual_machine_size" {
@@ -89,13 +99,14 @@ variable "virtual_machine_size" {
 
 variable "location" {
   description = "location of the default region"
-  default     = "eastus"
+  default     = "centralus"
 }
 
-variable "resource_group_name" {
+variable "azurerm_resource_group_name" {
   description = "Name of the resource group to be imported."
   type        = string
   nullable    = false
+  default     = "rg-intel-csa"
 }
 
 variable "vnet_location" {
@@ -122,13 +133,13 @@ variable "nic_name" {
 variable "ip_configuration_subnet_id" {
   description = "The ID of the Subnet where this Network Interface should be located in."
   type        = string
-  default     = null
+  default     = "testing"
 }
 
 variable "ip_configuration_name" {
   description = "A name for IP Configuration"
   type        = string
-  default     = "testing"
+  default     = "internal"
 }
 
 variable "ip_configuration_public_ip_address_id" {
@@ -140,7 +151,7 @@ variable "ip_configuration_public_ip_address_id" {
 variable "ip_configuration_private_ip_address_allocation" {
   description = "Reference to a private IP Address for the NIC."
   type        = string
-  default     = null
+  default     = "Dynamic"
 }
 
 variable "enable_ip_forwarding" {
@@ -203,7 +214,7 @@ variable "source_image_reference_publisher" {
 
 variable "source_image_reference_offer" {
   description = ""
-  default     = "0001-com-ubuntu-server-jammy:"
+  default     = "0001-com-ubuntu-server-jammy"
   type        = string
 }
 
@@ -220,5 +231,5 @@ variable "source_image_reference_version" {
 }
 
 variable "azurerm_resource_group" {
-  default = null
+  default = "rg-intel-csa"
 }
