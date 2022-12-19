@@ -23,7 +23,7 @@ variable "vm_name" {
 variable "virtual_network_name" {
   description = "Name of the virtual network"
   type        = string
-  default     = "mssql"
+  default     = "kinder-testing"
 }
 
 variable "route_tables_ids" {
@@ -47,7 +47,7 @@ variable "nsg_ids" {
 }
 
 variable "azurerm_network_interface_name" {
-  default = "kinder_testing"
+  default = "kinder-testing"
   type    = string
 }
 
@@ -85,10 +85,10 @@ variable "subnet_delegation" {
 #default     = {}
 #}
 
-variable "subnet_prefix" {
+variable "address_prefix" {
   description = "The address prefix to use for the subnet."
   type        = list(string)
-  default     = ["10.3.0.0/24"]
+  default     = ["10.8.0.0/24"]
 }
 
 variable "virtual_machine_size" {
@@ -99,14 +99,14 @@ variable "virtual_machine_size" {
 
 variable "location" {
   description = "location of the default region"
-  default     = "centralus"
+  default     = "eastus"
 }
 
 variable "azurerm_resource_group_name" {
   description = "Name of the resource group to be imported."
   type        = string
   nullable    = false
-  default     = "rg-intel-csa"
+  default     = "kinder-testing"
 }
 
 variable "vnet_location" {
@@ -231,5 +231,5 @@ variable "source_image_reference_version" {
 }
 
 variable "azurerm_resource_group" {
-  default = "rg-intel-csa"
+  default = "kinder-testing"
 }

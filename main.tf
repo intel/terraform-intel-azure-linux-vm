@@ -13,31 +13,19 @@ data "azurerm_subnet" "example" {
   resource_group_name  = data.azurerm_resource_group.rg.name
 }
 
-data "azurerm_network_interface" "network_interface" {
-  name                = var.azurerm_network_interface_name
-  resource_group_name = data.azurerm_resource_group.rg.name
+resource "azurerm_network_interface" "example" {
+name                = var.azurerm_network_interface_name
+location            = data.azurerm_resource_group.rg.location
+resource_group_name = var.azurerm_resource_group_name
+tags                = var.tags
+
+ip_configuration {
+name                          = var.ip_configuration_name
+subnet_id                     = data.azurerm_subnet.example.id
+private_ip_address_allocation = var.ip_configuration_private_ip_address_allocation
+public_ip_address_id          = var.ip_configuration_public_ip_address_id
 }
-
-#resource "azurerm_public_ip" "example" {
-#name                = local.public_ip_name
-#location            = var.location
-#resource_group_name = data.azurerm_resource_group.rg
-#allocation_method   = "Dynamic"
-#}
-
-#resource "azurerm_network_interface" "example" {
-#name                = var.azurerm_network_interface_name
-#location            = data.azurerm_resource_group.rg.location
-#resource_group_name = var.azurerm_resource_group_name
-#tags                = var.tags
-
-#ip_configuration {
-#name                          = var.ip_configuration_name
-# subnet_id                     = data.azurerm_subnet.example.id
-#private_ip_address_allocation = var.ip_configuration_private_ip_address_allocation
-#public_ip_address_id          = var.ip_configuration_public_ip_address_id
-#}
-#}
+}
 
 resource "azurerm_linux_virtual_machine" "example" {
   name                = var.vm_name
@@ -47,10 +35,11 @@ resource "azurerm_linux_virtual_machine" "example" {
   admin_username      = var.admin_username
   admin_password      = var.admin_password
   tags                = var.tags
+  network_interface_ids           = [azurerm_network_interface.example.id]
 
-  network_interface_ids = [
-    data.azurerm_network_interface.network_interface.id,
-  ]
+  # network_interface_ids = [
+  #   var.azurerm_network_interface,
+  # ]
 
   disable_password_authentication = false
 
