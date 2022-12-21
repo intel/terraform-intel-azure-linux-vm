@@ -230,23 +230,8 @@ variable "source_image_reference_version" {
   type        = string
 }
 
-
-variable "max_bid_price" {
-  description = "The maximum price you're willing to pay for this Virtual Machine, in US Dollars; which must be greater than the current spot price."
-  #If this bid price falls below the current spot price the Virtual Machine will be evicted using the eviction_policy"
-  type           = number
-  default        = 0.0874
-}
-
-variable "priority"{
-  description = "Specifies the priority of this Virtual Machine. Possible values are regular and spot."
-  type    = string
-  default = "Spot"
-}
-
-variable "eviction_policy" {
-  description = "Specifies what should happen when the Virtual Machine is evicted for price reasons when using a Spot instance. Possible values are Deallocate and Delete"
-  type        = string
-  default     = "Deallocate"
-}
-
+# variable "azurerm_resource_group" {
+#   description = "Name of the resource group"
+#   type    = string
+#   default = "kinder-testing"
+# }

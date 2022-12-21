@@ -27,37 +27,7 @@ public_ip_address_id          = var.ip_configuration_public_ip_address_id
 }
 }
 
-# resource "azurerm_linux_virtual_machine" "example" {
-#   name                = var.vm_name
-#   resource_group_name = var.azurerm_resource_group_name
-#   location            = data.azurerm_resource_group.rg.location
-#   size                = var.virtual_machine_size
-#   admin_username      = var.admin_username
-#   admin_password      = var.admin_password
-#   tags                = var.tags
-#   network_interface_ids           = [azurerm_network_interface.example.id]
-
-#   disable_password_authentication = false
-
-#   os_disk {
-#     name                      = var.os_disk_name
-#     caching                   = var.os_disk_caching
-#     storage_account_type      = var.os_disk_storage_account_type
-#     disk_size_gb              = var.disk_size_gb
-#     write_accelerator_enabled = var.write_accelerator_enabled
-#   }
-
-#   source_image_reference {
-#     publisher = var.source_image_reference_publisher
-#     offer     = var.source_image_reference_offer
-#     sku       = var.source_image_reference_sku
-#     version   = var.source_image_reference_version
-#   }
-# }
-
-#spot virtual machine
-
-resource "azurerm_linux_virtual_machine" "example2" {
+resource "azurerm_linux_virtual_machine" "example" {
   name                = var.vm_name
   resource_group_name = var.azurerm_resource_group_name
   location            = data.azurerm_resource_group.rg.location
@@ -65,13 +35,7 @@ resource "azurerm_linux_virtual_machine" "example2" {
   admin_username      = var.admin_username
   admin_password      = var.admin_password
   tags                = var.tags
-  priority            = var.priority
-  #max_bid_price can only be configured if priority is set to Spot
-  max_bid_price       = var.max_bid_price
-  eviction_policy     = var.eviction_policy
-  network_interface_ids  = [
-    azurerm_network_interface.example.id
-  ]
+  network_interface_ids           = [azurerm_network_interface.example.id]
 
   disable_password_authentication = false
 
@@ -89,7 +53,4 @@ resource "azurerm_linux_virtual_machine" "example2" {
     sku       = var.source_image_reference_sku
     version   = var.source_image_reference_version
   }
-
-  #admin_ssh_key
 }
-
