@@ -9,6 +9,8 @@
 
 ## Module name
 
+Azure Linux Virtual Machine
+
 ## Usage
 
 See examples folder for code ./examples/intel-optimized-postgresql-server/main.tf
@@ -41,6 +43,7 @@ Note that this example may create resources. Run `terraform destroy` when you do
 ## Considerations  
 
 '''
+
 When admin_password is specified disable_password_authentication must be set to false
 
 Either admin_password or admin_ssh_key must be specified
