@@ -1,12 +1,3 @@
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = "~>3.26.0"
-    }
-  }
-}
-
 provider "azurerm" {
   #Configuration options
   features {
@@ -16,7 +7,4 @@ provider "azurerm" {
       skip_shutdown_and_force_delete = false
     }
   }
-
-
 }
-
