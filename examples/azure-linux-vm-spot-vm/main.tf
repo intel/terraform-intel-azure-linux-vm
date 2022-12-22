@@ -14,18 +14,22 @@ data "azurerm_subnet" "example" {
 }
 
 resource "azurerm_network_interface" "example" {
-name                = var.azurerm_network_interface_name
-location            = data.azurerm_resource_group.rg.location
-resource_group_name = var.azurerm_resource_group_name
-tags                = var.tags
+  name                = var.azurerm_network_interface_name
+  location            = data.azurerm_resource_group.rg.location
+  resource_group_name = var.azurerm_resource_group_name
+  tags                = var.tags
 
-ip_configuration {
-name                          = var.ip_configuration_name
-subnet_id                     = data.azurerm_subnet.example.id
-private_ip_address_allocation = var.ip_configuration_private_ip_address_allocation
-public_ip_address_id          = var.ip_configuration_public_ip_address_id
+  ip_configuration {
+    name                          = var.ip_configuration_name
+    subnet_id                     = data.azurerm_subnet.example.id
+    private_ip_address_allocation = var.ip_configuration_private_ip_address_allocation
+    public_ip_address_id          = var.ip_configuration_public_ip_address_id
+  }
 }
-}
+
+###############################################################################
+#Spot Virtual Machine
+###############################################################################
 
 resource "azurerm_linux_virtual_machine" "example" {
   name                = var.vm_name
@@ -35,7 +39,12 @@ resource "azurerm_linux_virtual_machine" "example" {
   admin_username      = var.admin_username
   admin_password      = var.admin_password
   tags                = var.tags
-  network_interface_ids           = [azurerm_network_interface.example.id]
+  priority            = var.priority
+  max_bid_price       = var.max_bid_price
+  eviction_policy     = var.eviction_policy
+  network_interface_ids = [
+    azurerm_network_interface.example.id
+  ]
 
   disable_password_authentication = false
 

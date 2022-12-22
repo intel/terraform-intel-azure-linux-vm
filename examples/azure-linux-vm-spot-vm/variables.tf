@@ -1,14 +1,14 @@
 variable "admin_username" {
-  description = "The username of the local administrator used for the Virtual Machine"
   type        = string
+  description = "The username of the local administrator used for the Virtual Machine"
   default     = "adminuser"
   nullable    = false
 }
 
 variable "admin_password" {
   description = "The Password which should be used for the local-administrator on this Virtual Machine"
-  type        = string
   default     = null
+  type        = string
   sensitive   = true
   validation {
     condition     = length(var.admin_password) >= 8
@@ -36,9 +36,10 @@ variable "route_tables_ids" {
 }
 
 variable "azurerm_network_interface_name" {
-   description = "The name of the Network Interface. Changing this forces a new resource to be created."
-  type    = string
-  default = "kinder-testing"
+  description = "The name of the Network Interface. Changing this forces a new resource to be created."
+  type        = string
+  default     = "kinder-testing"
+
 }
 
 variable "subnet_name" {
@@ -61,11 +62,12 @@ variable "location" {
 }
 
 variable "azurerm_resource_group_name" {
-  description = "Name of the resource group to be imported."
+  description = "Name of the pre-configured resource group that will be imported."
   type        = string
   default     = "kinder-testing"
   nullable    = false
 }
+
 variable "ip_configuration_name" {
   description = "A name for the IP with the network interface configuration"
   type        = string
@@ -74,7 +76,7 @@ variable "ip_configuration_name" {
 }
 
 variable "ip_configuration_public_ip_address_id" {
-  description = "Reference to a public IP Address for the NIC"
+  description = "Reference to a public IP Address for the NIC."
   type        = string
   default     = null
 }
@@ -89,11 +91,12 @@ variable "ip_configuration_private_ip_address_allocation" {
 }
 
 variable "tags" {
-  description = "A mapping of tags to assign to the resource."
+  description = "A mapping of tags to assign to the resource. Owner and duration required tags are required."
   type        = map(any)
   default = {
     owner    = "kinder.wischmeier@intel.com"
     duration = "4"
+    nullable = false
   }
 }
 
@@ -139,15 +142,15 @@ variable "source_image_reference_publisher" {
 
 variable "source_image_reference_offer" {
   description = " Specifies the offer of the image used to create the virtual machines"
-  default     = "0001-com-ubuntu-server-jammy"
   type        = string
+  default     = "0001-com-ubuntu-server-jammy"
   nullable    = false
 }
 
 variable "source_image_reference_sku" {
   description = "Specifies the SKU of the image used to create the virtual machines"
-  default     = "22_04-lts-gen2"
   type        = string
+  default     = "22_04-lts-gen2"
   nullable    = false
 }
 
@@ -158,21 +161,24 @@ variable "source_image_reference_version" {
   nullable    = false
 }
 
-# variable "azurerm_ssh_public_key_name" {
-#   description = "The name which should be used for this SSH Public Key. Changing this forces a new SSH Public Key to be created."
-#   type        = string
-#   default     = ""
-# }
+variable "priority" {
+  description = "Specifies the priority of this Virtual Machine. Possible values are regular and spot."
+  type        = string
+  default     = "Spot"
+  nullable    = true
+}
 
-# variable "azurerm_ssh_public_key_location" {
-#   description = "The Azure Region where the SSH Public Key should exist. Changing this forces a new SSH Public Key to be created."
-#   type = string
-#   default = ""
-# }
+variable "eviction_policy" {
+  description = "Specifies what should happen when the Virtual Machine is evicted for price reasons when using a Spot instance. Possible values are Deallocate and Delete"
+  type        = string
+  default     = "Deallocate"
+  nullable    = true
+}
 
-# variable "azurerm_ssh_public_key_public_key" {
-#   description = "SSH public key used to authenticate to a virtual machine through ssh. the provided public key needs to be at least 2048-bit and in ssh-rsa format."
-#   type = string
-#   default = "value"
-# }
-
+variable "max_bid_price" {
+  description = "The maximum price you're willing to pay for this Virtual Machine, in US Dollars; which must be greater than the current spot price."
+  #If this bid price falls below the current spot price the Virtual Machine will be evicted using the eviction_policy"
+  type    = number
+  default = 0.0874
+  nullable    = true
+}
