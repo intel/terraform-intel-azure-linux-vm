@@ -12,7 +12,7 @@ output "source_image_reference_offer" {
 }
 
 output "managed_disk_name" {
-    value = azurerm_linux_virtual_machine.linux_vm.name
+  value = azurerm_linux_virtual_machine.linux_vm.name
 }
 # output "managed_disk_size_gb" {
 #     value = azurerm_managed_disk.example.managed_disk_size_gb

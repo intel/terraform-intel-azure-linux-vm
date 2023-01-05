@@ -190,8 +190,8 @@ variable "managed_disk_upload_size_bytes" {
 
 variable "lun" {
   description = "The Logical Unit Number of the Data Disk, which needs to be unique within the Virtual Machine. Changing this forces a new resource to be created."
-  default = 10
-  type    = string
+  default     = 10
+  type        = string
 }
 
 
@@ -205,11 +205,11 @@ variable "lun" {
 #   type        = string
 #  }
 
- variable "managed_disk_image_reference_id"{
+variable "managed_disk_image_reference_id" {
   description = "ID of an existing platform/marketplace disk image to copy when create_option is FromImage. This field cannot be specified if gallery_image_reference_id is specified."
-  type        =  string
+  type        = string
   default     = null
- }
+}
 
 #  variable "managed_disk_gallery_image_reference_id" {
 #   description = "ID of a Gallery Image Version to copy when create_option is FromImage. This field cannot be specified if image_reference_id is specified."
