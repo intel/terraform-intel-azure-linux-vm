@@ -13,18 +13,23 @@ Azure Linux Virtual Machine
 
 ## Usage
 
-See examples folder for code ./examples/intel-optimized-postgresql-server/main.tf
+See examples folder for code ./examples/azure-linux-vm-spot-vm/main.tf
 
 Example of main.tf
 
 ```hcl
-# Example of how to pass variable for database password:
-# terraform apply -var="db_password=..."
+# Example of how to pass variable for virtual machine password:
+# terraform apply -var="admin_password=..."
 # Environment variables can also be used https://www.terraform.io/language/values/variables#environment-variables
 
 # Provision Intel Cloud Optimization Module
-module "module-example" {
-  source = "github.com/intel/module-name"
+module "azure-vm" {
+  source = "../../"
+  tags = {
+    Name     = "my-test-vm-${random_id.rid.dec}"
+    Owner    = "OwnerName-${random_id.rid.dec}",
+    Duration = "2"
+  }
 }
 
 ```

@@ -59,7 +59,7 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
     version   = var.source_image_reference_version
   }
 
-   # admin_ssh_key {
+  # admin_ssh_key {
   #   username   = "adminuser"
   #   public_key = file("~/.ssh/id_rsa.pub")
   # }

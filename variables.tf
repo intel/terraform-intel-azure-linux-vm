@@ -33,9 +33,9 @@ variable "route_tables_ids" {
 }
 
 variable "azurerm_network_interface_name" {
-   description = "The name of the Network Interface. Changing this forces a new resource to be created."
-  type    = string
-  default = "kinder-testing"
+  description = "The name of the Network Interface. Changing this forces a new resource to be created."
+  type        = string
+  default     = "kinder-testing"
 }
 
 variable "subnet_name" {
