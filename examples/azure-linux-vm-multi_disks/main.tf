@@ -45,15 +45,6 @@ resource "azurerm_managed_disk" "managed_disk" {
   disk_size_gb         = var.managed_disk_size_gb
   image_reference_id   = var.managed_disk_image_reference_id
   tags                 = var.tags
-  #   disk_iops_read_write = var.managed_disk_iops_read_write
-  #   disk_mbps_read_write = var.managed_disk_mbps_read_write
-  #   upload_size_bytes    = var.managed_disk_upload_size_bytes
-  #   edge_zone            = var.managed_disk_edge_zone
-  #   hyper_v_generation   = var.managed_disk_hyper_v_generation
-  #   gallery_image_reference_id = var.managed_disk_gallery_image_reference_id
-  #   logical_sector_size  = var.managed_disk_logical_sector_size
-  #   os_size              = var.managed_disk_os_type
-  #   source_resource_id   = var.managed_disk_source_resource_id 
 }
 
 resource "azurerm_linux_virtual_machine" "linux_vm" {
