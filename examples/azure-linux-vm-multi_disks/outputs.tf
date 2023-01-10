@@ -1,5 +1,5 @@
 output "virtual_network_id" {
-  value = azurerm_network_interface.example.id
+  value = azurerm_network_interface.nic.id
 }
 
 output "vm_name" {

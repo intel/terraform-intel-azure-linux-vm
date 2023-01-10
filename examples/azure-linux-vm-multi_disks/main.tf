@@ -22,7 +22,7 @@ data "azurerm_subnet" "example" {
   resource_group_name  = data.azurerm_resource_group.rg.name
 }
 
-resource "azurerm_network_interface" "example" {
+resource "azurerm_network_interface" "nic" {
   name                = var.azurerm_network_interface_name
   location            = data.azurerm_resource_group.rg.location
   resource_group_name = var.azurerm_resource_group_name
@@ -55,7 +55,7 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
   admin_username        = var.admin_username
   admin_password        = var.admin_password
   tags                  = var.tags
-  network_interface_ids = [azurerm_network_interface.example.id]
+  network_interface_ids = [azurerm_network_interface.nic.id]
 
   disable_password_authentication = var.disable_password_authentication
 
