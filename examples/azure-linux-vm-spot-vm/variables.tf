@@ -89,7 +89,6 @@ variable "tags" {
   default = {
     owner    = "kinder.wischmeier@intel.com"
     duration = "4"
-    nullable = false
   }
 }
 
