@@ -2,7 +2,6 @@ variable "admin_username" {
   type        = string
   description = "The username of the local administrator used for the Virtual Machine"
   default     = "adminuser"
-  nullable    = false
 }
 
 variable "admin_password" {
@@ -19,14 +18,12 @@ variable "vm_name" {
   description = "The unique name of the Linux Virtual Machine"
   type        = string
   default     = "example-vm"
-  nullable    = false
 }
 
 variable "virtual_network_name" {
   description = "Name of the preconfigured virtual network"
   type        = string
   default     = "kinder-testing"
-  nullable    = false
 }
 
 variable "route_tables_ids" {
@@ -58,21 +55,18 @@ variable "location" {
   description = "The Azure location where the Linux Virtual Machine should exist"
   type        = string
   default     = "eastus"
-  nullable    = false
 }
 
 variable "azurerm_resource_group_name" {
   description = "Name of the pre-configured resource group that will be imported."
   type        = string
   default     = "kinder-testing"
-  nullable    = false
 }
 
 variable "ip_configuration_name" {
   description = "A name for the IP with the network interface configuration"
   type        = string
   default     = "internal"
-  nullable    = false
 }
 
 variable "ip_configuration_public_ip_address_id" {
@@ -85,7 +79,6 @@ variable "ip_configuration_private_ip_address_allocation" {
   description = "The allocation method used for the Private IP Address. Possible values are Dynamic and Static"
   type        = string
   default     = "Dynamic"
-  nullable    = false
   #Dynamic means "An IP is automatically assigned during creation of this Network Interface"; Static means "User supplied IP address will be used"
 
 }
@@ -104,21 +97,18 @@ variable "os_disk_name" {
   description = "The name which should be used for the Internal OS Disk"
   type        = string
   default     = "testing"
-  nullable    = false
 }
 
 variable "os_disk_caching" {
   description = "The Type of Caching which should be used for the Internal OS Disk. Possible values are `None`, `ReadOnly` and `ReadWrite`"
   type        = string
   default     = "ReadOnly"
-  nullable    = false
 }
 
 variable "os_disk_storage_account_type" {
   description = "The Type of Storage Account which should back this the Internal OS Disk. Possible values include Standard_LRS, StandardSSD_LRS and Premium_LRS."
   type        = string
   default     = "Standard_LRS"
-  nullable    = false
 }
 
 variable "write_accelerator_enabled" {
@@ -137,42 +127,36 @@ variable "source_image_reference_publisher" {
   description = "Specifies the publisher of the image used to create the virtual machines"
   type        = string
   default     = "Canonical"
-  nullable    = false
 }
 
 variable "source_image_reference_offer" {
   description = " Specifies the offer of the image used to create the virtual machines"
   type        = string
   default     = "0001-com-ubuntu-server-jammy"
-  nullable    = false
 }
 
 variable "source_image_reference_sku" {
   description = "Specifies the SKU of the image used to create the virtual machines"
   type        = string
   default     = "22_04-lts-gen2"
-  nullable    = false
 }
 
 variable "source_image_reference_version" {
   description = "Specifies the version of the image used to create the virtual machines"
   type        = string
   default     = "latest"
-  nullable    = false
 }
 
 variable "priority" {
   description = "Specifies the priority of this Virtual Machine. Possible values are regular and spot."
   type        = string
   default     = "Spot"
-  nullable    = true
 }
 
 variable "eviction_policy" {
   description = "Specifies what should happen when the Virtual Machine is evicted for price reasons when using a Spot instance. Possible values are Deallocate and Delete"
   type        = string
   default     = "Deallocate"
-  nullable    = true
 }
 
 variable "max_bid_price" {
@@ -180,5 +164,4 @@ variable "max_bid_price" {
   #If this bid price falls below the current spot price the Virtual Machine will be evicted using the eviction_policy"
   type    = number
   default = 0.0874
-  nullable    = true
 }
