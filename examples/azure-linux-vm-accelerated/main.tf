@@ -66,16 +66,12 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
   tags                  = var.tags
   network_interface_ids = [azurerm_network_interface.example.id]
 
-  disable_password_authentication = false
+  disable_password_authentication = var.disable_password_authentication
 
   os_disk {
-    name    = var.os_disk_name
-    caching = var.os_disk_caching
-    #create_option     = var.create_option
-    #managed_disk_type = var.managed_disk_storage_account_type
+    name                 = var.os_disk_name
+    caching              = var.os_disk_caching
     storage_account_type = var.os_disk_storage_account_type
-    #disk_size_gb              = var.disk_size_gb
-    #write_accelerator_enabled = var.write_accelerator_enabled
   }
 
   source_image_reference {
@@ -84,11 +80,6 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
     sku       = var.source_image_reference_sku
     version   = var.source_image_reference_version
   }
-  #  add dynamic
-  # admin_ssh_key {
-  #   username   = "adminuser"
-  #   public_key = file("~/.ssh/id_rsa.pub")
-  # }
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {

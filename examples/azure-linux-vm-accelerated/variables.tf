@@ -177,11 +177,6 @@ variable "managed_disk_iops_read_write" {
   default     = 500
 }
 
-#  variable "managed_disk_mbps_read_write" {
-#   description = "The bandwidth allowed for this disk; only settable for UltraSSD disks and PremiumV2 disks. MBps means millions of bytes per second."
-#   type = number
-#  }
-
 variable "managed_disk_upload_size_bytes" {
   description = " Specifies the size of the managed disk to create in bytes. Required when create_option is Upload. The value must be equal to the source disk to be copied in bytes. Source disk size could be calculated with ls -l or wc -c"
   type        = number
@@ -194,17 +189,10 @@ variable "lun" {
   type        = string
 }
 
-
-#  variable "managed_disk_edge_zone" {
-#   description = "Specifies the Edge Zone within the Azure Region where this Managed Disk should exist."
-#   type = string
-#  }
-
-#  variable "managed_disk_hyper_v_generation" {
-#   description = "The HyperV Generation of the Disk when the source of an Import or Copy operation targets a source that contains an operating system. Possible values are V1 and V2"
-#   type        = string
-#  }
-
+variable "disable_password_authentication" {
+  description = "Should Password Authentication be disabled on this Virtual Machine? Defaults to true."
+  default     = false
+}
 variable "managed_disk_image_reference_id" {
   description = "ID of an existing platform/marketplace disk image to copy when create_option is FromImage. This field cannot be specified if gallery_image_reference_id is specified."
   type        = string
@@ -231,5 +219,19 @@ variable "managed_disk_image_reference_id" {
 #   type        = string
 #  }
 
+#  variable "managed_disk_edge_zone" {
+#   description = "Specifies the Edge Zone within the Azure Region where this Managed Disk should exist."
+#   type = string
+#  }
+
+#  variable "managed_disk_hyper_v_generation" {
+#   description = "The HyperV Generation of the Disk when the source of an Import or Copy operation targets a source that contains an operating system. Possible values are V1 and V2"
+#   type        = string
+#  }
+
+#  variable "managed_disk_mbps_read_write" {
+#   description = "The bandwidth allowed for this disk; only settable for UltraSSD disks and PremiumV2 disks. MBps means millions of bytes per second."
+#   type = number
+#  }
 
 
