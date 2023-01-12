@@ -16,15 +16,19 @@ See examples folder for code ./examples/intel-optimized-postgresql-server/main.t
 Example of main.tf
 
 ```hcl
-# Example of how to pass variable for database password:
-# terraform apply -var="db_password=..."
+# Example of how to pass variable for admin_password:
+# terraform apply -var="admin_password=..."
 # Environment variables can also be used https://www.terraform.io/language/values/variables#environment-variables
 
 # Provision Intel Cloud Optimization Module
-module "module-example" {
-  source = "github.com/intel/module-name"
+module "azure-vm" {
+  source = "../../"
+  tags = {
+    Name     = "my-test-vm"
+    Owner    = "OwnerName",
+    Duration = "2"
+  }
 }
-
 ```
 
 Run Terraform

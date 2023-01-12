@@ -26,8 +26,8 @@ Example of main.tf
 module "azure-vm" {
   source = "../../"
   tags = {
-    Name     = "my-test-vm-${random_id.rid.dec}"
-    Owner    = "OwnerName-${random_id.rid.dec}",
+    Name     = "my-test-vm"
+    Owner    = "OwnerName",
     Duration = "2"
   }
 }
