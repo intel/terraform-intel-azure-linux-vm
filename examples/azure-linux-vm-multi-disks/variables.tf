@@ -64,7 +64,7 @@ variable "azurerm_resource_group_name" {
 }
 
 variable "ip_configuration_name" {
-  description = "A name for the IP with the network interface configuration"
+  description  = "Name that will be associated with the IP configuration on the network interface"
   type        = string
   default     = "internal"
 }

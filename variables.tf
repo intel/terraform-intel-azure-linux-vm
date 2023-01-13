@@ -14,6 +14,12 @@ variable "admin_password" {
     error_message = "The admin_password value must be at least 8 characters in length"
   }
 }
+
+variable "admin_ssh_key" {
+  type    = list(any)
+  default = []
+}
+
 variable "vm_name" {
   description = "The unique name of the Linux virtual machine"
   type        = string
@@ -23,7 +29,7 @@ variable "vm_name" {
 variable "virtual_network_name" {
   description = "Name of the preconfigured virtual network"
   type        = string
-  default     = "example_vnet"
+  default     = "kinder-testing"
 }
 
 variable "route_tables_ids" {
@@ -59,7 +65,7 @@ variable "location" {
 variable "azurerm_resource_group_name" {
   description = "Name of the resource group to be imported"
   type        = string
-  default     = "example_resource_group"
+  default     = "kinder-testing"
 }
 variable "ip_configuration_name" {
   description = "A name for the IP with the network interface configuration"
@@ -85,8 +91,8 @@ variable "tags" {
   description = "A mapping of tags to assign to the resource"
   type        = map(any)
   default = {
-    owner    = "<ENTER_EMAIL_ADDRESS_HERE>"
-    duration = "<ENTER_DURATION_HERE>"
+    owner    = "kinder.wischmeier@intel.com"
+    duration = "4"
   }
 }
 
@@ -143,22 +149,4 @@ variable "source_image_reference_version" {
   type        = string
   default     = "latest"
 }
-
-# variable "azurerm_ssh_public_key_name" {
-#   description = "The name which should be used for this SSH Public Key. Changing this forces a new SSH Public Key to be created."
-#   type        = string
-#   default     = ""
-# }
-
-# variable "azurerm_ssh_public_key_location" {
-#   description = "The Azure Region where the SSH Public Key should exist. Changing this forces a new SSH Public Key to be created."
-#   type = string
-#   default = ""
-# }
-
-# variable "azurerm_ssh_public_key_public_key" {
-#   description = "SSH public key used to authenticate to a virtual machine through ssh. the provided public key needs to be at least 2048-bit and in ssh-rsa format."
-#   type = string
-#   default = "value"
-# }
 

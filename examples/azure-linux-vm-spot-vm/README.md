@@ -22,6 +22,8 @@ Example of main.tf
 # Environment variables can also be used https://www.terraform.io/language/values/variables#environment-variables
 
 # Provision Intel Cloud Optimization Module
+
+
 module "azure-vm" {
   source = "../../"
   tags = {
