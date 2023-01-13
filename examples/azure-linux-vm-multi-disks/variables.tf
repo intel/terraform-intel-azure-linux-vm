@@ -1,21 +1,21 @@
 variable "admin_username" {
   type        = string
-  description = "The username of the local administrator used for the Virtual Machine"
+  description = "The username of the local administrator used for the virtual machine"
   default     = "adminuser"
 }
 
 variable "admin_password" {
-  description = "The Password which should be used for the local-administrator on this Virtual Machine"
+  description = "The Password which should be used for the local-administrator on this virtual machine"
   default     = null
   type        = string
   sensitive   = true
   validation {
     condition     = length(var.admin_password) >= 8
-    error_message = "The admin_password value must be at least 8 characters in length."
+    error_message = "The admin_password value must be at least 8 characters in length"
   }
 }
 variable "vm_name" {
-  description = "The unique name of the Linux Virtual Machine"
+  description = "The unique name of the Linux virtual machine"
   type        = string
   default     = "example-vm"
 }
@@ -23,7 +23,7 @@ variable "vm_name" {
 variable "virtual_network_name" {
   description = "Name of the preconfigured virtual network"
   type        = string
-  default     = "kinder-testing"
+  default     = "example_vnet"
 }
 
 variable "route_tables_ids" {
@@ -33,9 +33,9 @@ variable "route_tables_ids" {
 }
 
 variable "azurerm_network_interface_name" {
-  description = "The name of the Network Interface. Changing this forces a new resource to be created."
+  description = "The name of the network interface. Changing this forces a new resource to be created"
   type        = string
-  default     = "kinder-testing"
+  default     = "example_nic"
 
 }
 
@@ -46,21 +46,21 @@ variable "subnet_name" {
 }
 
 variable "virtual_machine_size" {
-  description = "The SKU which should be used for this Virtual Machine"
+  description = "The SKU that will be configured for the provisioned virtual machine"
   type        = string
   default     = "Standard_D2_v5"
 }
 
 variable "location" {
-  description = "The Azure location where the Linux Virtual Machine should exist"
+  description = "The Azure location where the Linux virtual machine will be provisioned"
   type        = string
   default     = "eastus"
 }
 
 variable "azurerm_resource_group_name" {
-  description = "Name of the pre-configured resource group that will be imported."
+  description = "Name of the pre-configured resource group that will be imported"
   type        = string
-  default     = "kinder-testing"
+  default     = "example_resource_group"
 }
 
 variable "ip_configuration_name" {
@@ -70,13 +70,13 @@ variable "ip_configuration_name" {
 }
 
 variable "ip_configuration_public_ip_address_id" {
-  description = "Reference to a public IP Address for the NIC."
+  description = "Reference to a public IP address for the NIC"
   type        = string
   default     = null
 }
 
 variable "ip_configuration_private_ip_address_allocation" {
-  description = "The allocation method used for the Private IP Address. Possible values are Dynamic and Static"
+  description = "The allocation method used for the private IP address. Possible values are Dynamic and Static"
   type        = string
   default     = "Dynamic"
   #Dynamic means "An IP is automatically assigned during creation of this Network Interface"; Static means "User supplied IP address will be used"
@@ -84,73 +84,73 @@ variable "ip_configuration_private_ip_address_allocation" {
 }
 
 variable "tags" {
-  description = "A mapping of tags to assign to the resource. Owner and duration required tags are required."
+  description = "A mapping of tags to assign to the resource. Owner and duration required tags are required"
   type        = map(any)
   default = {
-    owner    = "kinder.wischmeier@intel.com"
-    duration = "4"
+    owner    = "<ENTER_EMAIL_ADDRESS_HERE>"
+    duration = "<ENTER_DURATION>"
   }
 }
 
 variable "os_disk_name" {
-  description = "The name which should be used for the Internal OS Disk"
+  description = "The name which should be used for the internal OS disk"
   type        = string
-  default     = "os_disk"
+  default     = "example_disk_name"
 }
 
 variable "os_disk_caching" {
-  description = "The Type of Caching which should be used for the Internal OS Disk. Possible values are `None`, `ReadOnly` and `ReadWrite`"
+  description = "The type of caching which should be used for the internal OS disk. Possible values are `None`, `ReadOnly` and `ReadWrite`"
   type        = string
   default     = "ReadWrite"
 }
 
 variable "os_disk_storage_account_type" {
-  description = "The Type of Storage Account which should back this the Internal OS Disk. Possible values include Standard_LRS, StandardSSD_LRS and Premium_LRS."
+  description = "The type of storage account which should back this the internal OS disk. Possible values include Standard_LRS, StandardSSD_LRS and Premium_LRS"
   type        = string
   default     = "Standard_LRS"
 }
 
 variable "write_accelerator_enabled" {
-  description = "Should Write Accelerator be Enabled for this OS Disk? Defaults to false"
+  description = "should write accelerator be enabled for this OS disk? Defaults to false"
   type        = bool
   default     = false
 }
 
 variable "disk_size_gb" {
-  description = "The Size of the Internal OS Disk in GB, if you wish to vary from the size used in the image this Virtual Machine is sourced from"
+  description = "The size of the internal OS disk in GB, if you wish to vary from the size used in the image this virtual machine is sourced from"
   type        = string
   default     = null
 }
 
 variable "source_image_reference_publisher" {
-  description = "Specifies the publisher of the image used to create the virtual machines"
+  description = "Specifies the publisher of the image used to create the virtual machine"
   type        = string
   default     = "Canonical"
 }
 
 variable "source_image_reference_offer" {
-  description = " Specifies the offer of the image used to create the virtual machines"
+  description = " Specifies the offer of the image used to create the virtual machine"
   type        = string
   default     = "0001-com-ubuntu-server-jammy"
 }
 
 variable "source_image_reference_sku" {
-  description = "Specifies the SKU of the image used to create the virtual machines"
+  description = "Specifies the SKU of the image used to create the virtual machine"
   type        = string
   default     = "22_04-lts-gen2"
 }
 
 variable "source_image_reference_version" {
-  description = "Specifies the version of the image used to create the virtual machines"
+  description = "Specifies the version of the image used to create the virtual machine"
   type        = string
   default     = "latest"
 }
 
 
 variable "managed_disk_name" {
-  description = "Specifies the name of the Managed Disk. Changing this forces a new resource to be created."
+  description = "Specifies the name of the managed disk. Changing this forces a new resource to be created"
   type        = string
-  default     = "testing"
+  default     = "example_managed_disk"
 
 }
 
@@ -161,18 +161,18 @@ variable "managed_disk_storage_account_type" {
 }
 
 variable "managed_disk_create_option" {
-  description = "The method to use when creating the managed disk. Changing this forces a new resource to be created. Possible values include: import, empty, copy, fromimage, restore, or upload."
+  description = "The method to use when creating the managed disk. Changing this forces a new resource to be created. Possible values include: import, empty, copy, fromimage, restore, or upload"
   type        = string
   default     = "Empty"
 }
 variable "managed_disk_size_gb" {
-  description = "Required for a new managed disk. Specifies the size of the managed disk to create in gigabytes. If create_option is Copy or FromImage, then the value must be equal to or greater than the source's size. The size can only be increased."
+  description = "Required for a new managed disk. Specifies the size of the managed disk to create in gigabytes. If create_option is Copy or FromImage, then the value must be equal to or greater than the source's size. The size can only be increased"
   type        = number
   default     = 8
 }
 
 variable "managed_disk_iops_read_write" {
-  description = "The number of IOPS allowed for this disk; only settable for UltraSSD disks and PremiumV2 disks. One operation can transfer between 4k and 256k bytes."
+  description = "The number of IOPS allowed for this disk; only settable for UltraSSD disks and PremiumV2 disks. One operation can transfer between 4k and 256k bytes"
   type        = number
   default     = 500
 }
@@ -184,54 +184,18 @@ variable "managed_disk_upload_size_bytes" {
 }
 
 variable "lun" {
-  description = "The Logical Unit Number of the Data Disk, which needs to be unique within the Virtual Machine. Changing this forces a new resource to be created."
+  description = "The logical unit number of the data disk, which needs to be unique within the virtual machine. Changing this forces a new resource to be created"
   default     = 10
   type        = string
 }
 
 variable "disable_password_authentication" {
-  description = "Should Password Authentication be disabled on this Virtual Machine? Defaults to true."
+  description = "Should password authentication be disabled on this Virtual Machine? Defaults to true"
   default     = false
 }
 variable "managed_disk_image_reference_id" {
-  description = "ID of an existing platform/marketplace disk image to copy when create_option is FromImage. This field cannot be specified if gallery_image_reference_id is specified."
+  description = "ID of an existing platform/marketplace disk image to copy when create_option is FromImage. This field cannot be specified if gallery_image_reference_id is specified"
   type        = string
   default     = null
 }
-
-#  variable "managed_disk_gallery_image_reference_id" {
-#   description = "ID of a Gallery Image Version to copy when create_option is FromImage. This field cannot be specified if image_reference_id is specified."
-#   type        = string
-#  }
-
-#  variable "managed_disk_logical_sector_size" {
-#   description = "Logical Sector Size. Possible values are: 512 and 4096. Defaults to 4096. Changing this forces a new resource to be created."
-#   type        = number
-#  }
-
-#  variable "managed_disk_os_type" {
-#   description = "Specify a value when the source of an Import or Copy operation targets a source that contains an operating system. Valid values are Linux or Windows"
-#   type        = string
-#  }
-
-#  variable "managed_disk_source_resource_id" {
-#   description = "The ID of an existing Managed Disk or Snapshot to copy when create_option is Copy or the recovery point to restore when create_option is Restore. Changing this forces a new resource to be created."
-#   type        = string
-#  }
-
-#  variable "managed_disk_edge_zone" {
-#   description = "Specifies the Edge Zone within the Azure Region where this Managed Disk should exist."
-#   type = string
-#  }
-
-#  variable "managed_disk_hyper_v_generation" {
-#   description = "The HyperV Generation of the Disk when the source of an Import or Copy operation targets a source that contains an operating system. Possible values are V1 and V2"
-#   type        = string
-#  }
-
-#  variable "managed_disk_mbps_read_write" {
-#   description = "The bandwidth allowed for this disk; only settable for UltraSSD disks and PremiumV2 disks. MBps means millions of bytes per second."
-#   type = number
-#  }
-
 

@@ -21,16 +21,16 @@ output "tags" {
   value = azurerm_managed_disk.managed_disk.tags
 }
 
-output "storage_account_type"{
-    value = azurerm_managed_disk.managed_disk.storage_account_type
+output "storage_account_type" {
+  value = azurerm_managed_disk.managed_disk.storage_account_type
 }
 
 output "managed_disk_create_option" {
-    value = azurerm_managed_disk.managed_disk.create_option
+  value = azurerm_managed_disk.managed_disk.create_option
 }
 
 output "image_reference_id" {
-  value  = azurerm_managed_disk.managed_disk.image_reference_id
+  value = azurerm_managed_disk.managed_disk.image_reference_id
 }
 
 output "managed_disk_id" {
