@@ -87,8 +87,8 @@ variable "tags" {
   description = "A mapping of tags to assign to the resource. Owner and duration required tags are required"
   type        = map(any)
   default = {
-    owner    = "<ENTER_EMAIL_ADDRESS>"
-    duration = "<ENTER_DURATION>"
+    owner    = "OwnerName"
+    duration = "2"
   }
 }
 

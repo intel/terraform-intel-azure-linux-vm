@@ -9,11 +9,11 @@
 
 ## Terraform Intel Azure VM - Linux VM Creating Multiple Disks
 
-This example creates multiple disks on an Azure Virtual Machine on Intel Icelake CPU on Linux Operating System. 
+This example creates multiple disks on an Azure virtual machine on Intel Icelake CPU on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_D2_v5 by default.
 
-This example creates a network interface, managed disk, and data disk attachment. 
+As you configure your application's environment, choose the configurations for your infrastructure that matches your application's requirements.
 
-In this example, the tags Name, Owner and Duration are added to the EC2 instance when it is created.
+In this example, the virtual machine is using a preconfigured network interface, subnet, and resource group. The tags Name, Owner and Duration are added to the virtual machine when it is created.
 
 ## Usage
 
@@ -30,7 +30,20 @@ variable "admin_password" {
 main.tf
 ```hcl
 
-resource 
+data "azurerm_resource_group" "rg" {
+  name = var.azurerm_resource_group_name
+}
+
+data "azurerm_virtual_network" "vnet" {
+  name                = var.virtual_network_name
+  resource_group_name = data.azurerm_resource_group.rg.name
+}
+
+data "azurerm_subnet" "example" {
+  name                 = var.subnet_name
+  virtual_network_name = data.azurerm_virtual_network.vnet.name
+  resource_group_name  = data.azurerm_resource_group.rg.name
+}
 
 resource "azurerm_network_interface" "nic" {
   name                = var.azurerm_network_interface_name
@@ -53,7 +66,7 @@ resource "azurerm_network_interface" "nic" {
 }
 
 module "azure-vm" {
-  source = "../../"
+  source = "github.com/intel/terraform-intel-azure-linux-virtual-machine"
   admin_password        = var.admin_password
   admin_username        = "adminuser"
   location              = "eastus"
@@ -93,7 +106,6 @@ Note that this example may create resources. Run `terraform destroy` when you do
 When admin_password is specified disable_password_authentication must be set to false
 
 Either admin_password or admin_ssh_key must be specified
-
 
 Only Managed Disks are supported via this separate resource, Unmanaged Disks can be attached using the storage_data_disk block in the azurerm_virtual_machine resource.
 

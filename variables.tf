@@ -29,7 +29,7 @@ variable "vm_name" {
 variable "virtual_network_name" {
   description = "Name of the preconfigured virtual network"
   type        = string
-  default     = "kinder-testing"
+  default     = "example_vnet"
 }
 
 variable "route_tables_ids" {
@@ -65,7 +65,7 @@ variable "location" {
 variable "azurerm_resource_group_name" {
   description = "Name of the resource group to be imported"
   type        = string
-  default     = "kinder-testing"
+  default     = "example_resource_group"
 }
 variable "ip_configuration_name" {
   description = "A name for the IP with the network interface configuration"
@@ -91,7 +91,7 @@ variable "tags" {
   description = "A mapping of tags to assign to the resource"
   type        = map(any)
   default = {
-    owner    = "kinder.wischmeier@intel.com"
+    owner    = "OwnerName"
     duration = "4"
   }
 }
@@ -134,14 +134,14 @@ variable "source_image_reference_publisher" {
 
 variable "source_image_reference_offer" {
   description = " Specifies the offer of the image used to create the virtual machine"
-  default     = "0001-com-ubuntu-server-jammy"
   type        = string
+  default     = "0001-com-ubuntu-server-jammy"
 }
 
 variable "source_image_reference_sku" {
   description = "Specifies the SKU of the image used to create the virtual machine"
-  default     = "22_04-lts-gen2"
   type        = string
+  default     = "22_04-lts-gen2"
 }
 
 variable "source_image_reference_version" {

@@ -87,8 +87,8 @@ variable "tags" {
   description = "A mapping of tags to assign to the resource. Owner and duration required tags are required"
   type        = map(any)
   default = {
-    owner    = "<ENTER_EMAIL_ADDRESS_HERE>"
-    duration = "<ENTER_DURATION>"
+    owner    = "OwnerName"
+    duration = "4"
   }
 }
 
@@ -101,7 +101,7 @@ variable "os_disk_name" {
 variable "os_disk_caching" {
   description = "The type of caching which should be used for the internal OS disk. Possible values are `None`, `ReadOnly` and `ReadWrite`"
   type        = string
-  default     = "ReadWrite"
+  default     = "ReadOnly"
 }
 
 variable "os_disk_storage_account_type" {

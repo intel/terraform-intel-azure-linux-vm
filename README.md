@@ -11,6 +11,13 @@
 
 Azure Linux Virtual Machine
 
+## Terraform Intel Azure VM - Linux VM
+This example creates an Azure Virtual Machine on Intel Icelake CPU on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_D2_v5 by default.
+
+As you configure your application's environment, choose the configurations for your infrastructure that matches your application's requirements.
+
+In this example, the virtual machine is using a preconfigured network interface, subnet, and resource group. The tags Name, Owner and Duration are added to the virtual machine when it is created.
+
 ## Usage
 
 See examples folder for code ./examples/azure-linux-vm-spot-vm/main.tf
@@ -21,10 +28,21 @@ Example of main.tf
 # Example of how to pass variable for virtual machine password:
 # terraform apply -var="admin_password=..."
 # Environment variables can also be used https://www.terraform.io/language/values/variables#environment-variables
-
+```
 # Provision Intel Cloud Optimization Module
+
+
+variables.tf
+``` hcl
+
+
+
+```
+
+main.tf
+```hcl
 module "azure-vm" {
-  source = "../../"
+  source = "github.com/intel/terraform-intel-azure-linux-virtual-machine"
   tags = {
     Name     = "my-test-vm"
     Owner    = "OwnerName",
