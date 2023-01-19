@@ -148,8 +148,12 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_source_image_reference_offer"></a> [source\_image\_reference\_offer](#output\_source\_image\_reference\_offer) | Specifies the offer of the image used to create the virtual machines. |
-| <a name="output_source_image_reference_version"></a> [source\_image\_reference\_version](#output\_source\_image\_reference\_version) | Specifies the version of the image used to create the virtual machines. |
-| <a name="output_virtual_network_id"></a> [virtual\_network\_id](#output\_virtual\_network\_id) | The ID of the virtual network. |
-| <a name="output_vm_name"></a> [vm\_name](#output\_vm\_name) | Specifies the name of the virtual network. |
+| <a name="output_admin_username"></a> [admin\_username](#output\_admin\_username) | n/a |
+| <a name="output_location"></a> [location](#output\_location) | n/a |
+| <a name="output_name"></a> [name](#output\_name) | n/a |
+| <a name="output_network_interface_ids"></a> [network\_interface\_ids](#output\_network\_interface\_ids) | n/a |
+| <a name="output_os_disk"></a> [os\_disk](#output\_os\_disk) | n/a |
+| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | n/a |
+| <a name="output_size"></a> [size](#output\_size) | n/a |
+| <a name="output_tags"></a> [tags](#output\_tags) | n/a |
 <!-- END_TF_DOCS -->
