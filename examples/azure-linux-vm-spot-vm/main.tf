@@ -62,4 +62,13 @@ resource "azurerm_linux_virtual_machine" "example" {
     sku       = var.source_image_reference_sku
     version   = var.source_image_reference_version
   }
+
+  dynamic "admin_ssh_key" {
+    for_each = var.admin_ssh_key
+    content {
+      username   = lookup(admin_ssh_key.value, "username", null)
+      public_key = lookup(admin_ssh_key.value, "public_key", null)
+    }
+  }
+
 }

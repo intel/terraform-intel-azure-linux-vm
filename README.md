@@ -14,9 +14,7 @@ Azure Linux Virtual Machine
 ## Terraform Intel Azure VM - Linux VM
 This example creates an Azure Virtual Machine on Intel Icelake CPU on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_D2_v5 by default.
 
-As you configure your application's environment, choose the configurations for your infrastructure that matches your application's requirements.
-
-In this example, the virtual machine is using a preconfigured network interface, subnet, and resource group. The tags Name, Owner and Duration are added to the virtual machine when it is created.
+As you configure your application's environment, choose the configurations for your infrastructure that matches your application's requirements. In this example, the virtual machine is using a preconfigured network interface, subnet, and resource group. The tags Name, Owner and Duration are added to the virtual machine when it is created.
 
 ## Usage
 
@@ -31,18 +29,31 @@ Example of main.tf
 ```
 # Provision Intel Cloud Optimization Module
 
-
 variables.tf
-``` hcl
-
-
-
+```hcl
+variable "admin_password" {
+  type        = string
+  default     = null
+  sensitive   = true
+}
 ```
 
 main.tf
 ```hcl
 module "azure-vm" {
   source = "github.com/intel/terraform-intel-azure-linux-virtual-machine"
+  admin_username = var.admin_username
+  admin_password = var.admin_password
+  size           = var.virtual_machine_size
+  location       = var.location
+  name           = var.vm_name
+  resource_group_name = var.azurerm_resource_group_name
+  network_interface_ids = [
+    azurerm_network_interface.example.id
+  ]
+  os_disk {
+  }
+
   tags = {
     Name     = "my-test-vm"
     Owner    = "OwnerName",
@@ -52,13 +63,15 @@ module "azure-vm" {
 
 ```
 
+
 Run Terraform
 
-```hcl
+```bash
+export TF_VAR_db_password ='<USE_A_STRONG_PASSWORD>'
+
 terraform init  
 terraform plan
 terraform apply
-
 ```
 
 Note that this example may create resources. Run `terraform destroy` when you don't need these resources anymore.
@@ -71,6 +84,7 @@ When admin_password is specified disable_password_authentication must be set to 
 
 Either admin_password or admin_ssh_key must be specified
 
+The virtual machine is using a preconfigured network interface, subnet, and resource group.
 
 
 '''

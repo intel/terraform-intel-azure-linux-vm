@@ -18,75 +18,38 @@ In this example, the virtual machine is using a preconfigured network interface,
 ## Usage
 
 ** See examples folder for code ./examples/azure-linux-multi-disks/main.tf **
+
 variables.tf
 ```hcl
 variable "admin_password" {
-  description = "Password for the admin user"
   type        = string
+  default     = null
   sensitive   = true
 }
-
 ```
+
 main.tf
 ```hcl
-
-data "azurerm_resource_group" "rg" {
-  name = var.azurerm_resource_group_name
-}
-
-data "azurerm_virtual_network" "vnet" {
-  name                = var.virtual_network_name
-  resource_group_name = data.azurerm_resource_group.rg.name
-}
-
-data "azurerm_subnet" "example" {
-  name                 = var.subnet_name
-  virtual_network_name = data.azurerm_virtual_network.vnet.name
-  resource_group_name  = data.azurerm_resource_group.rg.name
-}
-
-resource "azurerm_network_interface" "nic" {
-  name                = var.azurerm_network_interface_name
-  location            = data.azurerm_resource_group.rg.location
-  resource_group_name = var.azurerm_resource_group_name
-
-  ip_configuration {
-    name                          = var.ip_configuration_name
-    subnet_id                     = data.azurerm_subnet.example.id
-    private_ip_address_allocation = var.ip_configuration_private_ip_address_allocation
-    public_ip_address_id          = var.ip_configuration_public_ip_address_id
-  }
-}
-
-"azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
-  managed_disk_id    = azurerm_managed_disk.managed_disk.id
-  virtual_machine_id = azurerm_linux_virtual_machine.linux_vm.id
-  lun                = 10
-  caching            = "ReadWrite"
-}
-
 module "azure-vm" {
   source = "github.com/intel/terraform-intel-azure-linux-virtual-machine"
-  admin_password        = var.admin_password
-  admin_username        = "adminuser"
-  location              = "eastus"
-  name                  = "example_vm"
-  network_interface_ids = [azurerm_network_interface.nic.id]
-  resource_group_name   = "example_resource_group"
-  size                  = "Standard_D2_v5"
-
-   os_disk {
-    name                 = "os_disk"
-    caching              = "ReadWrite"
-    storage_account_type = "Standard_LRS"
+  admin_password = var.admin_password
+  size           = var.virtual_machine_size
+  location       = var.location
+  name           = var.vm_name
+  resource_group_name = var.azurerm_resource_group_name
+  network_interface_ids = [
+    azurerm_network_interface.example.id
+  ]
+  os_disk {
   }
-
+  
   tags = {
     Name     = "my-test-vm"
     Owner    = "OwnerName",
     Duration = "2"
   }
 }
+
 ```
 
 Run Terraform

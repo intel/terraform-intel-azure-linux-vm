@@ -1,27 +1,30 @@
-output "virtual_network_id" {
-  value = azurerm_network_interface.example.id
+output "size" {
+  value = azurerm_linux_virtual_machine.example.virtual_machine_size
+}
+output "location" {
+  value = azurerm_linux_virtual_machine.example.location
 }
 
-output "vm_name" {
-  value = azurerm_linux_virtual_machine.example.name
+output "name" {
+  value = azurerm_linux_virtual_machine.example.vm_name
 }
 
-output "max_bid_price" {
-  value = azurerm_linux_virtual_machine.example.max_bid_price
+output "admin_username" {
+  value = azurerm_linux_virtual_machine.example.admin_username
 }
 
-output "source_image_reference_offer" {
-  value = azurerm_linux_virtual_machine.example.source_image_reference
+output "network_interface_ids"{
+  value = azurerm_linux_virtual_machine.example.network_interface_ids
 }
 
-output "source_image_reference_sku" {
-  value = azurerm_linux_virtual_machine.example.source_image_reference_sku
+output "os_disk"{
+  value = azurerm_linux_virtual_machine.example.os_disk
 }
 
-output "source_image_reference_version" {
-  value = azurerm_linux_virtual_machine.example.source_image_reference
+output "tags"{
+  value = azurerm_linux_virtual_machine.example.tags
 }
 
-output "source_image_reference_publisher" {
-  value = azurerm_linux_virtual_machine.example.source_image_reference_publisher
+output "resource_group_name"{
+  value = azurerm_linux_virtual_machine.example.resource_group_name
 }
