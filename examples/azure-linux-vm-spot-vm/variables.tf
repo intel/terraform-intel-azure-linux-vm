@@ -84,12 +84,9 @@ variable "ip_configuration_private_ip_address_allocation" {
 }
 
 variable "tags" {
-  description = "A mapping of tags to assign to the resource. Owner and duration required tags are required"
+  description = "A mapping of tags to assign to the resource"
   type        = map(any)
-  default = {
-    owner    = "OwnerName"
-    duration = "2"
-  }
+  default = {}
 }
 
 variable "os_disk_name" {
