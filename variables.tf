@@ -7,7 +7,6 @@ variable "admin_username" {
 variable "admin_password" {
   description = "The Password which should be used for the local-administrator on this virtual machine"
   type        = string
-  default     = null
   sensitive   = true
   validation {
     condition     = length(var.admin_password) >= 8
@@ -29,7 +28,7 @@ variable "vm_name" {
 variable "virtual_network_name" {
   description = "Name of the preconfigured virtual network"
   type        = string
-  default     = "example_vnet"
+  default     = "kinder-testing"
 }
 
 variable "route_tables_ids" {
@@ -65,7 +64,7 @@ variable "location" {
 variable "azurerm_resource_group_name" {
   description = "Name of the resource group to be imported"
   type        = string
-  default     = "example_resource_group"
+  default     = "kinder-testing"
 }
 variable "ip_configuration_name" {
   description = "A name for the IP with the network interface configuration"
@@ -90,8 +89,12 @@ variable "ip_configuration_private_ip_address_allocation" {
 variable "tags" {
   description = "A mapping of tags to assign to the resource"
   type        = map(any)
-  default = {}
+  default = {
+    owner = "Josh.hilliker@intel.com"
+    Duration = "4"
+  }
 }
+
 
 variable "os_disk_name" {
   description = "The name which should be used for the internal OS disk"
