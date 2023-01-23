@@ -66,9 +66,7 @@ module "azure-vm" {
 
 Run Terraform
 
-```bash
-export TF_VAR_db_password ='<USE_A_STRONG_PASSWORD>'
-
+```hcl
 terraform init  
 terraform plan
 terraform apply
