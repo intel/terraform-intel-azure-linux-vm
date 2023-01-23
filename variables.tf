@@ -28,7 +28,6 @@ variable "vm_name" {
 variable "virtual_network_name" {
   description = "Name of the preconfigured virtual network"
   type        = string
-  default     = "kinder-testing"
 }
 
 variable "route_tables_ids" {
@@ -40,7 +39,6 @@ variable "route_tables_ids" {
 variable "azurerm_network_interface_name" {
   description = "The name of the network interface. Changing this forces a new resource to be created"
   type        = string
-  default     = "example_nic"
 }
 
 variable "subnet_name" {
@@ -64,7 +62,6 @@ variable "location" {
 variable "azurerm_resource_group_name" {
   description = "Name of the resource group to be imported"
   type        = string
-  default     = "kinder-testing"
 }
 variable "ip_configuration_name" {
   description = "A name for the IP with the network interface configuration"
@@ -89,10 +86,7 @@ variable "ip_configuration_private_ip_address_allocation" {
 variable "tags" {
   description = "A mapping of tags to assign to the resource"
   type        = map(any)
-  default = {
-    owner = "Josh.hilliker@intel.com"
-    Duration = "4"
-  }
+  default = {}
 }
 
 
