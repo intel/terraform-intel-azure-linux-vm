@@ -17,13 +17,11 @@ variable "admin_password" {
 variable "vm_name" {
   description = "The unique name of the Linux virtual machine"
   type        = string
-  default     = "example-vm"
 }
 
 variable "virtual_network_name" {
   description = "Name of the preconfigured virtual network"
   type        = string
-  default     = "example_vnet"
 }
 
 variable "route_tables_ids" {
@@ -35,7 +33,6 @@ variable "route_tables_ids" {
 variable "azurerm_network_interface_name" {
   description = "The name of the network interface. Changing this forces a new resource to be created"
   type        = string
-  default     = "example_nic"
 
 }
 
@@ -147,7 +144,6 @@ variable "source_image_reference_version" {
 variable "managed_disk_name" {
   description = "Specifies the name of the managed disk. Changing this forces a new resource to be created"
   type        = string
-  default     = "example_managed_disk"
 
 }
 

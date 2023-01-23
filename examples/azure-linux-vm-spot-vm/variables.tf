@@ -23,7 +23,6 @@ variable "vm_name" {
 variable "virtual_network_name" {
   description = "Name of the preconfigured virtual network"
   type        = string
-  default     = "example_vnet"
 }
 
 variable "route_tables_ids" {
@@ -35,8 +34,6 @@ variable "route_tables_ids" {
 variable "azurerm_network_interface_name" {
   description = "The name of the network interface. Changing this forces a new resource to be created"
   type        = string
-  default     = "example_nic"
-
 }
 
 variable "subnet_name" {
