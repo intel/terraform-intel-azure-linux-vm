@@ -90,8 +90,4 @@ The max_bid_price argument can only be configured if priority argument is set to
 Azure Spot Virtual Machines can be deployed to any region, except Microsoft Azure China 21Vianet. Pricing for Azure Spot Virtual Machines is variable, based on region and SKU. For more information, see VM pricing for [Linux](<https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/>). With variable pricing, you have option to set a max price, in US dollars (USD), using up to five decimal places.
 
 
-
-
-
-
 '''

@@ -65,12 +65,11 @@ Note that this example may create resources. Run `terraform destroy` when you do
 
 ## Considerations  
 
-'''
+```hcl
 When admin_password is specified disable_password_authentication must be set to false
 
 Either admin_password or admin_ssh_key must be specified
 
 Only Managed Disks are supported via this separate resource, Unmanaged Disks can be attached using the storage_data_disk block in the azurerm_virtual_machine resource.
 
-
-'''
+```

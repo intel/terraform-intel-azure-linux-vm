@@ -76,7 +76,7 @@ Note that this example may create resources. Run `terraform destroy` when you do
 
 ## Considerations  
 
-'''
+```hcl
 
 When admin_password is specified disable_password_authentication must be set to false
 
@@ -84,8 +84,8 @@ Either admin_password or admin_ssh_key must be specified
 
 The virtual machine is using a preconfigured network interface, subnet, and resource group.
 
+```
 
-'''
 <!-- BEGIN_TF_DOCS -->
 ## Requirements
 
