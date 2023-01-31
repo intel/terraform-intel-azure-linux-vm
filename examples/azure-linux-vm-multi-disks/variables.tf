@@ -7,7 +7,7 @@ variable "admin_password" {
 variable "managed_disk_name" {
   description = "Specifies the name of the managed disk. Changing this forces a new resource to be created"
   type        = string
-
+  default     = "testing"
 }
 
 variable "managed_disk_storage_account_type" {
@@ -51,3 +51,33 @@ variable "managed_disk_image_reference_id" {
   default     = null
 }
 
+variable "location" {
+  default = "eastus"
+  type    = string
+}
+
+variable "azurerm_resource_group_name" {
+  description = "Name of the resource group to be imported"
+  type        = string
+  default     = "kinder-testing"
+}
+
+variable "tags" {
+  description = "A mapping of tags to assign to the resource"
+  type        = map(any)
+  default = {
+    owner    = "kinder.wischmeier@intel.com"
+    duration = "3"
+  }
+}
+
+# variable "virtual_machine_id" {
+#   description = "The ID of the Virtual Machine. Changing this forces a new resource to be created"
+#   type        = string
+#   default     = null
+# }
+
+variable "os_disk_caching" {
+  type    = string
+  default = "ReadWrite"
+}

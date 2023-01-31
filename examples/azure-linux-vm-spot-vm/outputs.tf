@@ -1,30 +1,38 @@
 output "size" {
-  value = azurerm_linux_virtual_machine.example.virtual_machine_size
+  description = "The SKU for the virtual machine"
+  value = module.azurerm_linux_virtual_machine.size
 }
 output "location" {
-  value = azurerm_linux_virtual_machine.example.location
+  description = "Location where the virtual machine will be created"
+  value = module.azurerm_linux_virtual_machine.location
 }
 
 output "name" {
-  value = azurerm_linux_virtual_machine.example.vm_name
+  description = "Virtual machine name"
+  value = module.azurerm_linux_virtual_machine.name
 }
 
 output "admin_username" {
-  value = azurerm_linux_virtual_machine.example.admin_username
+  description = "Virtual machine admin username"
+  value = module.azurerm_linux_virtual_machine.admin_username
 }
 
-output "network_interface_ids"{
-  value = azurerm_linux_virtual_machine.example.network_interface_ids
+output "network_interface_ids" {
+  description = "List of network interface IDs that are attached to the virtual machine"
+  value = module.azurerm_linux_virtual_machine.network_interface_ids
 }
 
-output "os_disk"{
-  value = azurerm_linux_virtual_machine.example.os_disk
+output "os_disk" {
+  description = "Disk properties that are attached to the virtual machine"
+  value = module.azurerm_linux_virtual_machine.os_disk
 }
 
-output "tags"{
-  value = azurerm_linux_virtual_machine.example.tags
+output "tags" {
+  description = "Tags that are assigned to the virtual machine"
+  value = module.azurerm_linux_virtual_machine.tags
 }
 
-output "resource_group_name"{
-  value = azurerm_linux_virtual_machine.example.resource_group_name
+output "resource_group_name" {
+  description = "Name of the resource group"
+  value = module.azurerm_linux_virtual_machine.resource_group_name
 }

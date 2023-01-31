@@ -1,3 +1,6 @@
+
+
+
 variable "admin_username" {
   description = "The username of the local administrator used for the virtual machine"
   type        = string
@@ -28,6 +31,7 @@ variable "vm_name" {
 variable "virtual_network_name" {
   description = "Name of the preconfigured virtual network"
   type        = string
+  default     = "kinder-testing"
 }
 
 variable "route_tables_ids" {
@@ -39,6 +43,7 @@ variable "route_tables_ids" {
 variable "azurerm_network_interface_name" {
   description = "The name of the network interface. Changing this forces a new resource to be created"
   type        = string
+  default     = "kinder-testing"
 }
 
 variable "subnet_name" {
@@ -62,6 +67,7 @@ variable "location" {
 variable "azurerm_resource_group_name" {
   description = "Name of the resource group to be imported"
   type        = string
+  default     = "kinder-testing"
 }
 variable "ip_configuration_name" {
   description = "A name for the IP with the network interface configuration"
@@ -86,9 +92,11 @@ variable "ip_configuration_private_ip_address_allocation" {
 variable "tags" {
   description = "A mapping of tags to assign to the resource"
   type        = map(any)
-  default = {}
+  default = {
+    owner    = "kinder.wischmeier@intel.com"
+    duration = "3"
+  }
 }
-
 
 variable "os_disk_name" {
   description = "The name which should be used for the internal OS disk"
@@ -144,3 +152,24 @@ variable "source_image_reference_version" {
   default     = "latest"
 }
 
+variable "priority" {
+  description = "Specifies the priority of this virtual machine. Possible values are Regular and Spot. Defaults to Regular"
+  type        = string
+  default     = "Regular"
+}
+
+variable "eviction_policy" {
+  description = "Specifies what should happen when the Virtual Machine is evicted for price reasons when using a Spot instance. Possible values are Deallocate and Delete"
+  default     = "Deallocate"
+}
+
+variable "max_bid_price" {
+  description = "The maximum price you're willing to pay for this virtual machine, in US Dollars; which must be greater than the current spot price. If this bid price falls below the current spot price the virtual machine will be evicted using the eviction_policy"
+  default     = "-1"
+}
+
+variable "disable_password_authentication" {
+  description = "value"
+  type    = bool
+  default = true
+}

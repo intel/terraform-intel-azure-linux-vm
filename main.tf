@@ -34,16 +34,18 @@ resource "azurerm_network_interface" "nic" {
 
 
 resource "azurerm_linux_virtual_machine" "linux_vm" {
-  name                  = var.vm_name
-  resource_group_name   = var.azurerm_resource_group_name
-  location              = data.azurerm_resource_group.rg.location
-  size                  = var.virtual_machine_size
-  admin_username        = var.admin_username
-  admin_password        = var.admin_password
-  tags                  = var.tags
-  network_interface_ids = [azurerm_network_interface.nic.id]
-
-  disable_password_authentication = false
+  name                            = var.vm_name
+  resource_group_name             = var.azurerm_resource_group_name
+  location                        = data.azurerm_resource_group.rg.location
+  size                            = var.virtual_machine_size
+  admin_username                  = var.admin_username
+  admin_password                  = var.admin_password
+  tags                            = var.tags
+  network_interface_ids           = [azurerm_network_interface.nic.id]
+  max_bid_price                   = var.priority == "Spot" ? var.max_bid_price : null
+  priority                        = var.priority
+  eviction_policy                 = var.priority == "Spot" ? var.eviction_policy : null
+  disable_password_authentication = var.disable_password_authentication
 
   os_disk {
     name                      = var.os_disk_name
