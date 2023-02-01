@@ -89,7 +89,7 @@ variable "ip_configuration_private_ip_address_allocation" {
 variable "tags" {
   description = "A mapping of tags to assign to the resource"
   type        = map(any)
-  default = {}
+  default     = {}
 }
 
 variable "os_disk_name" {
@@ -154,6 +154,7 @@ variable "priority" {
 
 variable "eviction_policy" {
   description = "Specifies what should happen when the Virtual Machine is evicted for price reasons when using a Spot instance. Possible values are Deallocate and Delete"
+  type        = string
   default     = "Deallocate"
 }
 
@@ -163,7 +164,7 @@ variable "max_bid_price" {
 }
 
 variable "disable_password_authentication" {
-  description = "value"
-  type    = bool
-  default = true
+  description = "Boolean that determines if password authentication be disabled on this virtual machine."
+  type        = bool
+  default     = true
 }

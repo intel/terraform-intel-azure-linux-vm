@@ -3,7 +3,7 @@
 # Environment variables can also be used https://www.terraform.io/language/values/variables#environment-variables
 
 module "azurerm_linux_virtual_machine" {
-  source         = "../../"
+  source          = "../../"
   admin_username  = "adminuser"
   admin_password  = var.admin_password
   priority        = "Spot"
