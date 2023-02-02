@@ -5,11 +5,13 @@
 resource "azurerm_managed_disk" "managed_disk" {
   name                 = "managed_disk"
   location             = "eastus"
-  resource_group_name  = "kinder-testing"
+  resource_group_name  = "example_resource_group"
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
   disk_size_gb         = 8
-  tags                 = var.tags
+  tags = {
+    "Owner" = "user@company.com"
+  }
 }
 
 resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
@@ -20,7 +22,7 @@ resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
 }
 
 module "azurerm_linux_virtual_machine" {
-  source         = "../../"
+  source         = "intel/azure-linux-vm/intel"
   admin_username = "admin_username"
   admin_password = var.admin_password
 

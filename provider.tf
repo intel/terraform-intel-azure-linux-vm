@@ -1,3 +1,4 @@
+#Terraform provider requirements and versions
 terraform {
   required_providers {
     azurerm = {
@@ -7,4 +8,6 @@ terraform {
   }
 }
 
-
+provider "azurerm" {
+  features {}
+}
