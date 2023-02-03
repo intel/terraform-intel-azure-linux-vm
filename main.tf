@@ -70,6 +70,15 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
     }
   }
 
+  dynamic "identity" {
+    for_each = var.identity != [] ? [var.identity] : []
+    content {
+      identity_ids = lookup(identity.value, "identity_ids", null)
+      principal_id = lookup(identity.value, "principal_id", null)
+      tenant_id    = lookup(identity.value, "tenant_id", null)
+      type         = lookup(identity.value, "type", null)
+    }
+  }
 
 }
 

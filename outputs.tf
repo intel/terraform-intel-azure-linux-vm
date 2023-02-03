@@ -41,3 +41,8 @@ output "virtual_machine_id" {
   description = "ID assigned to the virtual machine after it has been created"
   value       = azurerm_linux_virtual_machine.linux_vm.id
 }
+
+output "identity" {
+  description = "Identity configuration associated with the virtual machine"
+  value       = azurerm_linux_virtual_machine.linux_vm.identity
+}

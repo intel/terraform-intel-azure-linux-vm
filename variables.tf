@@ -92,6 +92,17 @@ variable "tags" {
   default     = {}
 }
 
+
+variable "identity" {
+  type = object({
+    identity_ids = optional(list(string))
+    principal_id = optional(string)
+    tentant_id   = optional(string)
+    type         = optional(string, "SystemAssigned")
+  })
+  default = {}
+}
+
 variable "os_disk_name" {
   description = "The name which should be used for the internal OS disk"
   type        = string

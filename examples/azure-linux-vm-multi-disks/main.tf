@@ -10,7 +10,7 @@ resource "azurerm_managed_disk" "managed_disk" {
   create_option        = "Empty"
   disk_size_gb         = 8
   tags = {
-    "Owner" = "user@company.com"
+    "owner" = "user@company.com"
   }
 }
 
@@ -25,6 +25,8 @@ module "azurerm_linux_virtual_machine" {
   source         = "intel/azure-linux-vm/intel"
   admin_username = "admin_username"
   admin_password = var.admin_password
-
+  tags = {
+    "owner" = "user@company.com"
+  }
 }
 
