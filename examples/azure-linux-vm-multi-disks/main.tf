@@ -1,6 +1,9 @@
 # Example of how to pass variable for database password:
 # terraform apply -var="db_password=..."
 # Environment variables can also be used https://www.terraform.io/language/values/variables#environment-variables
+# Resource azurerm_managed_disk requires a preconfigured resource group in Azure
+# Resource azurerm_linux_virtual_machine requires a preconfigured resource group, virtual network, and subnet in Azure
+
 
 resource "azurerm_managed_disk" "managed_disk" {
   name                 = "managed_disk"
@@ -14,6 +17,7 @@ resource "azurerm_managed_disk" "managed_disk" {
   }
 }
 
+
 resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
   managed_disk_id    = azurerm_managed_disk.managed_disk.id
   virtual_machine_id = module.azurerm_linux_virtual_machine.virtual_machine_id
@@ -22,9 +26,11 @@ resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
 }
 
 module "azurerm_linux_virtual_machine" {
-  source         = "intel/azure-linux-vm/intel"
-  admin_username = "admin_username"
-  admin_password = var.admin_password
+  source              = "intel/azure-linux-vm/intel"
+  resource_group_name = "example_resource_group"
+  admin_username      = "admin_username"
+  admin_password      = var.admin_password
+
   tags = {
     "owner" = "user@company.com"
   }
