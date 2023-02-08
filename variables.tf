@@ -22,11 +22,6 @@ variable "virtual_machine_size" {
 ####    Required    ####
 ########################
 
-variable "admin_username" {
-  description = "The username of the local administrator used for the virtual machine"
-  type        = string
-  default     = "adminuser"
-}
 
 variable "admin_password" {
   description = "The Password which should be used for the local-administrator on this virtual machine"
@@ -43,12 +38,6 @@ variable "azurerm_virtual_network_name" {
   type        = string
 }
 
-variable "vm_name" {
-  description = "The unique name of the Linux virtual machine"
-  type        = string
-  default     = "example-vm"
-}
-
 variable "azurerm_network_interface_name" {
   description = "The name of the network interface. Changing this forces a new resource to be created"
   type        = string
@@ -59,6 +48,10 @@ variable "azurerm_resource_group_name" {
   type        = string
 }
 
+########################
+####     Other      ####
+########################
+
 variable "location" {
   description = "The Azure location where the Linux virtual machine will be provisioned"
   type        = string
@@ -68,6 +61,12 @@ variable "os_disk_name" {
   description = "The name which should be used for the internal OS disk"
   type        = string
   default     = "example_disk_name"
+}
+
+variable "vm_name" {
+  description = "The unique name of the Linux virtual machine"
+  type        = string
+  default     = "example-vm"
 }
 
 variable "os_disk_caching" {
@@ -125,9 +124,12 @@ variable "ip_configuration_private_ip_address_allocation" {
   #Dynamic means "An IP is automatically assigned during creation of this Network Interface"; Static means "User supplied IP address will be used"
 }
 
-########################
-####     Other      ####
-########################
+
+variable "admin_username" {
+  description = "The username of the local administrator used for the virtual machine"
+  type        = string
+  default     = "adminuser"
+}
 
 variable "admin_ssh_key" {
   type    = list(any)
