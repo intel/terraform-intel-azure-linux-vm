@@ -59,6 +59,9 @@ module "azure-vm" {
   size                           = "Standard_D2_v5"
   location                       = "eastus"
   name                           = "example_vm"
+  priority                       = "Spot"
+  max_bid_price                  = 0.0874
+  eviction_policy                = "Deallocate"
   network_interface_ids          = [
     azurerm_network_interface.example.id
   ]
