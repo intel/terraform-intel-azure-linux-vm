@@ -35,10 +35,15 @@ Example of main.tf
 
 variables.tf
 ```hcl
+
 variable "admin_password" {
+  description = "The Password which should be used for the local-administrator on this virtual machine"
   type        = string
-  default     = null
   sensitive   = true
+  validation {
+    condition     = length(var.admin_password) >= 8
+    error_message = "The admin_password value must be at least 8 characters in length"
+  }
 }
 ```
 
@@ -82,7 +87,7 @@ Note that this example may create resources. Run `terraform destroy` when you do
 
 ## Considerations  
 
-'''
+```hcl
 When admin_password is specified disable_password_authentication must be set to false
 
 Either the admin_password or admin_ssh_key argument must be specified
@@ -91,5 +96,4 @@ The max_bid_price argument can only be configured if priority argument is set to
 
 Azure Spot Virtual Machines can be deployed to any region, except Microsoft Azure China 21Vianet. Pricing for Azure Spot Virtual Machines is variable, based on region and SKU. For more information, see VM pricing for [Linux](<https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/>). With variable pricing, you have option to set a max price, in US dollars (USD), using up to five decimal places.
 
-
-'''
+```
