@@ -1,5 +1,25 @@
+########################
+####     Intel      ####
+########################
+
+# See policies.md, we recommend  Intel Xeon 3rd Generation Scalable processors (code-named Ice Lake)
+# General Purpose: Standard_D2_v5, Standard_D4_v5, Standard_D8_v5, Standard_D16_v5, Standard_D32_v5, Standard_D48_v5, Standard_D64_v5, Standard_D96_v5
+# Memory Optimized: Standard_E2_v5, Standard_E4_v5, Standard_E8_v5, Standard_E16_v5, Standard_E20_v5, Standard_E32_v5, Standard_E48_v5, Standard_E64_v5, Standard_E96_v5, Standard_E104i_v5
+# See more:
+# https://learn.microsoft.com/en-us/azure/virtual-machines/dv5-dsv5-series
+# https://learn.microsoft.com/en-us/azure/virtual-machines/ev5-esv5-series
+# https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/#pricing
+
+variable "virtual_machine_size" {
+  description = "The SKU that will be configured for the provisioned virtual machine"
+  type        = string
+  default     = "Standard_D2_v5"
+}
 
 
+########################
+####    Required    ####
+########################
 
 variable "admin_username" {
   description = "The username of the local administrator used for the virtual machine"
@@ -17,9 +37,9 @@ variable "admin_password" {
   }
 }
 
-variable "admin_ssh_key" {
-  type    = list(any)
-  default = []
+variable "virtual_network_name" {
+  description = "Name of the preconfigured virtual network"
+  type        = string
 }
 
 variable "vm_name" {
@@ -28,32 +48,14 @@ variable "vm_name" {
   default     = "example-vm"
 }
 
-variable "virtual_network_name" {
-  description = "Name of the preconfigured virtual network"
-  type        = string
-}
-
-variable "route_tables_ids" {
-  description = "A map of subnet name for the route table ids"
-  type        = map(string)
-  default     = {}
-}
-
 variable "azurerm_network_interface_name" {
   description = "The name of the network interface. Changing this forces a new resource to be created"
   type        = string
 }
 
-variable "subnet_name" {
-  description = "Name of the subnet existing in virtual network"
+variable "azurerm_resource_group_name" {
+  description = "Name of the resource group to be imported"
   type        = string
-  default     = "default"
-}
-
-variable "virtual_machine_size" {
-  description = "The SKU that will be configured for the provisioned virtual machine"
-  type        = string
-  default     = "Standard_D2_v5"
 }
 
 variable "location" {
@@ -61,48 +63,6 @@ variable "location" {
   type        = string
   default     = "eastus"
 }
-
-variable "azurerm_resource_group_name" {
-  description = "Name of the resource group to be imported"
-  type        = string
-}
-variable "ip_configuration_name" {
-  description = "A name for the IP with the network interface configuration"
-  type        = string
-  default     = "internal"
-}
-
-variable "ip_configuration_public_ip_address_id" {
-  description = "Reference to a public IP address for the NIC"
-  type        = string
-  default     = null
-}
-
-variable "ip_configuration_private_ip_address_allocation" {
-  description = "The allocation method used for the private IP address. Possible values are Dynamic and Static"
-  type        = string
-  default     = "Dynamic"
-  #Dynamic means "An IP is automatically assigned during creation of this Network Interface"; Static means "User supplied IP address will be used"
-
-}
-
-variable "tags" {
-  description = "A mapping of tags to assign to the resource"
-  type        = map(any)
-  default = {}
-}
-
-
-variable "identity" {
-  type = object({
-    identity_ids = optional(list(string))
-    principal_id = optional(string)
-    tentant_id   = optional(string)
-    type         = optional(string, "SystemAssigned")
-  })
-  default = {}
-}
-
 variable "os_disk_name" {
   description = "The name which should be used for the internal OS disk"
   type        = string
@@ -121,24 +81,6 @@ variable "os_disk_storage_account_type" {
   default     = "Standard_LRS"
 }
 
-variable "write_accelerator_enabled" {
-  description = "Should write accelerator be enabled for this OS disk? Defaults to false"
-  type        = bool
-  default     = false
-}
-
-variable "disk_size_gb" {
-  description = "The size of the iternal OS disk in GB, if you wish to vary from the size used in the image this virtual machine is sourced from"
-  type        = string
-  default     = null
-}
-
-variable "source_image_reference_publisher" {
-  description = "Specifies the publisher of the image used to create the virtual machine"
-  type        = string
-  default     = "Canonical"
-}
-
 variable "source_image_reference_offer" {
   description = " Specifies the offer of the image used to create the virtual machine"
   type        = string
@@ -151,10 +93,79 @@ variable "source_image_reference_sku" {
   default     = "22_04-lts-gen2"
 }
 
+variable "source_image_reference_publisher" {
+  description = "Specifies the publisher of the image used to create the virtual machine"
+  type        = string
+  default     = "Canonical"
+}
+
 variable "source_image_reference_version" {
   description = "Specifies the version of the image used to create the virtual machine"
   type        = string
   default     = "latest"
+}
+
+variable "ip_configuration_name" {
+  description = "A name for the IP with the network interface configuration"
+  type        = string
+  default     = "internal"
+}
+
+variable "ip_configuration_public_ip_address_id" {
+  description = "Reference to a public IP address for the NIC"
+  type        = string
+  default     = null
+}
+
+variable "ip_configuration_private_ip_address_allocation" {
+  description = "The allocation method used for the private IP address. Possible values are Dynamic and Static"
+  type        = string
+  default     = "Dynamic"
+  #Dynamic means "An IP is automatically assigned during creation of this Network Interface"; Static means "User supplied IP address will be used"
+}
+
+########################
+####     Other      ####
+########################
+
+variable "admin_ssh_key" {
+  type    = list(any)
+  default = []
+}
+
+variable "route_tables_ids" {
+  description = "A map of subnet name for the route table ids"
+  type        = map(string)
+  default     = {}
+}
+
+
+variable "tags" {
+  description = "A mapping of tags to assign to the resource"
+  type        = map(any)
+  default = {}
+}
+
+variable "identity" {
+  type = object({
+    identity_ids = optional(list(string))
+    principal_id = optional(string)
+    tentant_id   = optional(string)
+    type         = optional(string, "SystemAssigned")
+  })
+  default = {}
+}
+
+variable "write_accelerator_enabled" {
+  description = "Should write accelerator be enabled for this OS disk? Defaults to false"
+  type        = bool
+  default     = false
+}
+
+variable "disk_size_gb" {
+  description = "The size of the iternal OS disk in GB, if you wish to vary from the size used in the image this virtual machine is sourced from"
+  type        = string
+  default     = null
 }
 
 variable "priority" {
