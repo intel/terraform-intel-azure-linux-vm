@@ -46,19 +46,21 @@ main.tf
 ```hcl
 module "azure-vm" {
   source                = "github.com/intel/terraform-intel-azure-linux-virtual-machine"
-  admin_username        = "example_username"
-  admin_password        = var.admin_password
-  size                  = "Standard_D2_v5"
-  location              = "eastus"
-  name                  = "example_vm"
-  resource_group_name   = "example_resource_group"
-  network_interface_ids = [
+  azurerm_resource_group_name    = "example_resource_group"
+  azurerm_virtual_network_name   = "example_virtual_network_name"
+  azurerm_network_interface_name = "example_network_interface"
+  admin_username                 = "example_username"
+  admin_password                 = var.admin_password
+  size                           = "Standard_D2_v5"
+  location                       = "eastus"
+  name                           = "example_vm"
+  network_interface_ids          = [
     azurerm_network_interface.example.id
   ]
   os_disk {
   }
 
-  tags = {
+  tags                           = {
     Name     = "my-test-vm"
     Owner    = "OwnerName",
     Duration = "2"

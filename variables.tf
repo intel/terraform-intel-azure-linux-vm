@@ -37,7 +37,7 @@ variable "admin_password" {
   }
 }
 
-variable "virtual_network_name" {
+variable "azurerm_virtual_network_name" {
   description = "Name of the preconfigured virtual network"
   type        = string
 }
@@ -188,5 +188,5 @@ variable "max_bid_price" {
 variable "disable_password_authentication" {
   description = "Boolean that determines if password authentication be disabled on this virtual machine."
   type        = bool
-  default     = true
+  default     = false
 }

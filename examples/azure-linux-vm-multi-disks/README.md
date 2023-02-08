@@ -31,12 +31,14 @@ variable "admin_password" {
 main.tf
 ```hcl
 module "azure-vm" {
-  source = "github.com/intel/terraform-intel-azure-linux-virtual-machine"
-  admin_password = var.admin_password
-  size           = var.virtual_machine_size
-  location       = var.location
-  name           = var.vm_name
-  resource_group_name = var.azurerm_resource_group_name
+  source                         = "github.com/intel/terraform-intel-azure-linux-virtual-machine"
+  azurerm_resource_group_name    = "example_resource_group"
+  azurerm_virtual_network_name   = "example_virtual_network_name"
+  azurerm_network_interface_name = "example_network_interface"
+  admin_password                 = var.admin_password
+  size                           = "Standard_D2_v5"
+  location                       = "eastus"
+  name                           = "example_vm"
   network_interface_ids = [
     azurerm_network_interface.example.id
   ]

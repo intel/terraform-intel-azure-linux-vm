@@ -26,10 +26,12 @@ resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
 }
 
 module "azurerm_linux_virtual_machine" {
-  source              = "intel/azure-linux-vm/intel"
-  resource_group_name = "example_resource_group"
-  admin_username      = "admin_username"
-  admin_password      = var.admin_password
+  source                         = "intel/azure-linux-vm/intel"
+  azurerm_resource_group_name    = "example_resource_group"
+  azurerm_virtual_network_name   = "example_virtual_network_name"
+  azurerm_network_interface_name = "example_network_interface"
+  admin_username                 = "admin_username"
+  admin_password                 = var.admin_password
 
   tags = {
     "owner" = "user@company.com"
