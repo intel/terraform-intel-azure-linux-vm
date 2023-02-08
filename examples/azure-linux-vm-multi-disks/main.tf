@@ -13,7 +13,8 @@ resource "azurerm_managed_disk" "managed_disk" {
   create_option        = "Empty"
   disk_size_gb         = 8
   tags = {
-    "owner" = "user@company.com"
+    "owner"    = "user@company.com"
+    "duration" = "1"
   }
 }
 
@@ -34,7 +35,8 @@ module "azurerm_linux_virtual_machine" {
   admin_password                 = var.admin_password
 
   tags = {
-    "owner" = "user@company.com"
+    "owner"    = "user@company.com"
+    "duration" = "1"
   }
 }
 
