@@ -6,9 +6,9 @@
 
 
 resource "azurerm_managed_disk" "managed_disk" {
-  name                 = "managed_disk"
+  name                 = "managed_disk_name"
   location             = "eastus"
-  resource_group_name  = "example_resource_group"
+  resource_group_name  = "<ENTER_RESOURCE_GROUP_NAME_HERE>"
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
   disk_size_gb         = 8
@@ -28,10 +28,11 @@ resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
 
 module "azurerm_linux_virtual_machine" {
   source                         = "intel/azure-linux-vm/intel"
-  azurerm_resource_group_name    = "example_resource_group"
-  azurerm_virtual_network_name   = "example_virtual_network_name"
-  azurerm_network_interface_name = "example_network_interface"
-  admin_username                 = "admin_username"
+  azurerm_resource_group_name    = "<ENTER_RESOURCE_GROUP_NAME_HERE>"
+  azurerm_virtual_network_name   = "<ENTER_VIRTUAL_NETWORK_NAME_HERE>"
+  azurerm_network_interface_name = "<ENTER_NETWORK_INTERFACE_NAME_HERE>"
+  azurerm_subnet_name            = "<ENTER_SUBNET_NAME_HERE>"
+  admin_username                 = "ENTER_ADMIN_USERNAME_HERE>"
   admin_password                 = var.admin_password
 
   tags = {
