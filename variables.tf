@@ -48,6 +48,11 @@ variable "azurerm_resource_group_name" {
   type        = string
 }
 
+variable "azurerm_subnet_name" {
+  description = "The name of the preconfigured subnet"
+  type        = string
+}
+
 ########################
 ####     Other      ####
 ########################
