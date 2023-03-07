@@ -46,3 +46,8 @@ output "identity" {
   description = "Identity configuration associated with the virtual machine"
   value       = azurerm_linux_virtual_machine.linux_vm.identity
 }
+
+output "storage_account_tier" {
+  description = "Tier to identify the storage account associated with the virtual machine"
+  value       = data.azurerm_storage_account.example.account_tier
+}

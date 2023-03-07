@@ -13,6 +13,11 @@ data "azurerm_subnet" "example" {
   resource_group_name  = data.azurerm_resource_group.rg.name
 }
 
+data "azurerm_storage_account" "example" {
+  name                = var.azurerm_storage_account_name
+  resource_group_name = data.azurerm_resource_group.rg.name
+}
+
 resource "azurerm_network_interface" "nic" {
   name                = var.azurerm_network_interface_name
   location            = data.azurerm_resource_group.rg.location
@@ -60,6 +65,10 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
     offer     = var.source_image_reference_offer
     sku       = var.source_image_reference_sku
     version   = var.source_image_reference_version
+  }
+
+  boot_diagnostics {
+    storage_account_uri = data.azurerm_storage_account.example.primary_blob_endpoint
   }
 
   dynamic "admin_ssh_key" {

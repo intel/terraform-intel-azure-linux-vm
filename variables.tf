@@ -53,6 +53,11 @@ variable "azurerm_subnet_name" {
   type        = string
 }
 
+variable "azurerm_storage_account_name" {
+  description = "value"
+  type        = string
+}
+
 ########################
 ####     Other      ####
 ########################
@@ -151,7 +156,7 @@ variable "route_tables_ids" {
 variable "tags" {
   description = "A mapping of tags to assign to the resource"
   type        = map(any)
-  default = {}
+  default     = {}
 }
 
 variable "identity" {
@@ -194,7 +199,14 @@ variable "max_bid_price" {
 }
 
 variable "disable_password_authentication" {
-  description = "Boolean that determines if password authentication be disabled on this virtual machine."
+  description = "Boolean that determines if password authentication will be disabled on this virtual machine"
   type        = bool
   default     = false
 }
+
+variable "enable_boot_diagnostics" {
+  description = "Boolean that determines if the boot diagnostics will be enabled on this virtual machine"
+  type        = bool
+  default     = false
+}
+
