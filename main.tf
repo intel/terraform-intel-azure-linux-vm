@@ -67,8 +67,12 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
     version   = var.source_image_reference_version
   }
 
-  boot_diagnostics {
-    storage_account_uri = data.azurerm_storage_account.example.primary_blob_endpoint
+  dynamic "boot_diagnostics" {
+    for_each = var.enable_boot_diagnostics ? [1] : []
+    content {
+      #enabled             = true
+      storage_account_uri = data.azurerm_storage_account.example.primary_blob_endpoint
+    }
   }
 
   dynamic "admin_ssh_key" {
@@ -88,6 +92,5 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
       type         = lookup(identity.value, "type", null)
     }
   }
-
 }
 
