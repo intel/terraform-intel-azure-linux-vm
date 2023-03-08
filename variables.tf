@@ -36,31 +36,28 @@ variable "admin_password" {
 variable "azurerm_virtual_network_name" {
   description = "Name of the preconfigured virtual network"
   type        = string
-  default     = "kinder-testing"
 }
 
 variable "azurerm_network_interface_name" {
   description = "The name of the network interface. Changing this forces a new resource to be created"
   type        = string
-  default     = "kinder-testing"
+  default     = "nic1"
 }
 
 variable "azurerm_resource_group_name" {
   description = "Name of the resource group to be imported"
   type        = string
-  default     = "kinder-testing"
 }
 
 variable "azurerm_subnet_name" {
   description = "The name of the preconfigured subnet"
   type        = string
-  default     = "default"
 }
 
 variable "azurerm_storage_account_name" {
   description = "value"
   type        = string
-  default     = "kwtesting"
+  default     = null
 }
 
 ########################

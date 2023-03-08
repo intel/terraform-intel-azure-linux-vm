@@ -70,7 +70,6 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
   dynamic "boot_diagnostics" {
     for_each = var.enable_boot_diagnostics ? [1] : []
     content {
-      #enabled             = true
       storage_account_uri = data.azurerm_storage_account.example.primary_blob_endpoint
     }
   }
