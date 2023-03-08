@@ -42,7 +42,7 @@ main.tf
 ```hcl
 
 module "azure-vm" {
-  source                = "github.com/intel/terraform-intel-azure-linux-virtual-machine"
+  source                = "intel/azure-linux-vm/intel"
   azurerm_resource_group_name         = "example_resource_group"
   virtual_network_resource_group_name = "vnet_example_resource_group"
   azurerm_virtual_network_name        = "example_virtual_network_name"
