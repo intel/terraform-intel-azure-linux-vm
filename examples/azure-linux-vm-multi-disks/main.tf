@@ -7,8 +7,9 @@
 
 resource "azurerm_managed_disk" "managed_disk" {
   name                 = "managed_disk_name"
-  resource_group_name  = "<ENTER_RESOURCE_GROUP_NAME_HERE>"
+  resource_group_name  = "terraform-testing-rg"
   storage_account_type = "Standard_LRS"
+  location             = "eastus"
   create_option        = "Empty"
   disk_size_gb         = 8
   tags = {
@@ -16,7 +17,6 @@ resource "azurerm_managed_disk" "managed_disk" {
     "duration" = "1"
   }
 }
-
 
 resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
   managed_disk_id    = azurerm_managed_disk.managed_disk.id
@@ -26,14 +26,12 @@ resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
 }
 
 module "azurerm_linux_virtual_machine" {
-  source                         = "intel/azure-linux-vm/intel"
-  azurerm_resource_group_name    = "<ENTER_RESOURCE_GROUP_NAME_HERE>"
-  azurerm_virtual_network_name   = "<ENTER_VIRTUAL_NETWORK_NAME_HERE>"
-  virtual_network_resource_group_name = "<ENTER_VIRTUAL_NETWORK_RESOURCE_GROUP_NAME_HERE>"
-  azurerm_network_interface_name = "<ENTER_NETWORK_INTERFACE_NAME_HERE>"
-  azurerm_subnet_name            = "<ENTER_SUBNET_NAME_HERE>"
-  admin_username                 = "ENTER_ADMIN_USERNAME_HERE>"
-  admin_password                 = var.admin_password
+  source                              = "intel/azure-linux-vm/intel"
+  azurerm_resource_group_name         = "terraform-testing-rg"
+  azurerm_virtual_network_name        = "vnet01"
+  virtual_network_resource_group_name = "terraform-testing-rg"
+  azurerm_subnet_name                 = "default"
+  admin_password                      = var.admin_password
 
   tags = {
     "owner"    = "user@company.com"

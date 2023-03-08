@@ -14,7 +14,7 @@
 variable "virtual_machine_size" {
   description = "The SKU that will be configured for the provisioned virtual machine"
   type        = string
-  default     = "Standard_D2_v5"
+  default     = "Standard_D2s_v5"
 }
 
 
@@ -72,13 +72,13 @@ variable "azurerm_storage_account_name" {
 variable "os_disk_name" {
   description = "The name which should be used for the internal OS disk"
   type        = string
-  default     = "example_disk_name"
+  default     = "disk1"
 }
 
 variable "vm_name" {
   description = "The unique name of the Linux virtual machine"
   type        = string
-  default     = "example-vm"
+  default     = "vm1"
 }
 
 variable "os_disk_caching" {

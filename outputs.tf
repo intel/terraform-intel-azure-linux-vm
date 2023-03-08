@@ -49,5 +49,5 @@ output "identity" {
 
 output "storage_account_tier" {
   description = "Tier to identify the storage account associated with the virtual machine"
-  value       = data.azurerm_storage_account.example.account_tier
+  value       = try(data.azurerm_storage_account.example[0].account_tier, "")
 }
