@@ -38,10 +38,9 @@ variable "azurerm_virtual_network_name" {
   type        = string
 }
 
-variable "azurerm_network_interface_name" {
-  description = "The name of the network interface. Changing this forces a new resource to be created"
+variable "virtual_network_resource_group_name" {
+  description = "Name of the resource group of the virtual network"
   type        = string
-  default     = "nic1"
 }
 
 variable "azurerm_resource_group_name" {
@@ -54,21 +53,22 @@ variable "azurerm_subnet_name" {
   type        = string
 }
 
-variable "azurerm_storage_account_name" {
-  description = "value"
-  type        = string
-  default     = null
-}
-
 ########################
 ####     Other      ####
 ########################
 
-variable "location" {
-  description = "The Azure location where the Linux virtual machine will be provisioned"
+variable "azurerm_network_interface_name" {
+  description = "The name of the network interface. Changing this forces a new resource to be created"
   type        = string
-  default     = "eastus"
+  default     = "nic1"
 }
+
+variable "azurerm_storage_account_name" {
+  description = "The name of the storage account to be used for the boot_diagnostic"
+  type        = string
+  default     = null
+}
+
 variable "os_disk_name" {
   description = "The name which should be used for the internal OS disk"
   type        = string
@@ -84,13 +84,13 @@ variable "vm_name" {
 variable "os_disk_caching" {
   description = "The type of caching which should be used for the internal OS disk. Possible values are 'None', 'ReadOnly' and 'ReadWrite'"
   type        = string
-  default     = "ReadOnly"
+  default     = "ReadWrite"
 }
 
 variable "os_disk_storage_account_type" {
   description = "The type of storage account which should back this the internal OS disk. Possible values include Standard_LRS, StandardSSD_LRS and Premium_LRS"
   type        = string
-  default     = "Standard_LRS"
+  default     = "Premium_LRS"
 }
 
 variable "source_image_reference_offer" {
@@ -159,8 +159,6 @@ variable "tags" {
   description = "A mapping of tags to assign to the resource"
   type        = map(any)
   default = {
-    owner    = "kinder.wischmeier@intel.com"
-    duration = "3"
   }
 }
 
@@ -181,7 +179,7 @@ variable "write_accelerator_enabled" {
 }
 
 variable "disk_size_gb" {
-  description = "The size of the iternal OS disk in GB, if you wish to vary from the size used in the image this virtual machine is sourced from"
+  description = "The size of the internal OS disk in GB, if you wish to vary from the size used in the image this virtual machine is sourced from"
   type        = string
   default     = null
 }

@@ -7,7 +7,6 @@
 
 resource "azurerm_managed_disk" "managed_disk" {
   name                 = "managed_disk_name"
-  location             = "eastus"
   resource_group_name  = "<ENTER_RESOURCE_GROUP_NAME_HERE>"
   storage_account_type = "Standard_LRS"
   create_option        = "Empty"
@@ -30,6 +29,7 @@ module "azurerm_linux_virtual_machine" {
   source                         = "intel/azure-linux-vm/intel"
   azurerm_resource_group_name    = "<ENTER_RESOURCE_GROUP_NAME_HERE>"
   azurerm_virtual_network_name   = "<ENTER_VIRTUAL_NETWORK_NAME_HERE>"
+  virtual_network_resource_group_name = "<ENTER_VIRTUAL_NETWORK_RESOURCE_GROUP_NAME_HERE>"
   azurerm_network_interface_name = "<ENTER_NETWORK_INTERFACE_NAME_HERE>"
   azurerm_subnet_name            = "<ENTER_SUBNET_NAME_HERE>"
   admin_username                 = "ENTER_ADMIN_USERNAME_HERE>"

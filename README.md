@@ -43,28 +43,11 @@ main.tf
 
 module "azure-vm" {
   source                = "github.com/intel/terraform-intel-azure-linux-virtual-machine"
-  azurerm_resource_group_name    = "example_resource_group"
-  azurerm_virtual_network_name   = "example_virtual_network_name"
-  azurerm_network_interface_name = "example_network_interface"
-  admin_username                 = "example_username"
-  admin_password                 = var.admin_password
-  size                           = "Standard_D2_v5"
-  location                       = "eastus"
-  name                           = "example_vm"
-  priority                       = "Spot"
-  max_bid_price                  = 0.0874
-  eviction_policy                = "Deallocate"
-  network_interface_ids          = [
-    azurerm_network_interface.example.id
-  ]
-  os_disk {
-  }
-
-  tags                           = {
-    Name     = "my-test-vm"
-    Owner    = "OwnerName",
-    Duration = "2"
-  }
+  azurerm_resource_group_name         = "example_resource_group"
+  virtual_network_resource_group_name = "vnet_example_resource_group"
+  azurerm_virtual_network_name        = "example_virtual_network_name"
+  azurerm_network_interface_name      = "example_network_interface"
+  admin_password                      = var.admin_password
 }
 
 ```

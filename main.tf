@@ -4,7 +4,7 @@ data "azurerm_resource_group" "rg" {
 
 data "azurerm_virtual_network" "vnet" {
   name                = var.azurerm_virtual_network_name
-  resource_group_name = data.azurerm_resource_group.rg.name
+  resource_group_name = var.virtual_network_resource_group_name
 }
 
 data "azurerm_subnet" "example" {
@@ -14,6 +14,7 @@ data "azurerm_subnet" "example" {
 }
 
 data "azurerm_storage_account" "example" {
+  count               = var.azurerm_storage_account_name != null ? 1 : 0
   name                = var.azurerm_storage_account_name
   resource_group_name = data.azurerm_resource_group.rg.name
 }
@@ -70,7 +71,8 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
   dynamic "boot_diagnostics" {
     for_each = var.enable_boot_diagnostics ? [1] : []
     content {
-      storage_account_uri = data.azurerm_storage_account.example.primary_blob_endpoint
+      storage_account_uri = var.storage_account_name != null ? data.azurerm_storage_account.example.0.primary_blob_endpoint : null
+
     }
   }
 
