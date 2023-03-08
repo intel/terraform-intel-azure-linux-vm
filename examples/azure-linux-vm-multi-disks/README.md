@@ -22,31 +22,49 @@ In this example, the virtual machine is using a preconfigured network interface,
 variables.tf
 ```hcl
 variable "admin_password" {
+  description = "The Password which should be used for the local-administrator on this virtual machine"
   type        = string
-  default     = null
   sensitive   = true
+  validation {
+    condition     = length(var.admin_password) >= 8
+    error_message = "The admin_password value must be at least 8 characters in length"
+  }
 }
 ```
 
 main.tf
 ```hcl
-module "azure-vm" {
-  source = "github.com/intel/terraform-intel-azure-linux-virtual-machine"
-  admin_password = var.admin_password
-  size           = var.virtual_machine_size
-  location       = var.location
-  name           = var.vm_name
-  resource_group_name = var.azurerm_resource_group_name
-  network_interface_ids = [
-    azurerm_network_interface.example.id
-  ]
-  os_disk {
-  }
-  
+resource "azurerm_managed_disk" "managed_disk" {
+  name                 = "managed_disk_name"
+  resource_group_name  = "terraform-testing-rg"
+  storage_account_type = "Standard_LRS"
+  location = "eastus"
+  create_option        = "Empty"
+  disk_size_gb         = 8
   tags = {
-    Name     = "my-test-vm"
-    Owner    = "OwnerName",
-    Duration = "2"
+    "owner"    = "user@company.com"
+    "duration" = "1"
+  }
+}
+
+resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
+  managed_disk_id    = azurerm_managed_disk.managed_disk.id
+  virtual_machine_id = module.azurerm_linux_virtual_machine.virtual_machine_id
+  lun                = 10
+  caching            = "ReadWrite"
+}
+
+module "azurerm_linux_virtual_machine" {
+  source                         = "intel/azure-linux-vm/intel"
+  azurerm_resource_group_name    = "terraform-testing-rg"
+  azurerm_virtual_network_name   = "vnet01"
+  virtual_network_resource_group_name = "terraform-testing-rg"
+  azurerm_subnet_name            = "default"
+  admin_password                 = var.admin_password
+
+  tags = {
+    "owner"    = "user@company.com"
+    "duration" = "1"
   }
 }
 

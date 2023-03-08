@@ -3,14 +3,20 @@ data "azurerm_resource_group" "rg" {
 }
 
 data "azurerm_virtual_network" "vnet" {
-  name                = var.virtual_network_name
-  resource_group_name = data.azurerm_resource_group.rg.name
+  name                = var.azurerm_virtual_network_name
+  resource_group_name = var.virtual_network_resource_group_name
 }
 
 data "azurerm_subnet" "example" {
-  name                 = var.subnet_name
+  name                 = var.azurerm_subnet_name
   virtual_network_name = data.azurerm_virtual_network.vnet.name
   resource_group_name  = data.azurerm_resource_group.rg.name
+}
+
+data "azurerm_storage_account" "example" {
+  count               = var.azurerm_storage_account_name != null ? 1 : 0
+  name                = var.azurerm_storage_account_name
+  resource_group_name = data.azurerm_resource_group.rg.name
 }
 
 resource "azurerm_network_interface" "nic" {
@@ -34,16 +40,18 @@ resource "azurerm_network_interface" "nic" {
 
 
 resource "azurerm_linux_virtual_machine" "linux_vm" {
-  name                  = var.vm_name
-  resource_group_name   = var.azurerm_resource_group_name
-  location              = data.azurerm_resource_group.rg.location
-  size                  = var.virtual_machine_size
-  admin_username        = var.admin_username
-  admin_password        = var.admin_password
-  tags                  = var.tags
-  network_interface_ids = [azurerm_network_interface.nic.id]
-
-  disable_password_authentication = false
+  name                            = var.vm_name
+  resource_group_name             = var.azurerm_resource_group_name
+  location                        = data.azurerm_resource_group.rg.location
+  size                            = var.virtual_machine_size
+  admin_username                  = var.admin_username
+  admin_password                  = var.admin_password
+  tags                            = var.tags
+  network_interface_ids           = [azurerm_network_interface.nic.id]
+  max_bid_price                   = var.priority == "Spot" ? var.max_bid_price : null
+  priority                        = var.priority
+  eviction_policy                 = var.priority == "Spot" ? var.eviction_policy : null
+  disable_password_authentication = var.disable_password_authentication
 
   os_disk {
     name                      = var.os_disk_name
@@ -60,6 +68,14 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
     version   = var.source_image_reference_version
   }
 
+  dynamic "boot_diagnostics" {
+    for_each = var.enable_boot_diagnostics ? [1] : []
+    content {
+      storage_account_uri = var.azurerm_storage_account_name != null ? data.azurerm_storage_account.example.0.primary_blob_endpoint : null
+
+    }
+  }
+
   dynamic "admin_ssh_key" {
     for_each = var.admin_ssh_key
     content {
@@ -68,6 +84,14 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
     }
   }
 
-
+  dynamic "identity" {
+    for_each = var.identity != [] ? [var.identity] : []
+    content {
+      identity_ids = lookup(identity.value, "identity_ids", null)
+      principal_id = lookup(identity.value, "principal_id", null)
+      tenant_id    = lookup(identity.value, "tenant_id", null)
+      type         = lookup(identity.value, "type", null)
+    }
+  }
 }
 
