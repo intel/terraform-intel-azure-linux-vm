@@ -1,4 +1,3 @@
-
 <p align="center">
   https://github.com/intel/terraform-intel-azure-linux-vm/blob/main/images/logo-classicblue-800px.png?raw=true
 </p>
