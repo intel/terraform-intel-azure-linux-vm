@@ -6,10 +6,6 @@
 
 © Copyright 2022, Intel Corporation
 
-## Module name
-
-Azure Linux Virtual Machine
-
 ## Terraform Intel Azure VM - Linux VM
 This example creates an Azure Virtual Machine on Intel Icelake CPU on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_D2_v5 by default.
 
