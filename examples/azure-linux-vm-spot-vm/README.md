@@ -1,14 +1,11 @@
 
 <p align="center">
-  https://github.com/intel/terraform-intel-azure-linux-vm/blob/main/images/logo-classicblue-800px.png?raw=true
+   <img src="https://github.com/intel/terraform-intel-azure-linux-vm/blob/main/images/logo-classicblue-800px.png?raw=true" alt="Intel Logo" width="250"/>
 </p>
 
 # Intel® Cloud Optimization Modules for Terraform
 
 © Copyright 2022, Intel Corporation
-
-## Module name
-Azure Linux Virtual Machine
 
 ## Terraform Intel Azure VM - Linux VM Creating Spot Virtual Machine
 
