@@ -1,0 +1,4 @@
+[ZoneTransfer]
+ZoneId=3
+ReferrerUrl=https://github.com/intel/terraform-intel-aws-vm/blob/main/images/aws-ec2-ico.png
+HostUrl=https://raw.githubusercontent.com/intel/terraform-intel-aws-vm/main/images/aws-ec2-ico.png
