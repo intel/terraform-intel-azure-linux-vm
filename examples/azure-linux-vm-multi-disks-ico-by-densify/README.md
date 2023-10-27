@@ -10,7 +10,7 @@
 ## Terraform Intel Azure VM - Linux VM Creating Multiple Disks using Intel Cloud Optimzier(ICO) by Densify recommendations
 
 <p align="center">
-  <img src="https://github.com/intel/terraform-intel-azure-vm/blob/main/images/azure-vm-ico.png?raw=true" alt="Intel + Densify Logo" width="250"/>
+  <img src="https://github.com/intel/terraform-intel-azure-linux-vm/blob/main/images/azure-vm-ico.png?raw=true" alt="Intel + Densify Logo" width="250"/>
 </p>
 
 This example creates multiple disks on an Azure virtual machine on Intel Icelake CPU on Linux Operating System using recommended instance from Intel Cloud Optimizer by Densify. The virtual machine is created on an Intel Icelake Standard_D4ds_v5 by as an example of recommendation by ICO by Densify.
