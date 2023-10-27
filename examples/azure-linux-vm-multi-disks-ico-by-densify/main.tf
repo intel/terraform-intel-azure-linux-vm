@@ -14,7 +14,7 @@ module "densify" {
 
 resource "azurerm_managed_disk" "managed_disk" {
   name                 = "managed_disk_name"
-  resource_group_name  = "ds-terraform-testing-rg"
+  resource_group_name  = "terraform-testing-rg"
   storage_account_type = "Standard_LRS"
   location             = "eastus"
   create_option        = "Empty"
