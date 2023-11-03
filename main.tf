@@ -52,6 +52,7 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
   priority                        = var.priority
   eviction_policy                 = var.priority == "Spot" ? var.eviction_policy : null
   disable_password_authentication = var.disable_password_authentication
+  custom_data                     = var.custom_data 
 
   os_disk {
     name                      = var.os_disk_name
