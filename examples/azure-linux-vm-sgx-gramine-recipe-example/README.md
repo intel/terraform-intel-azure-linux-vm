@@ -142,10 +142,6 @@ Perform the following steps on your system:
         ```sh
         /bin/bash workloads/pytorch/base_image_helper/helper.sh
         ```
-        Build Docker Image
-        ```sh 
-        docker build -t pytorch-encrypted .
-        ```
         The resulting Docker image is called `pytorch-encrypted`.
 
      3. Generate Gramine-protected, pre-configured, non-production ready, test image for PyTorch,
@@ -154,11 +150,6 @@ Perform the following steps on your system:
         python3 ./curate.py pytorch pytorch-encrypted --test
         ```
           The resulting SGX-Enabled Gramine Docker image is called `gsc-pytorch-encrypted`.
-
-     4. Run the generated PyTorch image using below command:
-        ```sh
-        docker run --net=host --device=/dev/sgx/enclave -it gsc-pytorch-encrypted
-        ```
 
    - **Option 2**: To generate a Gramine-protected, pre-configured PyTorch image based on a **user-provided** PyTorch
      Docker image, execute the following to launch an interactive setup script:
@@ -170,6 +161,12 @@ Perform the following steps on your system:
 ### Execute Gramine-protected PyTorch image
 
 Follow the output of the image build script `curate.py` to run the generated Docker image.
+
+Run the Gramine generated PyTorch image using below command:
+
+```sh
+docker run --net=host --device=/dev/sgx/enclave -it gsc-pytorch-encrypted
+```
 
 Note that validation was only done on a Standard_DC8s_v3 Azure VM.
 
