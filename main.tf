@@ -33,33 +33,104 @@ resource "azurerm_network_interface" "nic" {
   }
 }
 
+################################################################################
+# For Azure Key Vault
+################################################################################
+
+  data "azurerm_client_config" "current" {}
+
+  resource "azurerm_key_vault" "example" {
+  name                        = "ds-tdx-examplekeyvault"
+  location                    = data.azurerm_resource_group.rg.location
+  resource_group_name         = var.azurerm_resource_group_name
+  enabled_for_disk_encryption = true
+  tenant_id                   = data.azurerm_client_config.current.tenant_id
+  soft_delete_retention_days  = 7
+  purge_protection_enabled    = false
+
+  sku_name = "standard"
+
+  access_policy {
+    tenant_id = data.azurerm_client_config.current.tenant_id
+    object_id = data.azurerm_client_config.current.object_id
+
+key_permissions = [
+      "Create",
+      "Delete",
+      "Get",
+      "Purge",
+      "Recover",
+      "Update",
+      "GetRotationPolicy",
+      "SetRotationPolicy"
+    ]
+
+    secret_permissions = [
+      "Set",
+    ]
+    storage_permissions = [
+      "Get",
+    ]
+  }
+}
+
+resource "azurerm_key_vault_key" "generated" {
+  name         = "generated-certificate"
+  key_vault_id = azurerm_key_vault.example.id
+  key_type     = "RSA"
+  key_size     = 2048
+
+  key_opts = [
+    "decrypt",
+    "encrypt",
+    "sign",
+    "unwrapKey",
+    "verify",
+    "wrapKey",
+  ]
+
+  rotation_policy {
+    automatic {
+      time_before_expiry = "P30D"
+    }
+
+    expire_after         = "P90D"
+    notify_before_expiry = "P29D"
+  }
+}
+
 
 ################################################################################
 # Virtual Machine
 ################################################################################
 
-
 resource "azurerm_linux_virtual_machine" "linux_vm" {
   name                            = var.vm_name
   resource_group_name             = var.azurerm_resource_group_name
   location                        = data.azurerm_resource_group.rg.location
+  #Specify Zone = 3 if using Intel Confidential Compute VMs with TDX. Check availblity of Intel TDX CC VMs regions and zones
+  zone                            = var.tdx_flag == true ? 3: null
   size                            = var.virtual_machine_size
   admin_username                  = var.admin_username
   admin_password                  = var.admin_password
   tags                            = var.tags
   network_interface_ids           = [azurerm_network_interface.nic.id]
-  max_bid_price                   = var.priority == "Spot" ? var.max_bid_price : null
   priority                        = var.priority
-  eviction_policy                 = var.priority == "Spot" ? var.eviction_policy : null
   disable_password_authentication = var.disable_password_authentication
-
+  #These next three parameters are required or TDX VMs
+  vtpm_enabled                    = var.tdx_flag == true ? true: null
+  encryption_at_host_enabled      = var.tdx_flag == true ? true: null
+  secure_boot_enabled             = var.tdx_flag == true ? true: null
   os_disk {
     name                      = var.os_disk_name
     caching                   = var.os_disk_caching
     storage_account_type      = var.os_disk_storage_account_type
     disk_size_gb              = var.disk_size_gb
     write_accelerator_enabled = var.write_accelerator_enabled
-  }
+    #This is required for TDX VM
+    #security_encryption_type  = "VMGuestStateOnly"
+    security_encryption_type  =  var.tdx_flag == true ? "VMGuestStateOnly": null
+ }
 
   source_image_reference {
     publisher = var.source_image_reference_publisher
@@ -94,4 +165,3 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
     }
   }
 }
-

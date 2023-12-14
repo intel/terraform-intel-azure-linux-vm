@@ -5,36 +5,25 @@
 # Resource azurerm_linux_virtual_machine requires a preconfigured resource group, virtual network, and subnet in Azure
 
 
-resource "azurerm_managed_disk" "managed_disk" {
-  name                 = "managed_disk_name"
-  resource_group_name  = "DS-TDXTERRAFORM"
-  storage_account_type = "Standard_LRS"
-  location             = "eastus2"
-  create_option        = "Empty"
-  disk_size_gb         = 8
-  tags = {
-    "owner"    = "user@company.com"
-    "duration" = "1"
-  }
-}
-
-resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
-  managed_disk_id    = azurerm_managed_disk.managed_disk.id
-  virtual_machine_id = module.azurerm_linux_virtual_machine.virtual_machine_id
-  lun                = 10
-  caching            = "ReadWrite"
-}
-
 module "azurerm_linux_virtual_machine" {
-  source                              = "intel/azure-linux-vm/intel"
+  #source                              = "intel/azure-linux-vm/intel"
+  source                              = "../../"
   azurerm_resource_group_name         = "DS-TDXTERRAFORM"
   azurerm_virtual_network_name        = "dstdxvnet"
   virtual_network_resource_group_name = "DS-TDXTERRAFORM"
   azurerm_subnet_name                 = "dstdxsubnet"
   admin_password                      = var.admin_password
-
-  tags = {
-    "owner"    = "user@company.com"
+  virtual_machine_size                = "Standard_DC2es_v5"
+  #Set to flag below to use Intel Confidential VM with TDX
+  tdx_flag                            = true
+  source_image_reference_publisher    = "Canonical"
+  source_image_reference_offer        = "0001-com-ubuntu-confidential-vm-jammy"
+  source_image_reference_sku          = "22_04-lts-cvm"
+  source_image_reference_version      = "latest"
+  vm_name                             = "ds-tdx-linuxvm1"
+    tags = {
+    "owner"    = "dave.shrestha@intel.com"
     "duration" = "1"
   }
-}
+}     
+

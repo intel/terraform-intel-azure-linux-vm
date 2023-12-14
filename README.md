@@ -7,9 +7,13 @@
 © Copyright 2022, Intel Corporation
 
 ## Terraform Intel Azure VM - Linux VM
-This example creates an Azure Virtual Machine on Intel Icelake CPU on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_D2_v5 by default.
+This module creates an Azure virtual machine on Intel Icelake (for Intel Non-TDX VMs) and Sapphire Rapids CPUs (for Intel TDX VMs) on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_D2_v5 by default and if using Intel Confidential Computing VMs with Intel TDX the default will be Intel Sapphire Rapids Standard_DC2es_v5.
 
-As you configure your application's environment, choose the configurations for your infrastructure that matches your application's requirements. In this example, the virtual machine is using a preconfigured network interface, subnet, and resource group and has an additional option to enable boot diagnostics. The tags Name, Owner and Duration are added to the virtual machine when it is created.
+As you configure your application's environment, choose the configurations for your infrastructure that matches your application's requirements.
+
+In this example, the virtual machine is using a preconfigured network interface, subnet, and resource group. The tags Name, Owner and Duration are added to the virtual machine when it is created.
+
+We have now included exmple for provisioning Intel Confidential VMs with TDX- see "azure-linux-tdx-vm" example folder.
 
 ## Usage
 
@@ -68,6 +72,8 @@ Either admin_password or admin_ssh_key must be specified.
 
 The virtual machine is using a preconfigured network interface, subnet, and resource group.
 
+To use the Intel Confidential VMs with TDX see the "azure-linux-tdx-vm" example.
+
 ```
 
 <!-- BEGIN_TF_DOCS -->
@@ -75,13 +81,13 @@ The virtual machine is using a preconfigured network interface, subnet, and reso
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~>3.41.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~>3.83.0 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~>3.41.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~>3.83.0 |
 
 ## Modules
 

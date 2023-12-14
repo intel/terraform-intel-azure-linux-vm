@@ -3,7 +3,7 @@ terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~>3.41.0"
+      version = "3.83.0"
     }
   }
 }
@@ -11,8 +11,8 @@ terraform {
 provider "azurerm" {
   features {
     api_management {
-      purge_soft_delete_on_destroy = true
-      recover_soft_deleted         = true
-    }
-  }
+    purge_soft_delete_on_destroy = true
+    recover_soft_deleted         = true
+ }
+ }
 }
