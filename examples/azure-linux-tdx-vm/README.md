@@ -18,11 +18,13 @@ Supported Intel Confidential Computing VMs with Intel TDX include:
 
 See root policies.md for full list of Intel Confidential VMs with TDX.
 
-Azure VM Security Type will be set to Confidential with Secure Boot, Virtualized Trusted Platform Module (vTPM) enabled along with OS disk encrypted at host. All of these are enabled in this example when the tdx_enabled flag is set to "true" (default in this example).
+Azure VM Security Type will be set to Confidential amd Virtualized Trusted Platform Module (vTPM) enabled as requried with optional Secure Boot, OS disk encrypted at host.
 
 As you configure your application's environment, choose the configurations for your infrastructure that matches your application's requirements. 
 
-In this example, the virtual machine is using a preconfigured network interface, subnet, and resource group and has an additional option to enable boot diagnostics. The tags Name, Owner and Duration are added to the virtual machine when it is created.
+In this example, the virtual machine is using a preconfigured network interface, subnet, and resource group and has an additional option to enable boot diagnostics. Make sure to the resoruce group is in the region where Intel Confidential Compute VMs with TDX is available. 
+
+The tags Name, Owner and Duration are added to the virtual machine when it is created.
 
 
 
@@ -49,24 +51,27 @@ main.tf
 module "azurerm_linux_virtual_machine" {
   #source                              = "intel/azure-linux-vm/intel"
   source                              = "../../"
-  azurerm_resource_group_name         = "terraform-testing-rg"
-  azurerm_virtual_network_name        = "dvnet01"
-  virtual_network_resource_group_name = "terraform-testing-rg"
-  azurerm_subnet_name                 = "default"
+  azurerm_resource_group_name         = var.azurerm_resource_group_name
+  azurerm_virtual_network_name        = var.azurerm_virtual_network_name
+  virtual_network_resource_group_name = var.virtual_network_resource_group_name
+  azurerm_subnet_name                 = var.azurerm_subnet_name
   admin_password                      = var.admin_password
-  virtual_machine_size                = "Standard_DC2es_v5"
+  virtual_machine_size                = var.virtual_machine_size
+  vm_name                             = var.vm_name
   #Set to flag below to use Intel Confidential VM with TDX
   tdx_flag                            = true
+  secure_boot_flag                    = true
+  encryption_at_host_flag             = true
+  #Chose the images supporting Intel Confidential Compute VMs with Intel TDX
   source_image_reference_publisher    = "Canonical"
   source_image_reference_offer        = "0001-com-ubuntu-confidential-vm-jammy"
   source_image_reference_sku          = "22_04-lts-cvm"
   source_image_reference_version      = "latest"
-  vm_name                             = "tdx-linuxvm1"
     tags = {
-    "owner"    = "user@company.com"
+    "owner"    = "dave.shrestha@intel.com"
     "duration" = "1"
   }
-}
+}     
 
 ```
 
@@ -84,7 +89,7 @@ Note that this example may create resources. Run `terraform destroy` when you do
 ## Considerations  
 
 ```hcl
-Intel Confidential VM with TDX is not yet supported in all Azure Regions and Availability Zones. Thus, please make sure to  check which regions and availabity zones are supoprted. By defualt this example uses Azure East US 2 region on Availability Zone 3
+Intel Confidential VM with TDX is not yet supported in all Azure Regions and Availability Zones. Thus, please make sure to  check which regions are supoprted. By defualt this example uses Azure East US 2 region but you can change it in the variables.tf
 
 When admin_password is specified disable_password_authentication must be set to false
 

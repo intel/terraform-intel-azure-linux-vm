@@ -34,7 +34,7 @@ module "azurerm_linux_virtual_machine" {
   admin_password                      = var.admin_password
 
   tags = {
-    "owner"    = "user@company.com"
+    "owner"    = "dave.shrestha@intel.com"
     "duration" = "1"
   }
 }

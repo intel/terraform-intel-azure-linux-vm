@@ -17,7 +17,6 @@ variable "virtual_machine_size" {
   default     = "Standard_D2s_v5"
 }
 
-
 ########################
 ####    Required    ####
 ########################
@@ -62,6 +61,22 @@ variable "tdx_flag" {
   type        = bool
   default     = false
 }
+
+variable "secure_boot_flag" {
+  description = "Enables Secure Boot- recommended TDX Confidential Compute VM"
+  type        = bool
+  default     = false
+}
+
+variable "encryption_at_host_flag" {
+  description = "Enables OS Disk Encryption at Host - recommended for TDX Confidential Compute VM"
+  type        = bool
+  default     = false
+}
+
+
+
+
 
 ########################
 ####     Other      ####
