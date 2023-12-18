@@ -14,7 +14,7 @@
 
   resource "azurerm_key_vault" "example" {
   name                        = "ds-tdxkeyvault"
-  resource_group_name         = "DS-TDXTERRAFORM"
+  resource_group_name         = "terraform-testing-rg"
   location                    = "eastus2"
   enabled_for_disk_encryption = true
   tenant_id                   = data.azurerm_client_config.current.tenant_id
