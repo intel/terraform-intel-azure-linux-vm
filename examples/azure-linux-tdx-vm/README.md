@@ -8,7 +8,7 @@
 © Copyright 2022, Intel Corporation
 
 ## Terraform Intel Azure Linux TDX VM
-This example creates an Azure Virtual Machine on Intel® 4th Generation Xeon® Scalable, Sapphire Rapids, processors featuring Intel Trusted Domain Extensions (TDX). Thse TDX Intel Confidential Computing VMs are hardned from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. The virtual machine is created on an Azure   Standard_DC2es_v5 by default.
+This example creates an Azure Virtual Machine on Intel® 4th Generation Xeon® Scalable Sapphire Rapids, processors featuring Intel Trusted Domain Extensions (TDX). Thse TDX Intel Confidential Computing VMs are hardned from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. The virtual machine is created on an Azure Standard_DC2es_v5 by default.
 
 Supported Intel Confidential Computing VMs with Intel TDX include:
 -DCesv5-series
@@ -49,15 +49,14 @@ variable "admin_password" {
 main.tf
 ```hcl
 module "azurerm_linux_virtual_machine" {
-  #source                              = "intel/azure-linux-vm/intel"
-  source                              = "../../"
-  azurerm_resource_group_name         = var.azurerm_resource_group_name
-  azurerm_virtual_network_name        = var.azurerm_virtual_network_name
-  virtual_network_resource_group_name = var.virtual_network_resource_group_name
-  azurerm_subnet_name                 = var.azurerm_subnet_name
+  source                              = "intel/azure-linux-vm/intel"
+  azurerm_resource_group_name         = "terraform-testing-rg"
+  azurerm_virtual_network_name        = "vnet1"
+  virtual_network_resource_group_name = "terraform-testing-rg"
+  azurerm_subnet_name                 = "default"
+  virtual_machine_size                = "Standard_DC2es_v5"
+  vm_name                             = "ds-tdx-linuxvm1"
   admin_password                      = var.admin_password
-  virtual_machine_size                = var.virtual_machine_size
-  vm_name                             = var.vm_name
   #Set to flag below to use Intel Confidential VM with TDX
   tdx_flag                            = true
   secure_boot_flag                    = true
@@ -68,11 +67,10 @@ module "azurerm_linux_virtual_machine" {
   source_image_reference_sku          = "22_04-lts-cvm"
   source_image_reference_version      = "latest"
     tags = {
-    "owner"    = "dave.shrestha@intel.com"
+    "owner"    = "user@company.com"
     "duration" = "1"
   }
-}     
-
+} 
 ```
 
 Run Terraform

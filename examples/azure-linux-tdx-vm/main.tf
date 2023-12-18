@@ -6,16 +6,16 @@
 ################################################################################
 # For Azure Key Vault - This is Optional
 ################################################################################
-data "azurerm_resource_group" "rg" {
-  name = var.azurerm_resource_group_name
-}
+#data "azurerm_resource_group" "rg" {
+#  name = "DS-TDXTERRAFORM"
+#}
 
   data "azurerm_client_config" "current" {}
 
   resource "azurerm_key_vault" "example" {
-  name                        = var.keyvault_name
-  resource_group_name         = var.azurerm_resource_group_name
-  location                    = data.azurerm_resource_group.rg.location
+  name                        = "ds-tdxkeyvault"
+  resource_group_name         = "DS-TDXTERRAFORM"
+  location                    = "eastus2"
   enabled_for_disk_encryption = true
   tenant_id                   = data.azurerm_client_config.current.tenant_id
   soft_delete_retention_days  = 7
@@ -77,15 +77,14 @@ resource "azurerm_key_vault_key" "generated" {
 ################################################################################
 
 module "azurerm_linux_virtual_machine" {
-  #source                              = "intel/azure-linux-vm/intel"
-  source                              = "../../"
-  azurerm_resource_group_name         = var.azurerm_resource_group_name
-  azurerm_virtual_network_name        = var.azurerm_virtual_network_name
-  virtual_network_resource_group_name = var.virtual_network_resource_group_name
-  azurerm_subnet_name                 = var.azurerm_subnet_name
+  source                              = "intel/azure-linux-vm/intel"
+  azurerm_resource_group_name         = "terraform-testing-rg"
+  azurerm_virtual_network_name        = "vnet1"
+  virtual_network_resource_group_name = "terraform-testing-rg"
+  azurerm_subnet_name                 = "default"
+  virtual_machine_size                = "Standard_DC2es_v5"
+  vm_name                             = "ds-tdx-linuxvm1"
   admin_password                      = var.admin_password
-  virtual_machine_size                = var.virtual_machine_size
-  vm_name                             = var.vm_name
   #Set to flag below to use Intel Confidential VM with TDX
   tdx_flag                            = true
   secure_boot_flag                    = true
@@ -96,8 +95,9 @@ module "azurerm_linux_virtual_machine" {
   source_image_reference_sku          = "22_04-lts-cvm"
   source_image_reference_version      = "latest"
     tags = {
-    "owner"    = "dave.shrestha@intel.com"
+    "owner"    = "user@company.com"
     "duration" = "1"
   }
-}     
+}   
+ 
 
