@@ -55,7 +55,7 @@ module "azurerm_linux_virtual_machine" {
   virtual_network_resource_group_name = "terraform-testing-rg"
   azurerm_subnet_name                 = "default"
   virtual_machine_size                = "Standard_DC2es_v5"
-  vm_name                             = "ds-tdx-linuxvm1"
+  vm_name                             = "tdx-linuxvm1"
   admin_password                      = var.admin_password
   #Set to flag below to use Intel Confidential VM with TDX
   tdx_flag                            = true
