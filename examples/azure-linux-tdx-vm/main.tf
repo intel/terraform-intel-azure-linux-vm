@@ -7,7 +7,7 @@
 # For Azure Key Vault - This is Optional
 ################################################################################
 #data "azurerm_resource_group" "rg" {
-#  name = "DS-TDXTERRAFORM"
+#  name = "terraform-testing-rg"
 #}
 
   data "azurerm_client_config" "current" {}
