@@ -13,7 +13,7 @@ As you configure your application's environment, choose the configurations for y
 
 In this example, the virtual machine is using a preconfigured network interface, subnet, and resource group. The tags Name, Owner and Duration are added to the virtual machine when it is created.
 
-We have now included exmple for provisioning Intel Confidential VMs with TDX- see "azure-linux-tdx-vm" example folder.
+We have now included exmple for provisioning Intel Confidential VMs with TDX- see "azure-linux-tdx-vm" and "azure-rhel-tdxvm" example folders.
 
 ## Usage
 

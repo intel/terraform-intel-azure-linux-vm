@@ -8,7 +8,7 @@
 © Copyright 2022, Intel Corporation
 
 ## Terraform Intel Azure Linux TDX VM
-This example creates an Azure Virtual Machine on Intel® 4th Generation Xeon® Scalable Sapphire Rapids, processors featuring Intel Trusted Domain Extensions (TDX). Thse TDX Intel Confidential Computing VMs are hardned from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. The virtual machine is created on an Azure Standard_DC2es_v5 by default.
+This example creates an Azure Virtual Machine on Intel® 4th Generation Xeon® Scalable Sapphire Rapids, processors featuring Intel Trusted Domain Extensions (TDX) on RHEL OS. These TDX Intel Confidential Computing VMs are hardned from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. The virtual machine is created on an Azure Standard_DC2es_v5 by default.
 
 Supported Intel Confidential Computing VMs with Intel TDX include:
 -DCesv5-series
@@ -22,7 +22,7 @@ Azure VM Security Type will be set to Confidential amd Virtualized Trusted Platf
 
 As you configure your application's environment, choose the configurations for your infrastructure that matches your application's requirements. 
 
-In this example, the virtual machine is using a preconfigured network interface, subnet, and resource group and has an additional option to enable boot diagnostics. Make sure to the resoruce group is in the region where Intel Confidential Compute VMs with TDX is available. 
+In this example, the virtual machine is using a preconfigured network interface, subnet, and resource group and has an additional option to enable boot diagnostics. Make sure to the resource group is in the region where Intel Confidential Compute VMs with TDX is available. 
 
 The tags Name, Owner and Duration are added to the virtual machine when it is created.
 
