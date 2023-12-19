@@ -50,8 +50,6 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
   disable_password_authentication = var.disable_password_authentication
   #These next three parameters are required or TDX VMs
   vtpm_enabled                    = var.tdx_flag == true ? true: null
-  #encryption_at_host_enabled      = var.tdx_flag == true ? true: null
-  #secure_boot_enabled             = var.tdx_flag == true ? true: null
   encryption_at_host_enabled      = var.encryption_at_host_flag == true ? true: null 
   secure_boot_enabled             = var.secure_boot_flag == true ? true: null
  
