@@ -7,9 +7,13 @@
 © Copyright 2022, Intel Corporation
 
 ## Terraform Intel Azure VM - Linux VM
-This example creates an Azure Virtual Machine on Intel Icelake CPU on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_D2_v5 by default.
+This module creates an Azure virtual machine on Intel Icelake (for Intel Non-TDX VMs) and Sapphire Rapids CPUs (for Intel Confidential Compute VMs with Intel TDX) on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_D2_v5 by default and if using Intel Confidential Computing VMs with Intel TDX the default will be Intel Sapphire Rapids Standard_DC2es_v5.
 
-As you configure your application's environment, choose the configurations for your infrastructure that matches your application's requirements. In this example, the virtual machine is using a preconfigured network interface, subnet, and resource group and has an additional option to enable boot diagnostics. The tags Name, Owner and Duration are added to the virtual machine when it is created.
+As you configure your application's environment, choose the configurations for your infrastructure that matches your application's requirements.
+
+In this example, the virtual machine is using a preconfigured network interface, subnet, and resource group. The tags Name, Owner and Duration are added to the virtual machine when it is created.
+
+We have now included exmple for provisioning Intel Confidential VMs with TDX- see "azure-linux-tdx-vm" and "azure-rhel-tdxvm" example folders.
 
 ## Usage
 
@@ -68,6 +72,8 @@ Either admin_password or admin_ssh_key must be specified.
 
 The virtual machine is using a preconfigured network interface, subnet, and resource group.
 
+To use the Intel Confidential VMs with TDX see the "azure-linux-tdx-vm" example.
+
 ```
 
 <!-- BEGIN_TF_DOCS -->
@@ -75,13 +81,13 @@ The virtual machine is using a preconfigured network interface, subnet, and reso
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~>3.41.0 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~>3.83 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~>3.41.0 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~>3.83 |
 
 ## Modules
 
@@ -114,6 +120,7 @@ No modules.
 | <a name="input_disable_password_authentication"></a> [disable\_password\_authentication](#input\_disable\_password\_authentication) | Boolean that determines if password authentication will be disabled on this virtual machine | `bool` | `false` | no |
 | <a name="input_disk_size_gb"></a> [disk\_size\_gb](#input\_disk\_size\_gb) | The size of the internal OS disk in GB, if you wish to vary from the size used in the image this virtual machine is sourced from | `string` | `null` | no |
 | <a name="input_enable_boot_diagnostics"></a> [enable\_boot\_diagnostics](#input\_enable\_boot\_diagnostics) | Boolean that determines if the boot diagnostics will be enabled on this virtual machine | `bool` | `true` | no |
+| <a name="input_encryption_at_host_flag"></a> [encryption\_at\_host\_flag](#input\_encryption\_at\_host\_flag) | Enables OS Disk Encryption at Host - recommended for TDX Confidential Compute VM | `bool` | `false` | no |
 | <a name="input_eviction_policy"></a> [eviction\_policy](#input\_eviction\_policy) | Specifies what should happen when the Virtual Machine is evicted for price reasons when using a Spot instance. Possible values are Deallocate and Delete | `string` | `"Deallocate"` | no |
 | <a name="input_identity"></a> [identity](#input\_identity) | n/a | <pre>object({<br>    identity_ids = optional(list(string))<br>    principal_id = optional(string)<br>    tentant_id   = optional(string)<br>    type         = optional(string, "SystemAssigned")<br>  })</pre> | `{}` | no |
 | <a name="input_ip_configuration_name"></a> [ip\_configuration\_name](#input\_ip\_configuration\_name) | A name for the IP with the network interface configuration | `string` | `"internal"` | no |
@@ -121,15 +128,16 @@ No modules.
 | <a name="input_ip_configuration_public_ip_address_id"></a> [ip\_configuration\_public\_ip\_address\_id](#input\_ip\_configuration\_public\_ip\_address\_id) | Reference to a public IP address for the NIC | `string` | `null` | no |
 | <a name="input_max_bid_price"></a> [max\_bid\_price](#input\_max\_bid\_price) | The maximum price you're willing to pay for this virtual machine, in US Dollars; which must be greater than the current spot price. If this bid price falls below the current spot price the virtual machine will be evicted using the eviction\_policy | `string` | `"-1"` | no |
 | <a name="input_os_disk_caching"></a> [os\_disk\_caching](#input\_os\_disk\_caching) | The type of caching which should be used for the internal OS disk. Possible values are 'None', 'ReadOnly' and 'ReadWrite' | `string` | `"ReadWrite"` | no |
-| <a name="input_os_disk_name"></a> [os\_disk\_name](#input\_os\_disk\_name) | The name which should be used for the internal OS disk | `string` | `"disk1"` | no |
+| <a name="input_os_disk_name"></a> [os\_disk\_name](#input\_os\_disk\_name) | The name which should be used for the internal OS disk | `string` | `"os_disk1"` | no |
 | <a name="input_os_disk_storage_account_type"></a> [os\_disk\_storage\_account\_type](#input\_os\_disk\_storage\_account\_type) | The type of storage account which should back this the internal OS disk. Possible values include Standard\_LRS, StandardSSD\_LRS and Premium\_LRS | `string` | `"Premium_LRS"` | no |
 | <a name="input_priority"></a> [priority](#input\_priority) | Specifies the priority of this virtual machine. Possible values are Regular and Spot. Defaults to Regular | `string` | `"Regular"` | no |
-| <a name="input_route_tables_ids"></a> [route\_tables\_ids](#input\_route\_tables\_ids) | A map of subnet name for the route table ids | `map(string)` | `{}` | no |
+| <a name="input_secure_boot_flag"></a> [secure\_boot\_flag](#input\_secure\_boot\_flag) | Enables Secure Boot- recommended TDX Confidential Compute VM | `bool` | `false` | no |
 | <a name="input_source_image_reference_offer"></a> [source\_image\_reference\_offer](#input\_source\_image\_reference\_offer) | Specifies the offer of the image used to create the virtual machine | `string` | `"0001-com-ubuntu-server-jammy"` | no |
 | <a name="input_source_image_reference_publisher"></a> [source\_image\_reference\_publisher](#input\_source\_image\_reference\_publisher) | Specifies the publisher of the image used to create the virtual machine | `string` | `"Canonical"` | no |
 | <a name="input_source_image_reference_sku"></a> [source\_image\_reference\_sku](#input\_source\_image\_reference\_sku) | Specifies the SKU of the image used to create the virtual machine | `string` | `"22_04-lts-gen2"` | no |
 | <a name="input_source_image_reference_version"></a> [source\_image\_reference\_version](#input\_source\_image\_reference\_version) | Specifies the version of the image used to create the virtual machine | `string` | `"latest"` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resource | `map(any)` | `{}` | no |
+| <a name="input_tdx_flag"></a> [tdx\_flag](#input\_tdx\_flag) | Determines whether a VM is TDX Confidential Compute VM | `bool` | `false` | no |
 | <a name="input_virtual_machine_size"></a> [virtual\_machine\_size](#input\_virtual\_machine\_size) | The SKU that will be configured for the provisioned virtual machine | `string` | `"Standard_D2s_v5"` | no |
 | <a name="input_virtual_network_resource_group_name"></a> [virtual\_network\_resource\_group\_name](#input\_virtual\_network\_resource\_group\_name) | Name of the resource group of the virtual network | `string` | n/a | yes |
 | <a name="input_vm_name"></a> [vm\_name](#input\_vm\_name) | The unique name of the Linux virtual machine | `string` | `"vm1"` | no |

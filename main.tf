@@ -33,11 +33,9 @@ resource "azurerm_network_interface" "nic" {
   }
 }
 
-
 ################################################################################
 # Virtual Machine
 ################################################################################
-
 
 resource "azurerm_linux_virtual_machine" "linux_vm" {
   name                            = var.vm_name
@@ -48,19 +46,23 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
   admin_password                  = var.admin_password
   tags                            = var.tags
   network_interface_ids           = [azurerm_network_interface.nic.id]
-  max_bid_price                   = var.priority == "Spot" ? var.max_bid_price : null
   priority                        = var.priority
-  eviction_policy                 = var.priority == "Spot" ? var.eviction_policy : null
   disable_password_authentication = var.disable_password_authentication
   custom_data                     = var.custom_data 
-
-  os_disk {
-    name                      = var.os_disk_name
-    caching                   = var.os_disk_caching
-    storage_account_type      = var.os_disk_storage_account_type
-    disk_size_gb              = var.disk_size_gb
-    write_accelerator_enabled = var.write_accelerator_enabled
-  }
+  #These next three parameters are required or TDX VMs
+  vtpm_enabled                    = var.tdx_flag == true ? true: null
+  encryption_at_host_enabled      = var.encryption_at_host_flag == true ? true: null 
+  secure_boot_enabled             = var.secure_boot_flag == true ? true: null
+ 
+ os_disk {
+  name                      = var.os_disk_name
+  caching                   = var.os_disk_caching
+  storage_account_type      = var.os_disk_storage_account_type
+  disk_size_gb              = var.disk_size_gb
+  write_accelerator_enabled = var.write_accelerator_enabled
+  #This is required for TDX VM
+  security_encryption_type  =  var.tdx_flag == true ? "VMGuestStateOnly": null
+ }
 
   source_image_reference {
     publisher = var.source_image_reference_publisher
@@ -95,4 +97,3 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
     }
   }
 }
-

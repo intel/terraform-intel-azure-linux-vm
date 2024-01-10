@@ -17,7 +17,6 @@ variable "virtual_machine_size" {
   default     = "Standard_D2s_v5"
 }
 
-
 ########################
 ####    Required    ####
 ########################
@@ -53,6 +52,32 @@ variable "azurerm_subnet_name" {
   type        = string
 }
 
+##########################################################
+####     Intel Confidential VM with TDX Variable      ####
+##########################################################
+
+variable "tdx_flag" {
+  description = "Determines whether a VM is TDX Confidential Compute VM"
+  type        = bool
+  default     = false
+}
+
+variable "secure_boot_flag" {
+  description = "Enables Secure Boot- recommended TDX Confidential Compute VM"
+  type        = bool
+  default     = false
+}
+
+variable "encryption_at_host_flag" {
+  description = "Enables OS Disk Encryption at Host - recommended for TDX Confidential Compute VM"
+  type        = bool
+  default     = false
+}
+
+
+
+
+
 ########################
 ####     Other      ####
 ########################
@@ -72,7 +97,7 @@ variable "azurerm_storage_account_name" {
 variable "os_disk_name" {
   description = "The name which should be used for the internal OS disk"
   type        = string
-  default     = "disk1"
+  default     = "os_disk1"
 }
 
 variable "vm_name" {
@@ -147,13 +172,6 @@ variable "admin_ssh_key" {
   type    = list(any)
   default = []
 }
-
-variable "route_tables_ids" {
-  description = "A map of subnet name for the route table ids"
-  type        = map(string)
-  default     = {}
-}
-
 
 variable "tags" {
   description = "A mapping of tags to assign to the resource"

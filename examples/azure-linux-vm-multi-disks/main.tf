@@ -7,9 +7,9 @@
 
 resource "azurerm_managed_disk" "managed_disk" {
   name                 = "managed_disk_name"
-  resource_group_name  = "terraform-testing-rg"
+  resource_group_name  = "DS-TDXTERRAFORM"
   storage_account_type = "Standard_LRS"
-  location             = "eastus"
+  location             = "eastus2"
   create_option        = "Empty"
   disk_size_gb         = 8
   tags = {
@@ -27,15 +27,14 @@ resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
 
 module "azurerm_linux_virtual_machine" {
   source                              = "intel/azure-linux-vm/intel"
-  azurerm_resource_group_name         = "terraform-testing-rg"
-  azurerm_virtual_network_name        = "vnet01"
-  virtual_network_resource_group_name = "terraform-testing-rg"
-  azurerm_subnet_name                 = "default"
+  azurerm_resource_group_name         = "DS-TDXTERRAFORM"
+  azurerm_virtual_network_name        = "dstdxvnet"
+  virtual_network_resource_group_name = "DS-TDXTERRAFORM"
+  azurerm_subnet_name                 = "dstdxsubnet"
   admin_password                      = var.admin_password
 
   tags = {
-    "owner"    = "user@company.com"
+    "owner"    = "dave.shrestha@intel.com"
     "duration" = "1"
   }
 }
-
