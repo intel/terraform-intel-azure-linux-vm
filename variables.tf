@@ -231,3 +231,9 @@ variable "enable_boot_diagnostics" {
   default     = true
 }
 
+variable custom_data{
+    description = "The Base64-Encoded Custom Data which should be used for this Virtual Machine. Changing this forces a new resource to be created."
+    type        =string
+    default     =null
+}
+

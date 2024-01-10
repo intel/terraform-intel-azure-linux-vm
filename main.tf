@@ -48,6 +48,7 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
   network_interface_ids           = [azurerm_network_interface.nic.id]
   priority                        = var.priority
   disable_password_authentication = var.disable_password_authentication
+  custom_data                     = var.custom_data 
   #These next three parameters are required or TDX VMs
   vtpm_enabled                    = var.tdx_flag == true ? true: null
   encryption_at_host_enabled      = var.encryption_at_host_flag == true ? true: null 
