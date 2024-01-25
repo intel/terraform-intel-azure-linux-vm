@@ -46,6 +46,7 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
   admin_password                  = var.admin_password
   tags                            = var.tags
   network_interface_ids           = [azurerm_network_interface.nic.id]
+  #These next two parameters required for spot vm
   priority                        = var.priority
   eviction_policy                 = var.eviction_policy
   disable_password_authentication = var.disable_password_authentication
