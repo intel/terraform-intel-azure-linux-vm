@@ -47,6 +47,7 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
   tags                            = var.tags
   network_interface_ids           = [azurerm_network_interface.nic.id]
   priority                        = var.priority
+  eviction_policy                 = var.eviction_policy
   disable_password_authentication = var.disable_password_authentication
   custom_data                     = var.custom_data 
   #These next three parameters are required or TDX VMs
