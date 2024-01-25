@@ -7,7 +7,7 @@
 module "azurerm_linux_virtual_machine" {
   source                              = "intel/azure-linux-vm/intel"
   azurerm_resource_group_name         = "terraform-testing-rg"
-  azurerm_virtual_network_name        = "vnet1"
+  azurerm_virtual_network_name        = "vm-vnet1"
   virtual_network_resource_group_name = "terraform-testing-rg"
   azurerm_subnet_name                 = "default"
   admin_password                      = var.admin_password
@@ -15,7 +15,6 @@ module "azurerm_linux_virtual_machine" {
   source_image_reference_sku          = "8-LVM-gen2"
   source_image_reference_publisher    = "RedHat"
   source_image_reference_version      = "latest"
- 
   priority                            = "Spot"
   max_bid_price                       = 0.0874
   eviction_policy                     = "Deallocate"
