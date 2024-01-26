@@ -79,7 +79,7 @@ resource "azurerm_key_vault_key" "generated" {
 module "azurerm_linux_virtual_machine" {
   source                              = "intel/azure-linux-vm/intel"
   azurerm_resource_group_name         = "terraform-testing-rg"
-  azurerm_virtual_network_name        = "vnet1"
+  azurerm_virtual_network_name        = "vm-vnet1"
   virtual_network_resource_group_name = "terraform-testing-rg"
   azurerm_subnet_name                 = "default"
   virtual_machine_size                = "Standard_DC2es_v5"
