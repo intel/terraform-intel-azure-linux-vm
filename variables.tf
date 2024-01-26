@@ -211,7 +211,7 @@ variable "priority" {
 variable "eviction_policy" {
   description = "Specifies what should happen when the Virtual Machine is evicted for price reasons when using a Spot instance. Possible values are Deallocate and Delete"
   type        = string
-  default     = "Deallocate"
+  default     = null
 }
 
 variable "max_bid_price" {
