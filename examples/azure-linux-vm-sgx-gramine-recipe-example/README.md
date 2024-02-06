@@ -3,9 +3,9 @@
    <img src="https://github.com/intel/terraform-intel-azure-linux-vm/blob/main/images/logo-classicblue-800px.png?raw=true" alt="Intel Logo" width="250"/>
 </p>
 
-# Intel® Cloud Optimization Modules for Terraform
+# Intel® Optimized Cloud Modules for Terraform
 
-© Copyright 2022, Intel Corporation
+© Copyright 2024, Intel Corporation
 
 ## Terraform Intel Azure VM - DC_Sv3 Instance with 3rd Generation Intel® Xeon® Scalable Processor (Ice Lake) & Intel® Cloud Optimized Recipe for SGX & Gramine 
 

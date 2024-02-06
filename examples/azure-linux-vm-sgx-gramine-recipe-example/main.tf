@@ -27,7 +27,7 @@ module "azurerm_linux_virtual_machine" {
   azurerm_resource_group_name         = "terraform-testing-rg"
   azurerm_virtual_network_name        = "vm-vnet1"
   virtual_network_resource_group_name = "terraform-testing-rg"
-  azurerm_subnet_name                 = "subnet1"
+  azurerm_subnet_name                 = "default"
   admin_password                      = var.admin_password
 
   #SGX-Capable Host
@@ -44,7 +44,7 @@ module "azurerm_linux_virtual_machine" {
   source_image_reference_version        = "latest"
 
   tags = {
-    "owner"    = "shreejan.mistry@intel.com"
+    "owner"    = "user@company.com"
     "duration" = "1"
   }
 }
