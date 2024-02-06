@@ -81,13 +81,13 @@ To use the Intel Confidential VMs with TDX see the "azure-linux-tdx-vm" example.
 
 | Name | Version |
 |------|---------|
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~>3.83 |
+| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~>3.86 |
 
 ## Providers
 
 | Name | Version |
 |------|---------|
-| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~>3.83 |
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | ~>3.86 |
 
 ## Modules
 
