@@ -66,12 +66,17 @@ resource "azurerm_linux_virtual_machine" "linux_vm" {
   security_encryption_type  =  var.tdx_flag == true ? "VMGuestStateOnly": null
  }
 
-  source_image_reference {
-    publisher = var.source_image_reference_publisher
-    offer     = var.source_image_reference_offer
-    sku       = var.source_image_reference_sku
-    version   = var.source_image_reference_version
+  dynamic "source_image_reference" {
+    for_each = var.source_image_reference != null ? [1] : []
+    content {
+      offer     = lookup(var.source_image_reference, "offer", null)
+      sku       = lookup(var.source_image_reference, "sku", null)
+      publisher = lookup(var.source_image_reference, "publisher", null)
+      version   = lookup(var.source_image_reference, "version", null)
+    }
   }
+
+  source_image_id = var.source_image_id != null ? var.source_image_id : null
 
   dynamic "boot_diagnostics" {
     for_each = var.enable_boot_diagnostics ? [1] : []
