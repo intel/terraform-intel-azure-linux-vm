@@ -13,7 +13,7 @@ As you configure your application's environment, choose the configurations for y
 
 In this example, the virtual machine is using a preconfigured network interface, subnet, and resource group. The tags Name, Owner and Duration are added to the virtual machine when it is created.
 
-We have now included exmple for provisioning Intel Confidential VMs with TDX- see "azure-linux-tdx-vm" and "azure-rhel-tdxvm" example folders.
+We have now included example for provisioning Intel Confidential VMs with TDX- see "azure-linux-tdx-vm" and "azure-rhel-tdxvm" example folders.
 
 ## Usage
 
@@ -40,13 +40,27 @@ variable "admin_password" {
 main.tf
 ```hcl
 
-module "azure-vm" {
-  source                = "intel/azure-linux-vm/intel"
-  azurerm_resource_group_name         = "example_resource_group"
-  virtual_network_resource_group_name = "vnet_example_resource_group"
-  azurerm_virtual_network_name        = "example_virtual_network_name"
-  azurerm_network_interface_name      = "example_network_interface"
+
+module "azurerm_linux_virtual_machine" {
+  source                              = "intel/azure-linux-vm/intel"
+  azurerm_resource_group_name         = "terraform-testing-rg"
+  azurerm_virtual_network_name        = "vm-vnet1"
+  virtual_network_resource_group_name = "terraform-testing-rg"
+  vm_name                             = "redhat8-vm01"
+  os_disk_name                        = "value"
+  azurerm_network_interface_name      = "redhat8-nic01"
+  azurerm_subnet_name                 = "default"
   admin_password                      = var.admin_password
+  source_image_reference = {
+    "offer"     = "RHEL"
+    "sku"       = "8-LVM-gen2"
+    "publisher" = "RedHat"
+    "version"   = "latest"
+  }
+  tags = {
+    "owner"    = "user@company.com"
+    "duration" = "1"
+  }
 }
 
 ```
