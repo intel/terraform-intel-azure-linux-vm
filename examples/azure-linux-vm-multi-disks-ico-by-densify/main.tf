@@ -6,7 +6,7 @@
 
 # Initialize Densify Module that will parse the densify_recommendations.auto.tfvars recommendation file
 module "densify" {
-  source  = "densify-dev/optimization-as-code/null"
+  source                  = "densify-dev/optimization-as-code/null"
   densify_recommendations = var.densify_recommendations
   densify_fallback        = var.densify_fallback
   densify_unique_id       = var.name
@@ -33,6 +33,7 @@ resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
 }
 
 module "azurerm_linux_virtual_machine" {
+  #source                              = "../.."
   source                              = "intel/azure-linux-vm/intel"
   azurerm_resource_group_name         = "terraform-testing-rg"
   azurerm_virtual_network_name        = "vm-vnet1"
@@ -45,16 +46,21 @@ module "azurerm_linux_virtual_machine" {
 
   # ICO by Densify new self-optimizing instance type from Densify
   virtual_machine_size = module.densify.instance_type
-      
+  source_image_reference = {
+    "offer"     = "0001-com-ubuntu-server-jammy"
+    "sku"       = "22_04-lts-gen2"
+    "publisher" = "Canonical"
+    "version"   = "latest"
+  }
   tags = {
     "owner"    = "user@company.com"
     "duration" = "1"
     # ICO by Densify tag instance to make it Self-Aware these tags are optional and can set as few or as many as you like.
-    Name = var.name
-    Current-instance-type = module.densify.current_type
-    Densify-optimal-instance-type = module.densify.recommended_type
+    Name                              = var.name
+    Current-instance-type             = module.densify.current_type
+    Densify-optimal-instance-type     = module.densify.recommended_type
     Densify-potential-monthly-savings = module.densify.savings_estimate
-    Densify-predicted-uptime = module.densify.predicted_uptime
+    Densify-predicted-uptime          = module.densify.predicted_uptime
     #Should match the densify_unique_id value as this is how Densify references the system as unique
     Densify-Unique-ID = var.name
   }

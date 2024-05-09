@@ -82,6 +82,12 @@ variable "densify_fallback"{
 
 main.tf
 ```hcl
+# Example of how to pass variable for database password:
+# terraform apply -var="db_password=..."
+# Environment variables can also be used https://www.terraform.io/language/values/variables#environment-variables
+# Resource azurerm_managed_disk requires a preconfigured resource group in Azure
+# Resource azurerm_linux_virtual_machine requires a preconfigured resource group, virtual network, and subnet in Azure
+
 # Initialize Densify Module that will parse the densify_recommendations.auto.tfvars recommendation file
 module "densify" {
   source  = "densify-dev/optimization-as-code/null"
@@ -111,19 +117,25 @@ resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
 }
 
 module "azurerm_linux_virtual_machine" {
-  source                              = "intel/azure-linux-vm/intel"
+  source                              = "../.."
+  #source                              = "intel/azure-linux-vm/intel"
   azurerm_resource_group_name         = "terraform-testing-rg"
-  azurerm_virtual_network_name        = "vnet01"
+  azurerm_virtual_network_name        = "vm-vnet1"
   virtual_network_resource_group_name = "terraform-testing-rg"
   azurerm_subnet_name                 = "default"
   admin_password                      = var.admin_password
 
   # ICO by Densify normal way of sizing an instance by hardcoding the size.
-  virtual_machine_size = "Standard_D4ds_v4"
+  #virtual_machine_size = "Standard_D4ds_v4"
 
   # ICO by Densify new self-optimizing instance type from Densify
   virtual_machine_size = module.densify.instance_type
-      
+  source_image_reference = {
+    "offer"     = "0001-com-ubuntu-server-jammy"
+    "sku"       = "22_04-lts-gen2"
+    "publisher" = "Canonical"
+    "version"   = "latest"
+  }
   tags = {
     "owner"    = "user@company.com"
     "duration" = "1"
@@ -137,6 +149,7 @@ module "azurerm_linux_virtual_machine" {
     Densify-Unique-ID = var.name
   }
 }
+
 
 ```
 

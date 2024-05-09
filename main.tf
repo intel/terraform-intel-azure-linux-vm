@@ -38,40 +38,45 @@ resource "azurerm_network_interface" "nic" {
 ################################################################################
 
 resource "azurerm_linux_virtual_machine" "linux_vm" {
-  name                            = var.vm_name
-  resource_group_name             = var.azurerm_resource_group_name
-  location                        = data.azurerm_resource_group.rg.location
-  size                            = var.virtual_machine_size
-  admin_username                  = var.admin_username
-  admin_password                  = var.admin_password
-  tags                            = var.tags
-  network_interface_ids           = [azurerm_network_interface.nic.id]
+  name                  = var.vm_name
+  resource_group_name   = var.azurerm_resource_group_name
+  location              = data.azurerm_resource_group.rg.location
+  size                  = var.virtual_machine_size
+  admin_username        = var.admin_username
+  admin_password        = var.admin_password
+  tags                  = var.tags
+  network_interface_ids = [azurerm_network_interface.nic.id]
   #These next two parameters required for spot vm
   priority                        = var.priority
   eviction_policy                 = var.eviction_policy
   disable_password_authentication = var.disable_password_authentication
-  custom_data                     = var.custom_data 
+  custom_data                     = var.custom_data
   #These next three parameters are required or TDX VMs
-  vtpm_enabled                    = var.tdx_flag == true ? true: null
-  encryption_at_host_enabled      = var.encryption_at_host_flag == true ? true: null 
-  secure_boot_enabled             = var.secure_boot_flag == true ? true: null
- 
- os_disk {
-  name                      = var.os_disk_name
-  caching                   = var.os_disk_caching
-  storage_account_type      = var.os_disk_storage_account_type
-  disk_size_gb              = var.disk_size_gb
-  write_accelerator_enabled = var.write_accelerator_enabled
-  #This is required for TDX VM
-  security_encryption_type  =  var.tdx_flag == true ? "VMGuestStateOnly": null
- }
+  vtpm_enabled               = var.tdx_flag == true ? true : null
+  encryption_at_host_enabled = var.encryption_at_host_flag == true ? true : null
+  secure_boot_enabled        = var.secure_boot_flag == true ? true : null
 
-  source_image_reference {
-    publisher = var.source_image_reference_publisher
-    offer     = var.source_image_reference_offer
-    sku       = var.source_image_reference_sku
-    version   = var.source_image_reference_version
+  os_disk {
+    name                      = var.os_disk_name
+    caching                   = var.os_disk_caching
+    storage_account_type      = var.os_disk_storage_account_type
+    disk_size_gb              = var.disk_size_gb
+    write_accelerator_enabled = var.write_accelerator_enabled
+    #This is required for TDX VM
+    security_encryption_type = var.tdx_flag == true ? "VMGuestStateOnly" : null
   }
+
+  dynamic "source_image_reference" {
+    for_each = var.source_image_reference != null ? [1] : []
+    content {
+      offer     = lookup(var.source_image_reference, "offer", null)
+      sku       = lookup(var.source_image_reference, "sku", null)
+      publisher = lookup(var.source_image_reference, "publisher", null)
+      version   = lookup(var.source_image_reference, "version", null)
+    }
+  }
+
+  source_image_id = var.source_image_id != null ? var.source_image_id : null
 
   dynamic "boot_diagnostics" {
     for_each = var.enable_boot_diagnostics ? [1] : []

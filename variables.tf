@@ -74,10 +74,6 @@ variable "encryption_at_host_flag" {
   default     = false
 }
 
-
-
-
-
 ########################
 ####     Other      ####
 ########################
@@ -118,29 +114,40 @@ variable "os_disk_storage_account_type" {
   default     = "Premium_LRS"
 }
 
-variable "source_image_reference_offer" {
-  description = " Specifies the offer of the image used to create the virtual machine"
+variable "source_image_id" {
+  description = "Used for Custom Compute Gallery Images. The ID of the image used to create the virtual machine"
   type        = string
-  default     = "0001-com-ubuntu-server-jammy"
+  default     = null
 }
 
-variable "source_image_reference_sku" {
-  description = "Specifies the SKU of the image used to create the virtual machine"
-  type        = string
-  default     = "22_04-lts-gen2"
+variable "source_image_reference" {
+  type    = map(any)
+  default = null
 }
 
-variable "source_image_reference_publisher" {
-  description = "Specifies the publisher of the image used to create the virtual machine"
-  type        = string
-  default     = "Canonical"
-}
+# variable "source_image_reference_offer" {
+#   description = " Specifies the offer of the image used to create the virtual machine"
+#   type        = string
+#   default     = "0001-com-ubuntu-server-jammy"
+# }
 
-variable "source_image_reference_version" {
-  description = "Specifies the version of the image used to create the virtual machine"
-  type        = string
-  default     = "latest"
-}
+# variable "source_image_reference_sku" {
+#   description = "Specifies the SKU of the image used to create the virtual machine"
+#   type        = string
+#   default     = "22_04-lts-gen2"
+# }
+
+# variable "source_image_reference_publisher" {
+#   description = "Specifies the publisher of the image used to create the virtual machine"
+#   type        = string
+#   default     = "Canonical"
+# }
+
+# variable "source_image_reference_version" {
+#   description = "Specifies the version of the image used to create the virtual machine"
+#   type        = string
+#   default     = "latest"
+# }
 
 variable "ip_configuration_name" {
   description = "A name for the IP with the network interface configuration"
@@ -231,9 +238,9 @@ variable "enable_boot_diagnostics" {
   default     = true
 }
 
-variable custom_data{
-    description = "The Base64-Encoded Custom Data which should be used for this Virtual Machine. Changing this forces a new resource to be created."
-    type        =string
-    default     =null
+variable "custom_data" {
+  description = "The Base64-Encoded Custom Data which should be used for this Virtual Machine. Changing this forces a new resource to be created."
+  type        = string
+  default     = null
 }
 
