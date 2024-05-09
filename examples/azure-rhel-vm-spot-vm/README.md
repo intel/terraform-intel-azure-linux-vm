@@ -47,12 +47,21 @@ variable "admin_password" {
 main.tf
 ```hcl
 module "azurerm_linux_virtual_machine" {
-  source                              = "intel/azure-linux-vm/intel"
+  source                              = "../.."
   azurerm_resource_group_name         = "terraform-testing-rg"
-  azurerm_virtual_network_name        = "vnet1"
+  azurerm_virtual_network_name        = "vm-vnet1"
   virtual_network_resource_group_name = "terraform-testing-rg"
+  vm_name = "redhat8-vm01"
+  os_disk_name = "value"
+  azurerm_network_interface_name      = "redhat8-nic01"
   azurerm_subnet_name                 = "default"
   admin_password                      = var.admin_password
+  source_image_reference = {
+    "offer"     = "RHEL"
+    "sku"       = "8-LVM-gen2"
+    "publisher" = "RedHat"
+    "version"   = "latest"
+  }
   priority                            = "Spot"
   max_bid_price                       = 0.0874
   eviction_policy                     = "Deallocate"

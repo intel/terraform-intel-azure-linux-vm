@@ -7,7 +7,7 @@
 
 © Copyright 2024, Intel Corporation
 
-## Terraform Intel Azure VM - Linux VM Creating Spot Virtual Machine
+## Terraform Intel Azure VM - Linux VM with Custom Compute Gallery Image
 
 This example creates a Spot Azure Virtual Machine on Intel Icelake CPU on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_D2_v5 by default.
 
@@ -19,7 +19,6 @@ In this example, the virtual machine is using a preconfigured network interface,
 
 ## Usage
 
-See examples folder for code ./examples/azure-linux-vm-spot-vm/main.tf
 
 Example of main.tf
 
@@ -46,22 +45,33 @@ variable "admin_password" {
 
 main.tf
 ```hcl
+# Example of how to pass variable for database password:
+# terraform apply -var="db_password=..."
+# Environment variables can also be used https://www.terraform.io/language/values/variables#environment-variables
+# Resource azurerm_linux_virtual_machine requires a preconfigured resource group, virtual network, and subnet in Azure
+
+#Use an Azure Compute Gallery Custom Image
+data "azurerm_shared_image" "vmi" {
+  name                = "vmi-intel-optimized-aitools-redhat9-azure-spr"
+  gallery_name = "intel_marketplace_compute_galery_eastus"
+  resource_group_name = "intel-marketplace-rg"
+}
+
+
 module "azurerm_linux_virtual_machine" {
-  source                              = "intel/azure-linux-vm/intel"
+  source                              = "../.."
   azurerm_resource_group_name         = "terraform-testing-rg"
-  azurerm_virtual_network_name        = "vnet1"
+  azurerm_virtual_network_name        = "vm-vnet1"
   virtual_network_resource_group_name = "terraform-testing-rg"
   azurerm_subnet_name                 = "default"
   admin_password                      = var.admin_password
-  priority                            = "Spot"
-  max_bid_price                       = 0.0874
-  eviction_policy                     = "Deallocate"
+  #Use an Azure Compute Gallery Custom Image
+  source_image_id = data.azurerm_shared_image.vmi.id 
   tags = {
     "owner"    = "user@company.com"
     "duration" = "1"
   }
 }
-
 ```
 
 Run Terraform

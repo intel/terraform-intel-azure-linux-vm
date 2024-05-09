@@ -6,20 +6,21 @@
 #Use an Azure Compute Gallery Custom Image
 data "azurerm_shared_image" "vmi" {
   name                = "vmi-intel-optimized-aitools-redhat9-azure-spr"
-  gallery_name = "intel_marketplace_compute_galery_eastus"
+  gallery_name        = "intel_marketplace_compute_galery_eastus"
   resource_group_name = "intel-marketplace-rg"
 }
 
 
 module "azurerm_linux_virtual_machine" {
-  source                              = "../.."
+  #source                              = "../.."
+  source                              = "intel/azure-linux-vm/intel"
   azurerm_resource_group_name         = "terraform-testing-rg"
   azurerm_virtual_network_name        = "vm-vnet1"
   virtual_network_resource_group_name = "terraform-testing-rg"
   azurerm_subnet_name                 = "default"
   admin_password                      = var.admin_password
   #Use an Azure Compute Gallery Custom Image
-  source_image_id = data.azurerm_shared_image.vmi.id 
+  source_image_id = data.azurerm_shared_image.vmi.id
   tags = {
     "owner"    = "user@company.com"
     "duration" = "1"

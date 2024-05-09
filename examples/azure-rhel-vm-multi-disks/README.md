@@ -34,11 +34,18 @@ variable "admin_password" {
 
 main.tf
 ```hcl
+# Example of how to pass variable for database password:
+# terraform apply -var="db_password=..."
+# Environment variables can also be used https://www.terraform.io/language/values/variables#environment-variables
+# Resource azurerm_managed_disk requires a preconfigured resource group in Azure
+# Resource azurerm_linux_virtual_machine requires a preconfigured resource group, virtual network, and subnet in Azure
+
+
 resource "azurerm_managed_disk" "managed_disk" {
   name                 = "managed_disk_name"
   resource_group_name  = "terraform-testing-rg"
   storage_account_type = "Standard_LRS"
-  location = "eastus"
+  location             = "eastus"
   create_option        = "Empty"
   disk_size_gb         = 8
   tags = {
@@ -55,18 +62,25 @@ resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
 }
 
 module "azurerm_linux_virtual_machine" {
-  source                         = "intel/azure-linux-vm/intel"
-  azurerm_resource_group_name    = "terraform-testing-rg"
-  azurerm_virtual_network_name   = "vnet01"
+  source                              = "../.."
+  #source                              = "intel/azure-linux-vm/intel"
+  azurerm_resource_group_name         = "terraform-testing-rg"
+  azurerm_virtual_network_name        = "vm-vnet1"
   virtual_network_resource_group_name = "terraform-testing-rg"
-  azurerm_subnet_name            = "default"
-  admin_password                 = var.admin_password
-
+  azurerm_subnet_name                 = "default"
+  admin_password                      = var.admin_password
+  source_image_reference = {
+    "offer"     = "RHEL"
+    "sku"       = "8-LVM-gen2"
+    "publisher" = "RedHat"
+    "version"   = "latest"
+  }
   tags = {
     "owner"    = "user@company.com"
     "duration" = "1"
   }
 }
+
 
 ```
 

@@ -26,13 +26,19 @@ resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
 }
 
 module "azurerm_linux_virtual_machine" {
+  #source                              = "../.."
   source                              = "intel/azure-linux-vm/intel"
   azurerm_resource_group_name         = "DS-TDXTERRAFORM"
   azurerm_virtual_network_name        = "dstdxvnet"
   virtual_network_resource_group_name = "DS-TDXTERRAFORM"
   azurerm_subnet_name                 = "dstdxsubnet"
   admin_password                      = var.admin_password
-
+  source_image_reference = {
+    "offer"     = "0001-com-ubuntu-server-jammy"
+    "sku"       = "22_04-lts-gen2"
+    "publisher" = "Canonical"
+    "version"   = "latest"
+  }
   tags = {
     "owner"    = "user@company.com"
     "duration" = "1"

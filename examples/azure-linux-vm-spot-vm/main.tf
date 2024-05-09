@@ -5,6 +5,7 @@
 
 
 module "azurerm_linux_virtual_machine" {
+  #source                              = "../.."
   source                              = "intel/azure-linux-vm/intel"
   azurerm_resource_group_name         = "terraform-testing-rg"
   azurerm_virtual_network_name        = "vm-vnet1"
@@ -14,6 +15,12 @@ module "azurerm_linux_virtual_machine" {
   priority                            = "Spot"
   max_bid_price                       = 0.0874
   eviction_policy                     = "Deallocate"
+  source_image_reference = {
+    "offer"     = "0001-com-ubuntu-server-jammy"
+    "sku"       = "22_04-lts-gen2"
+    "publisher" = "Canonical"
+    "version"   = "latest"
+  }
   tags = {
     "owner"    = "user@company.com"
     "duration" = "1"

@@ -85,10 +85,12 @@ module "azurerm_linux_virtual_machine" {
   #Calling the SGX-Gramine Recipe avaliable here : https://github.com/intel/optimized-cloud-recipes/tree/main/recipes/ai-pytorch-sgx-ubuntu
   custom_data                            = data.cloudinit_config.ansible.rendered
 
-  source_image_reference_offer          = "0001-com-ubuntu-server-focal"
-  source_image_reference_publisher      = "Canonical"
-  source_image_reference_sku            = "20_04-lts-gen2"
-  source_image_reference_version        = "latest"
+  source_image_reference = {
+    "offer"     = "0001-com-ubuntu-server-focal"
+    "sku"       = "20_04-lts-gen2"
+    "publisher" = "Canonical"
+    "version"   = "latest"
+  } 
 
   tags = {
     "owner"    = "example@company.com"
