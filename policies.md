@@ -2,35 +2,23 @@
   <img src="./images/logo-classicblue-800px.png" alt="Intel Logo" width="250"/>
 </p>
 
-# Intel® Cloud Optimization Modules for Terraform  
+# Intel® Optimized Cloud Modules for Terraform  
 
-© Copyright 2022, Intel Corporation
+© Copyright 2024, Intel Corporation
 
 ## HashiCorp Sentinel Policies
 
-This file documents the HashiCorp Sentinel policies that apply to this module
+<b>What are Sentinel Policies?</b></font>
 
-## Policy 1
+HashiCorp Sentinel is a policy as code framework that can be used to enforce policies and standards across an organization's infrastructure. It allows organizations to define rules for their infrastructure using a high-level language, and integrates with a variety of HashiCorp tools, including Terraform and Vault. Sentinel policies are defined using the Sentinel language, and can be used to enforce rules such as compliance requirements, security best practices, and cost optimization. Sentinel policies can be implemented at different stages of the infrastructure development lifecycle, deployment, and runtime.
 
-Description: The configured "virtual_machine_size" should be an Intel Xeon 3rd Generation(code-named Ice Lake) Scalable processors
+## Intel's Sentinel Policy Structure
 
-Resource type: azurerm_linux_virtual_machine
+Reference the [intel-policy-library](https://github.com/intel/intel-policy-library) for details on how to get started using our policies.
 
-Parameter: virtual_machine_size
+Intel® provides a list of <font color=red>optimal</font> instance types per cloud resource, selected to deliver the best possible performance, security, and cost-efficiency for your cloud workloads. What sets this library apart is its dynamic nature; it is designed to automatically update, informing developers whenever more suitable hardware becomes available within their cloud environment, enabling them to make timely and informed decisions.
 
-Allowed Types
-
-- **Storage Optimized:** Standard_L8s_v3, Standard_L16s_v3, Standard_L32s_v3, Standard_L48s_v3, Standard_L64s_v3, Standard_L80s_v3, 
-- **General Purpose:**  Standard_D2_v5, Standard_D4_v5, Standard_D8_v5, Standard_D16_v5, Standard_D32_v5, Standard_D48_v5, Standard_D64_v5, Standard_D96_v5, 
-Standard_D2d_v5, Standard_D4d_v5, Standard_D8d_v5, Standard_D16d_v5, Standard_D32d_v5, Standard_D48d_v5, Standard_D64d_v5, Standard_D96d_v5, 
-Standard_D2ds_v5, Standard_D4ds_v5, Standard_D8ds_v5, Standard_D16ds_v5, Standard_D32ds_v5, Standard_D48ds_v5, Standard_D64ds_v5, Standard_D96ds_v5, 
-Standard_DC1s_v3, Standard_DC2s_v3, Standard_DC4s_v3, Standard_DC8s_v3, Standard_DC16s_v3, Standard_DC24s_v3, Standard_DC32s_v3, Standard_DC48s_v3, Standard_DC1ds_v3, Standard_DC2ds_v3, Standard_DC4ds_v3, Standard_DC8ds_v3, Standard_DC16ds_v3, Standard_DC24ds_v3, Standard_DC32ds_v3, Standard_DC48ds_v3
-- **Memory Optimized:** Standard_E2_v5, Standard_E4_v5, Standard_E8_v5, Standard_E16_v5, Standard_E20_v5, Standard_E32_v5, Standard_E48_v5, Standard_E64_v5, Standard_E96_v5, Standard_E104i_v5, Standard_E2bs_v5, Standard_E4bs_v5, Standard_E8bs_v5, Standard_E16bs_v5, Standard_E32bs_v5, Standard_E48bs_v5, Standard_E64bs_v5, Standard_E2bds_v5, Standard_E4bds_v5, Standard_E8bds_v5, Standard_E16bds_v5, Standard_E32bds_v5, Standard_E48bds_v5, Standard_E64bds_v5
-- **Intel Confidential VMs with TDX:** 
-Standard_DC2es_v5, Standard_DC4es_v5, Standard_DC8es_v5, Standard_DC16es_v5, Standard_DC32es_v5, Standard_DC48es_v5, Standard_DC64es_v5, Standard_DC96es_v5,
-Standard_DC2eds_v5, Standard_DC4eds_v5, Standard_DC8eds_v5, Standard_DC16eds_v5, Standard_DC32eds_v5, Standard_DC48eds_v5, Standard_DC64eds_v5, Standard_DC96eds_v5,
-Standard_EC2es_v5, Standard_EC4es_v5, Standard_EC8es_v5, Standard_EC16es_v5, Standard_EC32es_v5, Standard_EC48es_v5, Standard_EC64es_v5, Standard_EC128es_v5,
-Standard_EC2eds_v5, Standard_EC4eds_v5, Standard_EC8eds_v5, Standard_EC16eds_v5, Standard_EC32eds_v5, Standard_EC48eds_v5, Standard_EC64eds, Standard_EC128eds_v5
+This library also contains <font color=red>recommended</font> instance types for AI and Confidential Computing workloads. For more information regarding Intel's AI and Confidential Computing capabilities and policies see the Intel® Xeon® Scalable Processors and Intel® Advanced Matrix Extensions (AMX) and Intel® Xeon® Scalable Processors and Confidential Computing sections in the [intel-policy-library](https://github.com/intel/intel-policy-library)
 
 ## Links
-https://azure.microsoft.com/en-us/products/virtual-machines/linux/
+https://github.com/intel/intel-policy-library
