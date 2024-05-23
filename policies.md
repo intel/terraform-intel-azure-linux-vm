@@ -21,4 +21,4 @@ Intel® provides a list of <font color=red>optimal</font> instance types per clo
 This library also contains <font color=red>recommended</font> instance types for AI and Confidential Computing workloads. For more information regarding Intel's AI and Confidential Computing capabilities and policies see the Intel® Xeon® Scalable Processors and Intel® Advanced Matrix Extensions (AMX) and Intel® Xeon® Scalable Processors and Confidential Computing sections in the [intel-policy-library](https://github.com/intel/intel-policy-library)
 
 ## Links
-https://azure.microsoft.com/en-us/products/virtual-machines/linux/
+https://github.com/intel/intel-policy-library
