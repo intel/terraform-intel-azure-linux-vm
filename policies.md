@@ -14,11 +14,12 @@ HashiCorp Sentinel is a policy as code framework that can be used to enforce pol
 
 ## Intel's Sentinel Policy Structure
 
-Reference the `intel-policy-library` [README.md](https://github.com/OTCShare2/intel-policy-library/blob/main/README.md#getting-started) for details on how to get started using our policies.
+Reference the `intel-policy-library` [README.md](https://github.com/intel/intel-policy-library/blob/main/README.md#getting-started) for details on how to get started using our policies.
 
 Intel® provides a list of `optimal` instance types per cloud resource, selected to deliver the best possible performance, security, and cost-efficiency for your cloud workloads. What sets this library apart is its dynamic nature; it is designed to automatically update, informing developers whenever more suitable hardware becomes available within their cloud environment, enabling them to make timely and informed decisions.
 
 This library also contains `recommended` instance types for AI and Confidential Computing workloads. For more information regarding Intel's AI and Confidential Computing capabilities and policies see the Intel® Xeon® Scalable Processors and Intel® Advanced Matrix Extensions (AMX) and Intel® Xeon® Scalable Processors and Confidential Computing sections in the [intel-policy-library](https://github.com/intel/intel-policy-library)
 
+
 ## Links
-https://azure.microsoft.com/en-us/products/virtual-machines/linux/
+https://github.com/intel/intel-policy-library
