@@ -72,13 +72,13 @@ tfenv use 1.3.0
 Download and run the [OPEA ChatQnA on Xeon](https://github.com/intel/terraform-intel-Azure-vm/tree/main/examples/gen-ai-xeon-opea-chatqna) Terraform Module by typing this command
 
 ```Shell
-git clone https://github.com/intel/terraform-intel-Azure-vm.git
+git clone https://github.com/intel/terraform-intel-azure-linux-vm.git
 ```
 
-Change into the `examples/gen-ai-xeon-opea-chatqna` example folder
+Change into the `examples/azure-gen-ai-xeon-opea-chatqna` example folder
 
 ```Shell
-cd terraform-intel-Azure-vm/examples/gen-ai-xeon-opea-chatqna
+cd terraform-intel-azure-linux-vm/examples/azure-gen-ai-xeon-opea-chatqna
 ```
 
 Run the Terraform Commands below to deploy the demos.
