@@ -32,11 +32,10 @@ module "azurerm_linux_virtual_machine" {
   admin_password                      = var.admin_password
 
   #SGX-Capable Host
-  vm_name                               = "sgx-demo-recipe-test"
-  virtual_machine_size                  = "Standard_DC8s_v3"
-  ip_configuration_public_ip_address_id = "/subscriptions/d4ab7583-eee6-45fe-9487-a7a0b59a389a/resourceGroups/terraform-testing-rg/providers/Microsoft.Network/publicIPAddresses/terraform-testing-public-ip"
+  vm_name              = "intel-sgx-vm"
+  virtual_machine_size = "Standard_DC8s_v3"
 
-  #Calling the SGX-Ansible Recipe avaliable here : //TODO ADD github link
+  #Calling the SGX-Ansible Recipe avaliable here : https://github.com/intel/optimized-cloud-recipes/tree/main/recipes/ai-pytorch-sgx-ubuntu
   custom_data = data.cloudinit_config.ansible.rendered
   source_image_reference = {
     "offer"     = "0001-com-ubuntu-server-focal"
