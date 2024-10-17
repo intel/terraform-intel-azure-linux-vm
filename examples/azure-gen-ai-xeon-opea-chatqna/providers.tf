@@ -1,6 +1,4 @@
 provider "azurerm" {
-    # Environment Variables used for Authentication
-  region = var.region
   #Configuration options
   features {
     virtual_machine {
