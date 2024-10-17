@@ -6,9 +6,9 @@
 
 © Copyright 2024, Intel Corporation
 
-## Azure M7i EC2 Instance with 4th Generation Intel® Xeon® Scalable Processor (Sapphire Rapids) & Open Platform for Enterprise AI (OPEA) ChatQnA Example
+## Azure Standard_D32s_v5 Instance with 3rd Generation Intel® Xeon® Scalable Processor (Ice Lake) & Open Platform for Enterprise AI (OPEA) ChatQnA Example
 
-This demo will showcase Retrieval Augmented Generation (RAG) CPU inference using 4th Gen Xeon Scalable Processors on Azure using the OPEA ChatQnA Example. For more information about OPEA, go [here](https://opea.dev/). For more information on this specific example, go [here](https://github.com/opea-project/GenAIExamples/tree/main/ChatQnA).
+This demo will showcase Retrieval Augmented Generation (RAG) CPU inference using 3rd Generation Intel® Xeon® Scalable Processor on Azure using the OPEA ChatQnA Example. For more information about OPEA, go [here](https://opea.dev/). For more information on this specific example, go [here](https://github.com/opea-project/GenAIExamples/tree/main/ChatQnA).
 
 ## Usage
 
@@ -18,9 +18,9 @@ Modify the region to target a specific Azure Region
 
 ```hcl
 variable "region" {
-  description = "Target Azure region to deploy EC2 in."
+  description = "Target Azure region to deploy VM in."
   type        = string
-  default     = "East US"
+  default     = "eastus"
 }
 ```
 
@@ -36,12 +36,16 @@ variable "huggingface_token" {
 
 ### main.tf
 
-Modify settings in this file to choose your AMI as well as instance size and other details around the instance that will be created
+Modify settings in this file to choose your source image as well as instance size and other details around the instance that will be created
 
 ```hcl
-## Get latest Ubuntu 22.04 in Azure for x86
-00000
-00000
+  virtual_machine_size                = "Standard_D32s_v5"
+  source_image_reference = {
+    "offer"     = "RHEL"
+    "sku"       = "8-LVM-gen2"
+    "publisher" = "RedHat"
+    "version"   = "latest"
+  }
 ```
 
 Run the Terraform Commands below to deploy the demos.

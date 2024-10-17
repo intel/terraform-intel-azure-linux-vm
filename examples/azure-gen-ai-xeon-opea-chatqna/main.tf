@@ -27,36 +27,6 @@ resource "random_id" "rid" {
   byte_length = 5
 }
 
-# Modify the `ingress_rules` variable in the variables.tf file to allow the required ports for your CIDR ranges
-resource "azurerm_resource_group" "ai-opea-chatqna" {
-  name     = "ai-opea-chatqna-rg"
-  location = "East US"
-}
-
-resource "azurerm_network_security_group" "ai-opea-chatqna" {
-  name                = "ai-opea-chatqna-sg"
-  location            = azurerm_resource_group.ai-opea-chatqna.location
-  resource_group_name = azurerm_resource_group.ai-opea-chatqna.name
-
-  security_rule {
-    name                       = "ai-opea-chatqna-ingressrule"
-    priority                   = 100
-    direction                  = "Inbound"
-    access                     = "Allow"
-    protocol                   = "Tcp"
-    source_port_range          = "*"
-    destination_port_range     = "22,6379,8001,6006,6007,7000,8808,8000,9009,9000,8888,5173,5174"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
-
-  tags = {
-    Name     = "ai-opea-chatqna-${random_id.rid.dec}"
-    Owner    = "owner-${random_id.rid.dec}",
-    Duration = "2"
-  }
-}
-
 # Modify the `vm_count` variable in the variables.tf file to create the required number of Azure VMs 
 module "azurerm_linux_virtual_machine" {
   #source                              = "../.."
@@ -83,5 +53,27 @@ module "azurerm_linux_virtual_machine" {
   }
 }
 
+# Modify the `ingress_rules` variable in the variables.tf file to allow the required ports for your CIDR ranges
+resource "azurerm_network_security_group" "allow_ai-opea-chatqna-nsg" {
+  name                = "allow_ai-opea-chatqna-nsg"
+  location            = var.region
+  resource_group_name = "ai-opea-chatqna-rg"
 
+  security_rule {
+  name                        = "allow_ai-opea-chatqna"
+  priority                    = 100
+  direction                   = "Inbound"
+  access                      = "Allow"
+  protocol                    = "Tcp"
+  source_port_range           = "*"
+  destination_port_ranges     = ["22", "6379", "8001", "6006", "6007", "7000", "8808", "8000", "9009", "9000", "8888", "5173","5174"]
+  #source_address_prefix       = "*"
+  source_address_prefix       = "134.134.0.0/16"
+  destination_address_prefix  = "*"
+  }
+
+  tags = {
+    environment = "test"
+  }
+}
 

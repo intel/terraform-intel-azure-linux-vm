@@ -41,3 +41,4 @@ output "virtual_machine_id" {
   description = "ID assigned to the virtual machine after it has been created"
   value       = module.azurerm_linux_virtual_machine.virtual_machine_id
 }
+
