@@ -39,6 +39,7 @@ module "azurerm_linux_virtual_machine" {
   vm_name                             = "ai-opea-chatqna-${random_id.rid.dec}"
   virtual_machine_size                = "Standard_D32s_v5"
   os_disk_name                        = "value"
+  custom_data = data.cloudinit_config.ansible.rendered
   source_image_reference = {
     "offer"     = "RHEL"
     "sku"       = "8-LVM-gen2"
@@ -66,7 +67,7 @@ resource "azurerm_network_security_group" "allow_ai-opea-chatqna-nsg" {
   access                      = "Allow"
   protocol                    = "Tcp"
   source_port_range           = "*"
-  destination_port_ranges     = ["22", "6379", "8001", "6006", "6007", "7000", "8808", "8000", "9009", "9000", "8888", "5173","5174"]
+  destination_port_ranges     = ["22", "80", "443", "6379", "8001", "6006", "6007", "6000", "7000", "8808", "8000", "8888", "9009", "9000",  "5173","5174"]
   #source_address_prefix       = "*"
   source_address_prefix       = "134.134.0.0/16"
   destination_address_prefix  = "*"
