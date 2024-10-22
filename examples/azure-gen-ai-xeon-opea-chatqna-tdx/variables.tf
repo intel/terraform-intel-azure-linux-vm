@@ -12,7 +12,7 @@ variable "admin_password" {
 variable "region" {
   description = "Target Azure region to deploy VM in."
   type        = string
-  default     = "eastus"
+  default     = "eastus2"
 }
 
 # Variable for Huggingface Token

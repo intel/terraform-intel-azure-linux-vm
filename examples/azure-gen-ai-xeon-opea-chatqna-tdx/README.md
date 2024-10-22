@@ -6,9 +6,13 @@
 
 © Copyright 2024, Intel Corporation
 
-## Azure Standard_D32s_v5 Instance with 3rd Generation Intel® Xeon® Scalable Processor (Ice Lake) & Open Platform for Enterprise AI (OPEA) ChatQnA Example
+## Azure Standard_D32s_v5 Instance (currently in Azure Preview, thus make sure you have access to it and is available in your region) with 3rd Generation Intel® Xeon® Scalable Processor (Ice Lake) & Open Platform for Enterprise AI (OPEA) ChatQnA Example
 
-This demo will showcase Retrieval Augmented Generation (RAG) CPU inference using 3rd Generation Intel® Xeon® Scalable Processor on Azure using the OPEA ChatQnA Example. For more information about OPEA, go [here](https://opea.dev/). For more information on this specific example, go [here](https://github.com/opea-project/GenAIExamples/tree/main/ChatQnA).
+
+This demo will showcase Retrieval Augmented Generation (RAG) CPU inference using Intel® 4th Generation Xeon® Scalable processors (Sapphire Rapids) featuring Intel® Trust Domain Extensions (TDX) and Intel® AMX for AI acceleration on Azure using the OPEA ChatQnA Example. For more information about OPEA, go [here](https://opea.dev/). For more information on this specific example, go [here](https://github.com/opea-project/GenAIExamples/tree/main/ChatQnA).
+
+NOTE: If you get this erro: "The property 'securityProfile.encryptionAtHost' is not valid because the 'Microsoft.Compute/EncryptionAtHost' feature is not enabled for this subscription."  -- Make sure you EncryptionAtHost is registred for your subsctiption. You can issue following AZ CLI command: az feature register --namespace Microsoft.Compute --name EncryptionAtHost
+
 
 ## Usage
 
@@ -20,7 +24,7 @@ Modify the region to target a specific Azure Region
 variable "region" {
   description = "Target Azure region to deploy VM in."
   type        = string
-  default     = "eastus"
+  default     = "eastus2"
 }
 ```
 
@@ -36,14 +40,15 @@ variable "huggingface_token" {
 
 ### main.tf
 
-Modify settings in this file to choose your source image as well as instance size and other details around the instance that will be created
+Modify settings in this file to choose your source image as well as instance size and other details around the instance that will be created as needed
 
 ```hcl
-  virtual_machine_size                = "Standard_D32s_v5"
+  virtual_machine_size                = "Standard_DC8es_v5"
+
   source_image_reference = {
-    "offer"     = "RHEL"
-    "sku"       = "8-LVM-gen2"
-    "publisher" = "RedHat"
+    "offer"     = "0001-com-ubuntu-confidential-vm-jammy"
+    "sku"       = "22_04-lts-cvm"
+    "publisher" = "Canonical"
     "version"   = "latest"
   }
 ```
@@ -97,7 +102,7 @@ You can access the demos using the following:
 
 - OPEA ChatQnA: `http://yourpublicip:5174`
 
-- Note: This module is created using the m7i.16xlarge instance size, you can change your instance type by modifying the **instance_type = "m7i.16xlarge"** in the main.tf under the **ec2-vm module** section of the code. If you just change to an 8xlarge and then run **terraform apply** the module will destroy the old instance and rebuild with a larger instance size.
+- Note: This module is created using the Standard_DC8es_v5 instance size, you can change your instance type by modifying the **virtual_machine_size = "Standard_DC8es_v5"** in the main.tf under the **azurerm_linux_virtual_machine** section of the code. If you just change to an 8xlarge and then run **terraform apply** the module will destroy the old instance and rebuild with a larger instance size.
 
 ## Deleting the Demo
 
