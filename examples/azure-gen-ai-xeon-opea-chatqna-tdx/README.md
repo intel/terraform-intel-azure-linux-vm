@@ -110,4 +110,4 @@ To delete the demo, run `terraform destroy` to delete all resources created.
 
 ## Considerations
 
-- The Azure region where this example is run should have a default VPC
+- The Azure region where this example is run should have a default virtual network

@@ -91,19 +91,36 @@ data "cloudinit_config" "ansible" {
 resource "random_id" "rid" {
   byte_length = 5
 }
+#creat public IP using public ip resource
+data "azurerm_subnet" "subnet" {
+  name                 = "default"
+  virtual_network_name = "ai-opea-chatqna-vnet1"
+  resource_group_name  = "ai-opea-chatqna-rg"
+}
+
+resource "azurerm_public_ip" "public_ip" {
+  name                = "ai-opea-chatqna-pip"
+  location            = var.region
+  resource_group_name = "ai-opea-chatqna-rg"
+  allocation_method   = "Dynamic" # or "Static"
+}
 
 # Modify the `vm_count` variable in the variables.tf file to create the required number of Azure VMs 
 module "azurerm_linux_virtual_machine"  {
   #source                              = "../.."
-  source                              = "intel/azure-linux-vm/intel"
-  azurerm_resource_group_name         = "ai-opea-chatqna-rg"        #requried to be pre-created or modify this line based on your existing resource
-  azurerm_virtual_network_name        = "ai-opea-chatqna-vnet1"     #requried to be pre-created or modify this line based on your existing resource
-  virtual_network_resource_group_name = "ai-opea-chatqna-rg"        #requried to be pre-created or modify this line based on your existing resource
-  azurerm_subnet_name                 = "default"                   #requried to be pre-created or modify this line based on your existing resource
-  azurerm_network_interface_name      = "ai-opea-chatqna-nic01"
+  source                                 = "intel/azure-linux-vm/intel"
+  azurerm_resource_group_name            = "ai-opea-chatqna-rg"        #requried to be pre-created or modify this line based on your existing resource
+  azurerm_virtual_network_name           = "ai-opea-chatqna-vnet1"     #requried to be pre-created or modify this line based on your existing resource
+  virtual_network_resource_group_name    = "ai-opea-chatqna-rg"        #requried to be pre-created or modify this line based on your existing resource
+  azurerm_subnet_name                    = "default"                   #requried to be pre-created or modify this line based on your existing resource
+  azurerm_network_interface_name         = "ai-opea-chatqna-nic01"
+  
+  ip_configuration_public_ip_address_id  = azurerm_public_ip.public_ip.id
+
   vm_name                             = "ai-opea-chatqna-${random_id.rid.dec}"
   virtual_machine_size                = "Standard_DC8es_v5"
   os_disk_name                        = "ai-opea-chatqna-osdisk1"
+  disk_size_gb                        = 256
   custom_data = data.cloudinit_config.ansible.rendered
 
 #Set to flag below to use Intel Confidential VM with TDX
