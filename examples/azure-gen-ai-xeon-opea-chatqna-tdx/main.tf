@@ -1,8 +1,8 @@
-# Provision Azure VM on Intel® 4th Generation Xeon® Scalable processors (Sapphire Rapids) featuring Intel® Trust Domain Extensions (TDX) and Intel® AMX for AI acceleration on Azure Linux OS. 
+# Provisions Azure VM on Intel® 4th Generation Xeon® Scalable processors (Sapphire Rapids) featuring Intel® Trust Domain Extensions (TDX) and Intel® AMX for AI acceleration on Azure Linux OS. 
 # It is configured to create the VM in US-East 2 region. The region is provided in variables.tf in this example folder.
-# Make sure you have an exsiting (pre-created) Azure resource group, virtual network name, virtual network rsg, subnet name - change lines 104-107 below based on your resource names
-# in the local system where terraform apply is done. 
-# Creates a new scurity group to open up the SSH port 22 to a specific IP CIDR block
+# Make sure you have an exsiting (pre-created) Azure resource group, virtual network, and subnet in your subscription- see variable.tf to make necessary changes, lines 1-32 
+# in the local system where terraform apply is done. Also make sure you subscription has access to public preview for the DCv5 Azure Instances in the region wher your resoruce group is in
+# Creates a new scurity group reqiroed for ChatQNA from ANY source 
 
 ################################################################################
 # For Azure Key Vault - This section is Optional
@@ -10,8 +10,8 @@
 data "azurerm_client_config" "current" {}
 
 resource "azurerm_key_vault" "example" {
-  name                        = "aiopeanchatqnatdxjv"
-  resource_group_name         = "ai-opea-chatqna-rg"
+  name                        = var.azurerm_key_vault
+  resource_group_name   = var.azurerm_resource_group_name
   location                    = var.region
   enabled_for_disk_encryption = true
   tenant_id                   = data.azurerm_client_config.current.tenant_id
@@ -45,7 +45,7 @@ resource "azurerm_key_vault" "example" {
 }
 
 resource "azurerm_key_vault_key" "generated" {
-  name         = "generated-certificate"
+  name         = var.azurazurerm_key_vault_key
   key_vault_id = azurerm_key_vault.example.id
   key_type     = "RSA"
   key_size     = 2048
@@ -93,15 +93,15 @@ resource "random_id" "rid" {
 }
 #creat public IP using public ip resource
 data "azurerm_subnet" "subnet" {
-  name                 = "default"
-  virtual_network_name = "ai-opea-chatqna-vnet1"
-  resource_group_name  = "ai-opea-chatqna-rg"
+  name                 = var.azurerm_subnet_name
+  virtual_network_name = var.azurerm_virtual_network_name
+  resource_group_name   = var.azurerm_resource_group_name
 }
 
 resource "azurerm_public_ip" "public_ip" {
-  name                = "ai-opea-chatqna-pip"
-  location            = var.region
-  resource_group_name = "ai-opea-chatqna-rg"
+  name                  = var.azurerm_public_ip_name
+  location              = var.region
+  resource_group_name   = var.azurerm_resource_group_name
   allocation_method   = "Dynamic" # or "Static"
 }
 
@@ -109,18 +109,19 @@ resource "azurerm_public_ip" "public_ip" {
 module "azurerm_linux_virtual_machine"  {
   #source                              = "../.."
   source                                 = "intel/azure-linux-vm/intel"
-  azurerm_resource_group_name            = "ai-opea-chatqna-rg"        #requried to be pre-created or modify this line based on your existing resource
-  azurerm_virtual_network_name           = "ai-opea-chatqna-vnet1"     #requried to be pre-created or modify this line based on your existing resource
-  virtual_network_resource_group_name    = "ai-opea-chatqna-rg"        #requried to be pre-created or modify this line based on your existing resource
-  azurerm_subnet_name                    = "default"                   #requried to be pre-created or modify this line based on your existing resource
-  azurerm_network_interface_name         = "ai-opea-chatqna-nic01"
+  azurerm_resource_group_name   = var.azurerm_resource_group_name
+  azurerm_virtual_network_name           = var.azurerm_virtual_network_name
+  virtual_network_resource_group_name    = var.virtual_network_resource_group_name
+  azurerm_subnet_name                    = var.azurerm_subnet_name
+  azurerm_network_interface_name         = var.azurerm_network_interface_name
+
   
   ip_configuration_public_ip_address_id  = azurerm_public_ip.public_ip.id
 
   vm_name                             = "ai-opea-chatqna-${random_id.rid.dec}"
-  virtual_machine_size                = "Standard_DC8es_v5"
-  os_disk_name                        = "ai-opea-chatqna-osdisk1"
-  disk_size_gb                        = 256
+  virtual_machine_size                = "Standard_DC32es_v5"
+  os_disk_name                        = var.os_disk_name  
+  disk_size_gb                        = 500
   custom_data = data.cloudinit_config.ansible.rendered
 
 #Set to flag below to use Intel Confidential VM with TDX
@@ -147,9 +148,9 @@ module "azurerm_linux_virtual_machine"  {
 
 # Modify the `ingress_rules` variable in the variables.tf file to allow the required ports for your CIDR ranges
 resource "azurerm_network_security_group" "ai-opea-chatqna-nsg" {
-  name                = "ai-opea-chatqna-nsg"
-  location            = var.region
-  resource_group_name = "ai-opea-chatqna-rg" #requried to be pre-created or modify this line based on your existing resource
+  name                  = var.azurerm_network_security_group_name
+  location              = var.region
+  resource_group_name   = var.azurerm_resource_group_name
 
   security_rule {
   name                        = "allow_ai-opea-chatqna"
@@ -159,8 +160,7 @@ resource "azurerm_network_security_group" "ai-opea-chatqna-nsg" {
   protocol                    = "Tcp"
   source_port_range           = "*"
   destination_port_ranges     = ["22", "80", "443", "6379", "8001", "6006", "6007", "6000", "7000", "8808", "8000", "8888", "9009", "9000",  "5173","5174"]
-  #source_address_prefix       = "*"
-  source_address_prefix       = "134.134.0.0/16" #required to be pre-created or modify this line based on your requirements
+  source_address_prefix       = "*" #NOTE: Make sure your firewall rule does not prevent source to be "ANY" (*) 
   destination_address_prefix  = "*"
   }
 
