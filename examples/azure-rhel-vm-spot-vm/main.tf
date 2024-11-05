@@ -7,9 +7,9 @@
 module "azurerm_linux_virtual_machine" {
   #source                              = "../.."
   source                              = "intel/azure-linux-vm/intel"
-  azurerm_resource_group_name         = "ai-opea-chatqna-rg"
+  azurerm_resource_group_name         = "terraform-testing-rg"
   azurerm_virtual_network_name        = "vm-vnet1"
-  virtual_network_resource_group_name = "ai-opea-chatqna-rg"
+  virtual_network_resource_group_name = "terraform-testing-rg"
   vm_name                             = "redhat8-vm01"
   os_disk_name                        = "value"
   azurerm_network_interface_name      = "redhat8-nic01"
