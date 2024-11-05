@@ -90,7 +90,7 @@ module "azurerm_linux_virtual_machine" {
   tdx_flag                = true
   secure_boot_flag        = true
   encryption_at_host_flag = true
-  #Chose the images supporting Intel Confidential Compute VMs with Intel TDX
+  #Choose the images supporting Intel Confidential Compute VMs with Intel TDX
   source_image_reference = {
     "offer"     = "0001-com-ubuntu-confidential-vm-jammy"
     "sku"       = "22_04-lts-cvm"
