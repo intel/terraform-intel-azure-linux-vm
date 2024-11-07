@@ -1,0 +1,25 @@
+#######
+
+  # The cloud-init script you provided will do the following:
+    # Update and upgrade the system packages.
+    # Install the git package.
+    # Install Ansible using the distro installation method and the ansible package name.
+    # Pull the Ansible playbook from the https://github.com/intel/optimized-cloud-recipes.git repository and execute the recipes/sqlite-flask-sgx-ubuntu/gramine.recipe.yml playbook.
+ 
+  # To learn more about Cloud - Init : https://cloudinit.readthedocs.io/en/latest/index.html
+#######
+
+#cloud-config
+package_update: true
+package_upgrade: true
+
+package:
+  - git
+
+ansible:
+  install_method: distro
+  package_name: ansible
+  pull:
+    url: "https://github.com/intel/optimized-cloud-recipes.git"
+    playbook_name: "recipes/ai-pytorch-sgx-ubuntu/gramine-recipe.yml"
+    checkout: "main"

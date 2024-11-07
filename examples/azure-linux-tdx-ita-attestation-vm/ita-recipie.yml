@@ -1,0 +1,83 @@
+---
+- name: Setup TDX on Ubuntu on Azure
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Update and install packages
+      apt:
+        name:
+          - make
+          - gcc
+          - tpm2-tools
+          - gh
+        state: present
+        update_cache: yes
+        upgrade: yes
+
+    - name: Remove existing Go installation
+      apt:
+        name: golang-go
+        state: absent
+        autoremove: yes
+
+    - name: Install Go using Snap
+      community.general.snap:
+        name: go
+        classic: yes
+
+    - name: Update and upgrade all packages
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Check Git version
+      command: gh --version
+      register: gh_version
+      changed_when: false
+
+    - name: Display Git version
+      debug:
+        var: gh_version.stdout_lines
+
+    - name: Login to GitHub CLI
+      command: gh auth login
+      become: no
+
+    - name: Check GitHub CLI auth status
+      command: gh auth status
+      become: no
+      register: gh_status
+      changed_when: false
+
+    - name: Display GitHub CLI auth status
+      debug:
+        var: gh_status.stdout_lines
+
+    - name: Clone trustauthority-client repository
+      git:
+        repo: https://github.com/intel/trustauthority-client
+        version: azure-tdx-preview
+        dest: ~/trustauthority-client
+
+    - name: Build trustauthority-cli
+      make:
+        chdir: ~/trustauthority-client/tdx-cli
+        target: cli
+
+    - name: Edit config.json
+      ansible.builtin.blockinfile:
+        path: ~/trustauthority-client/tdx-cli/config.json
+        block: |
+          # Add your proper URLs and API Key here
+        marker: "# {mark} ANSIBLE MANAGED BLOCK"
+
+    - name: Perform attestation
+      command: sudo ./trustauthority-cli token --config config.json --no-eventlog > ITA-Token.tok
+      args:
+        chdir: ~/trustauthority-client/tdx-cli
+
+    - name: Verify the Token
+      shell: sudo ./trustauthority-cli verify --config config.json --token $(cat ITA-Token.tok) > ITA-Verify.tok
+      args:
+        chdir: ~/trustauthority-client/tdx-cli
+    
