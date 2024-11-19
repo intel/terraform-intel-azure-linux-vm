@@ -89,11 +89,13 @@ module "azurerm_linux_virtual_machine" {
   tdx_flag                            = true
   secure_boot_flag                    = true
   encryption_at_host_flag             = true
-  #Chose the images supporting Intel Confidential Compute VMs with Intel TDX
-  source_image_reference_publisher    = "redhat"
-  source_image_reference_offer        = "rhel_test_offers"
-  source_image_reference_sku          = "rhel93_tdxpreview"
-  source_image_reference_version      = "latest"
+  #Choose the images supporting Intel Confidential Compute VMs with Intel TDX
+  source_image_reference = {
+    "offer"     = "rhel_test_offers"
+    "sku"       = "rhel93_tdxpreview"
+    "publisher" = "redhat"
+    "version"   = "latest"
+  }
     tags = {
     "owner"    = "user@company.com"
     "duration" = "1"

@@ -1,0 +1,59 @@
+###########################################################################
+# Azure Instance configuration for Intel Trust Authority (ITA)                                     #
+###########################################################################
+---
+- name: Setup TDX with Intel Tiber Attestation (ITA) on Ubuntu on Azure Instance
+  hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+      - name: Install pre-requisite packages for ITA
+        ansible.builtin.apt:
+          pkg:
+            - make
+            - gcc
+            - tpm2-tools
+            - gh
+          state: present
+          update_cache: true
+
+    - name: Install Go using Snap
+      community.general.snap:
+        name: go
+        classic: yes
+
+    - name: Update and upgrade all packages
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Clone Intel trustauthority-client repository
+      git:
+        repo: https://github.com/intel/trustauthority-client
+        version: azure-tdx-preview
+        dest: /trustauthority-client
+
+    - name: Build Intel trustauthority-cli
+      make:
+        chdir: /trustauthority-client/tdx-cli
+        target: cli
+
+    - name: Create config.json file
+      copy:
+        dest: "/trustauthority-client/tdx-cli/config.json"
+        content: 
+        {"trustauthority_url": "https://portal.trustauthority.intel.com",
+          "trustauthority_api_url": "https://api.trustauthority.intel.com",
+          "trustauthority_api_key": "YOUR ITA TOKEN HERE"}
+        mode: '0644'
+
+    - name: Perform ITA attestation
+      shell: sudo /trustauthority-client/tdx-cli/trustauthority-cli token --config config.json --no-eventlog > ITA-Token.tok
+      args:
+        chdir: /trustauthority-client/tdx-cli
+
+    - name: Verify the ITA Token
+      shell: sudo /trustauthority-client/tdx-cli/trustauthority-cli verify --config config.json --token $(cat ITA-Token.tok) > ITA-Verify.tok
+      args:
+        chdir: /trustauthority-client/tdx-cli
+    

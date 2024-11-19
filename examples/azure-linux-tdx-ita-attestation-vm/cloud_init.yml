@@ -16,10 +16,15 @@ package_upgrade: true
 package:
   - git
 
-ansible:
-  install_method: distro
-  package_name: ansible
-  pull:
-    url: "https://github.com/intel/optimized-cloud-recipes.git"
-    playbook_name: "recipes/ai-pytorch-sgx-ubuntu/gramine-recipe.yml"
-    checkout: "main"
+runcmd:
+  - sudo apt install git -y
+  - sudo apt install software-properties-common
+  - sudo add-apt-repository --yes --update ppa:ansible/ansible
+  - sudo apt install ansible -y
+  - git clone https://github.com/intel/optimized-cloud-recipes.git /tmp/optimized-cloud-recipes
+  - cd /tmp/optimized-cloud-recipes/recipes/intel-tdx-ita
+  - cp ita-yml /tmp/ita-recipe.yml
+  - ansible-playbook /tmp/ita-recipe.yml
+
+  
+
