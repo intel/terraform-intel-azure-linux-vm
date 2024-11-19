@@ -22,9 +22,12 @@ runcmd:
   - sudo add-apt-repository --yes --update ppa:ansible/ansible
   - sudo apt install ansible -y
   - git clone https://github.com/intel/optimized-cloud-recipes.git /tmp/optimized-cloud-recipes
-  - cd /tmp/optimized-cloud-recipes/recipes/intel-tdx-ita
+  - cd /tmp/optimized-cloud-recipes/recipes/intel-azure-linux-tdx-ita
   - cp ita-yml /tmp/ita-recipe.yml
-  - ansible-playbook /tmp/ita-recipe.yml
+  - echo 'export tustauthority_api_key=${trustauthority_api_key}' | sudo tee -a /tmp/ita-recipe.yml
+  - chmod +x /tmp/ita-recipe.yml
+  - source /tmp/ita-recipe.yml
+  - ansible-playbook ita-recipe.yml
 
   
 

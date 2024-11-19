@@ -38,6 +38,17 @@ variable "admin_password" {
   }
 }
 
+
+############################################################################################
+# Replace the default values with your own values - your trustauthority_api_key (token)    #
+############################################################################################
+# Variable for trustauthority_api_key
+variable "trustauthority_api_key" {
+  description = "trustauthority_api_key"
+  default     = " <YOUR trustauthority_api_key HERE> "
+  type        = string
+}
+
 ##OTHER Variables that will be created by this module
 variable "azurerm_key_vault" {
   description = "Name of the Azure Key Vault"

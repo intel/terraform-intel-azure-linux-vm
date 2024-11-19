@@ -46,7 +46,8 @@
           "trustauthority_api_url": "https://api.trustauthority.intel.com",
           "trustauthority_api_key": "YOUR ITA TOKEN HERE"}
         mode: '0644'
-
+    
+    #Upon successful verification, the token will be decoded and displayed in key:value pairs
     - name: Perform ITA attestation
       shell: sudo /trustauthority-client/tdx-cli/trustauthority-cli token --config config.json --no-eventlog > ITA-Token.tok
       args:
@@ -56,4 +57,3 @@
       shell: sudo /trustauthority-client/tdx-cli/trustauthority-cli verify --config config.json --token $(cat ITA-Token.tok) > ITA-Verify.tok
       args:
         chdir: /trustauthority-client/tdx-cli
-    

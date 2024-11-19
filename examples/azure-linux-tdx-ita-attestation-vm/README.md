@@ -7,8 +7,8 @@
 
 © Copyright 2024, Intel Corporation
 
-## Terraform Intel Azure Linux TDX VM with Intel Trust (Tiber) Autority Attestation (ITA)
-This example creates an Azure Virtual Machine on Intel® 4th Generation Xeon® Scalable Sapphire Rapids processors featuring Intel Trusted Domain Extensions (TDX) and also installs all Intel Trust Authority (ITA) client and its CLI with your ITA Token (you will need to add yoru ITA token in the ita-recipe.yml file). These TDX Intel Confidential Computing VMs are hardned from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. The virtual machine is created on an Azure Standard_DC2es_v5 by default.
+## Terraform Intel Azure Linux TDX VM with Intel Trust Autority Attestation (ITA)
+This example creates an Azure Virtual Machine on Intel® 4th Generation Xeon® Scalable Sapphire Rapids processors featuring Intel Trusted Domain Extensions (TDX) and also installs all Intel Trust Authority (ITA) client and its CLI with your ITA Token (you will need to add yoru ITA token in the trustauthority_api_key section of variables.tf). These TDX Intel Confidential Computing VMs are hardned from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. The virtual machine is created on an Azure Standard_DC2es_v5 by default.
 
 Supported Intel Confidential Computing VMs with Intel TDX include:
 -DCesv5-series
