@@ -1,3 +1,14 @@
+############################################################################################
+# Replace the default values with your own values - your trustauthority_api_key (token)    #
+############################################################################################
+# Variable for trustauthority_api_key
+variable "trustauthority_api_key" {
+  description = "trustauthority_api_key"
+    type        = string
+    default     = "<YOUR trustauthority_api_key HERE>"
+}
+
+######REQUIRED variables that have default alrady set but you can change as needed########
 variable "azurerm_resource_group_name" {
   description = "Name of the resource group to be imported"
   type        = string
@@ -38,22 +49,11 @@ variable "admin_password" {
   }
 }
 
-
-############################################################################################
-# Replace the default values with your own values - your trustauthority_api_key (token)    #
-############################################################################################
-# Variable for trustauthority_api_key
-variable "trustauthority_api_key" {
-  description = "trustauthority_api_key"
-  default     = " <YOUR trustauthority_api_key HERE> "
-  type        = string
-}
-
-##OTHER Variables that will be created by this module
+############OTHER Variables that will be created by this module############
 variable "azurerm_key_vault" {
   description = "Name of the Azure Key Vault"
   type        = string
-  default     = "aiopeanchatqnatdxkv"
+  default     = "tdxitakeyvault1234567890"
 }
 
 variable "azurazurerm_key_vault_key" {

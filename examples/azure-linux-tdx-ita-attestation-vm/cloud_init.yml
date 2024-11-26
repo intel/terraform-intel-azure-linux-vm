@@ -13,21 +13,27 @@
 package_update: true
 package_upgrade: true
 
-package:
+packages:
   - git
 
-runcmd:
-  - sudo apt install git -y
-  - sudo apt install software-properties-common
-  - sudo add-apt-repository --yes --update ppa:ansible/ansible
-  - sudo apt install ansible -y
-  - git clone https://github.com/intel/optimized-cloud-recipes.git /tmp/optimized-cloud-recipes
-  - cd /tmp/optimized-cloud-recipes/recipes/intel-azure-linux-tdx-ita
-  - cp ita-yml /tmp/ita-recipe.yml
-  - echo 'export tustauthority_api_key=${trustauthority_api_key}' | sudo tee -a /tmp/ita-recipe.yml
-  - chmod +x /tmp/ita-recipe.yml
-  - source /tmp/ita-recipe.yml
-  - ansible-playbook ita-recipe.yml
+write_files:
+    - path: /tmp/intel-ita/config.json
+      content: |
+        {
+            "trustauthority_url": "https://portal.trustauthority.intel.com",
+            "trustauthority_api_url": "https://api.trustauthority.intel.com",
+            "trustauthority_api_key": "${trustauthority_api_key}"
+        }
+      permissions: '0644'
+      create_directories: true
 
-  
+runcmd:
+  - apt install git -y
+  - apt install software-properties-common -y
+  - add-apt-repository --yes --update ppa:ansible/ansible
+  - apt install ansible -y
+  - export trustauthority_api_key=${trustauthority_api_key}
+  - git clone -b dshrestha-azure-linux-tdx-ita https://github.com/intel/optimized-cloud-recipes.git /tmp/optimized-cloud-recipes
+  - cd /tmp/optimized-cloud-recipes/recipes/intel-azure-linux-tdx-ita 
+  - ansible-playbook recipe.yml
 

@@ -8,7 +8,10 @@
 © Copyright 2024, Intel Corporation
 
 ## Terraform Intel Azure Linux TDX VM with Intel Trust Autority Attestation (ITA)
-This example creates an Azure Virtual Machine on Intel® 4th Generation Xeon® Scalable Sapphire Rapids processors featuring Intel Trusted Domain Extensions (TDX) and also installs all Intel Trust Authority (ITA) client and its CLI with your ITA Token (you will need to add yoru ITA token in the trustauthority_api_key section of variables.tf). These TDX Intel Confidential Computing VMs are hardned from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. The virtual machine is created on an Azure Standard_DC2es_v5 by default.
+This example creates an Azure Virtual Machine on Intel® 4th Generation Xeon® Scalable Sapphire Rapids processors featuring Intel Trusted Domain Extensions (TDX) and also installs all Intel Trust Authority (ITA) client and its Trustauthority CLI with the your ITA Token that you specify (you will need to add your ITA token in the trustauthority_api_key section of variables.tf - if you do not yet ave ITA toen you go to https://www.intel.com/content/www/us/en/security/trust-authority.html to create an account and create yoru ITA token). 
+
+The TDX Intel Confidential Computing VM is hardened from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. The virtual machine is created on an Azure Standard_DC2es_v5 by default.
+
 
 Supported Intel Confidential Computing VMs with Intel TDX include:
 -DCesv5-series
@@ -16,15 +19,23 @@ Supported Intel Confidential Computing VMs with Intel TDX include:
 -ECesv5-series
 -ECedsv5-series
 
+By default this example will provision Azure "Standard_DC8es_v5" instance, feel free to change the size of the VM as needed.
+
+Once the TDX Intel Confidential Computing VM with Intel Trust Authority it will valiate successfull configuation of Intel Trust Authority with your ITA Token with the ITA-Verify.tok file. You can view the ITA_Verify.tok in the trustauthority-client/tdx-cli folder.
+
+NOTE: This exampel will take about 10min to complete as there is a 5min pause while runing the ansible playbook to allow Intel Trust Authority setup to complete before completing validattion. 
+
 See root policies.md for full list of Intel Confidential VMs with TDX.
 
 Azure VM Security Type will be set to Confidential amd Virtualized Trusted Platform Module (vTPM) enabled as requried with optional Secure Boot, OS disk encrypted at host.
 
 As you configure your application's environment, choose the configurations for your infrastructure that matches your application's requirements. 
 
-In this example, the virtual machine is using a preconfigured network interface, subnet, and resource group and has an additional option to enable boot diagnostics. Make sure to the resoruce group is in the region where Intel Confidential Compute VMs with TDX is available. 
+In this example, the virtual machine will be deplyed in a pre-existing Azure Virtual Network, with defualt subnet, and resource group. Make sure to the resoruce group is in the region where Intel Confidential Compute VMs with TDX is available. See variable.tf for the default cofigruation which you can change as needed.
 
 The tags Name, Owner and Duration are added to the virtual machine when it is created.
+
+After the buildout is complete, you will need to assiciate your Public IP to the newely created TDX Azure isntance and configure you Network Security Group for SSH etc as needed.
 
 ## Usage
 
@@ -34,6 +45,17 @@ variables.tf
 
 ```hcl
 
+################################################################################################
+# Replace the default values with your own values - your trustauthority_api_key (ITA token)    #
+################################################################################################
+# Variable for trustauthority_api_key
+variable "trustauthority_api_key" {
+  description = "trustauthority_api_key"
+    type        = string
+    default     = "djE6ODdhZDExZjctYmZjNS00MjY1LTlmN2UtYjRiZDFiZGMzNjcwOmtEaU5kZ2U2TzE0cGR3aG1QVGNzTzVVN1FUQnBScDRINFhOUE1aUGo="
+}
+
+###### REQUIRED variables that have default alrady set but you can change as needed ########
 variable "azurerm_resource_group_name" {
   description = "Name of the resource group to be imported"
   type        = string
@@ -74,11 +96,11 @@ variable "admin_password" {
   }
 }
 
-##OTHER Variables that will be created by this module
+############OTHER Variables that will be created by this module############
 variable "azurerm_key_vault" {
   description = "Name of the Azure Key Vault"
   type        = string
-  default     = "aiopeanchatqnatdxkv"
+  default     = "tdxitakeyvault1234567890"
 }
 
 variable "azurazurerm_key_vault_key" {
@@ -103,8 +125,7 @@ data "cloudinit_config" "ansible" {
   part {
     filename     = "cloud_init.yml"
     content_type = "text/cloud-config"
-    content = templatefile("cloud_init.yml", {})
-
+    content = templatefile("cloud_init.yml", {trustauthority_api_key=var.trustauthority_api_key})
   }
 }
 
@@ -118,7 +139,7 @@ module "azurerm_linux_virtual_machine" {
   azurerm_virtual_network_name        = var.azurerm_virtual_network_name
   virtual_network_resource_group_name = var.virtual_network_resource_group_name
   azurerm_subnet_name                 = var.azurerm_subnet_name
-  virtual_machine_size                = "Standard_DC2es_v5"
+  virtual_machine_size                = "Standard_DC8es_v5"
   vm_name                             = "tdx-linuxvm1"
   admin_password                      = var.admin_password
   
@@ -156,3 +177,4 @@ terraform apply
 [Intel® Opotimized Recipes](https://github.com/intel/optimized-cloud-recipes/tree/main/recipes)
 [Intel® Trust Authority](https://www.intel.com/content/www/us/en/security/trust-authority.html)
 [Intel® Trust Authority Attestation Client CLI](https://docs.trustauthority.intel.com/main/articles/integrate-go-tdx-cli.html)
+
