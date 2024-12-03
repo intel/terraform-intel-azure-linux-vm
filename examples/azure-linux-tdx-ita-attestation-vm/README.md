@@ -52,7 +52,7 @@ variables.tf
 variable "trustauthority_api_key" {
   description = "trustauthority_api_key"
     type        = string
-    default     = "djE6ODdhZDExZjctYmZjNS00MjY1LTlmN2UtYjRiZDFiZGMzNjcwOmtEaU5kZ2U2TzE0cGR3aG1QVGNzTzVVN1FUQnBScDRINFhOUE1aUGo="
+    default     = "<YOUR ITA TOKEN HERE>="
 }
 
 ###### REQUIRED variables that have default alrady set but you can change as needed ########

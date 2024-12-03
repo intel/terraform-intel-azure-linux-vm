@@ -1,12 +1,9 @@
-#This example deploys a TDX-Capable Azure Virtual Machine (Standard_DC8es_v5) with Intel Trust Authority Attestation (ITA)
+#This example deploys a Intel TDX-Capable Azure Virtual Machine (Standard_DC8es_v5) with Intel Trust Authority Attestation (ITA)
+#In order for you to use this example, you will need to have registered with Intel Trust Authority and have created your ITA Token
+#This example uses Terraform in combination with Cloud-Init and Ansible to deploty the Azure TDX VM and to configure ITA
  
-# Example of how to pass variable for database password:
-# terraform apply -var="db_password=..."
-# Environment variables can also be used https://www.terraform.io/language/values/variables#environment-variables
-# Resource azurerm_linux_virtual_machine requires a preconfigured resource group, virtual network, and subnet in Azure - make sure the Azure region supports Intel Confidential VMs with TDX
-
 ################################################################################
-# For Azure Key Vault - This is section is Optional
+# For Azure Key Vault - This is section is Optional can can be removed 
 ################################################################################
 data "azurerm_client_config" "current" {}
 
@@ -69,8 +66,9 @@ resource "azurerm_key_vault_key" "generated" {
     notify_before_expiry = "P29D"
   }
 }
+
 ######################################################################################################################################
-#Cloud-init is a commonly-used startup configuration utility for cloud compute instances to run the ansible playbook
+#REQUIRED: Cloud-init configuration utility for cloud compute instances to run the ansible playbook
 ######################################################################################################################################
 locals {
   config_json = templatefile("${path.module}/config.json.tftpl", {
@@ -93,7 +91,7 @@ data "cloudinit_config" "ansible" {
 }
 
 ################################################################################
-# For Azure Virtual Machine with Intel TDX and ITA - Required
+# REQUIRED: For Azure Virtual Machine with Intel TDX and ITA - Required
 ################################################################################
 
 module "azurerm_linux_virtual_machine" {
