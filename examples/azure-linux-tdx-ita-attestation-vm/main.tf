@@ -68,7 +68,7 @@ resource "azurerm_key_vault_key" "generated" {
 }
 
 ######################################################################################################################################
-#REQUIRED: Cloud-init configuration utility for cloud compute instances to run the ansible playbook
+# REQUIRED: Cloud-init configuration utility for cloud compute instances to run the ansible playbook
 ######################################################################################################################################
 locals {
   config_json = templatefile("${path.module}/config.json.tftpl", {

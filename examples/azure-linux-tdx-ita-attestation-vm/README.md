@@ -19,13 +19,9 @@ Supported Intel Confidential Computing VMs with Intel TDX include:
 -ECesv5-series
 -ECedsv5-series
 
-By default this example will provision Azure "Standard_DC8es_v5" instance, feel free to change the size of the VM as needed.
-
-Once the TDX Intel Confidential Computing VM with Intel Trust Authority it will valiate successfull configuation of Intel Trust Authority with your ITA Token with the ITA-Verify.tok file. You can view the ITA_Verify.tok in the trustauthority-client/tdx-cli folder.
-
-NOTE: This exampel will take about 10min to complete as there is a 5min pause while runing the ansible playbook to allow Intel Trust Authority setup to complete before completing validattion. 
-
 See root policies.md for full list of Intel Confidential VMs with TDX.
+
+By default this example will provision Azure "Standard_DC8es_v5" instance, feel free to change the size of the VM as needed.
 
 Azure VM Security Type will be set to Confidential amd Virtualized Trusted Platform Module (vTPM) enabled as requried with optional Secure Boot, OS disk encrypted at host.
 
@@ -34,6 +30,10 @@ As you configure your application's environment, choose the configurations for y
 In this example, the virtual machine will be deplyed in a pre-existing Azure Virtual Network, with defualt subnet, and resource group. Make sure to the resoruce group is in the region where Intel Confidential Compute VMs with TDX is available. See variable.tf for the default cofigruation which you can change as needed.
 
 The tags Name, Owner and Duration are added to the virtual machine when it is created.
+
+Once the TDX Intel Confidential Computing VM with Intel Trust Authority is created, it will validate successfull configuation of Intel Trust Authority with your ITA Token with the "ITA-Verify.tok" file. You can view the ITA_Verify.tok in the trustauthority-client/tdx-cli folder to validate.
+
+NOTE: This exampel will take about 10min to complete as there is a 5min pause while runing the ansible playbook to allow Intel Trust Authority setup to complete before completing validattion. 
 
 After the buildout is complete, you will need to assiciate your Public IP to the newely created TDX Azure isntance and configure you Network Security Group for SSH etc as needed.
 
@@ -115,8 +115,13 @@ main.tf
 ```hcl
 
 ######################################################################################################################################
-#Cloud-init is a commonly-used startup configuration utility for cloud compute instances to run the ansible playbook
+# REQUIRED: Cloud-init configuration utility for cloud compute instances to run the ansible playbook
 ######################################################################################################################################
+locals {
+  config_json = templatefile("${path.module}/config.json.tftpl", {
+    trustauthority_api_key = var.trustauthority_api_key
+  })
+}
 
 data "cloudinit_config" "ansible" {
   gzip          = true
@@ -125,12 +130,15 @@ data "cloudinit_config" "ansible" {
   part {
     filename     = "cloud_init.yml"
     content_type = "text/cloud-config"
-    content = templatefile("cloud_init.yml", {trustauthority_api_key=var.trustauthority_api_key})
+    content = templatefile("cloud_init.yml", {
+      trustauthority_api_key = var.trustauthority_api_key,
+      config_json_content = local.config_json
+    })
   }
 }
 
 ################################################################################
-# For Azure Virtual Machine - Required
+# REQUIRED: For Azure Virtual Machine with Intel TDX and ITA - Required
 ################################################################################
 
 module "azurerm_linux_virtual_machine" {
@@ -173,8 +181,8 @@ terraform init
 terraform plan
 terraform apply
 ```
+
 ## Links
 [Intel® Opotimized Recipes](https://github.com/intel/optimized-cloud-recipes/tree/main/recipes)
 [Intel® Trust Authority](https://www.intel.com/content/www/us/en/security/trust-authority.html)
 [Intel® Trust Authority Attestation Client CLI](https://docs.trustauthority.intel.com/main/articles/integrate-go-tdx-cli.html)
-
