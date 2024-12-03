@@ -33,7 +33,7 @@ runcmd:
   - add-apt-repository --yes --update ppa:ansible/ansible
   - apt install ansible -y
   - export trustauthority_api_key=${trustauthority_api_key}
-  - git clone -b dshrestha-azure-linux-tdx-ita https://github.com/intel/optimized-cloud-recipes.git /tmp/optimized-cloud-recipes
+  - git clone https://github.com/intel/optimized-cloud-recipes.git /tmp/optimized-cloud-recipes
   - cd /tmp/optimized-cloud-recipes/recipes/intel-azure-linux-tdx-ita 
   - ansible-playbook recipe.yml
   - echo 'First command set executed successfully!'
