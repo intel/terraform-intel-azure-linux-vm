@@ -17,7 +17,7 @@ packages:
   - git
 
 write_files:
-    - path: /tmp/intel-ita/config.json
+    - path: /home/adminuser/intel-ita/config.json
       content: |
         {
             "trustauthority_url": "https://portal.trustauthority.intel.com",
@@ -36,4 +36,12 @@ runcmd:
   - git clone -b dshrestha-azure-linux-tdx-ita https://github.com/intel/optimized-cloud-recipes.git /tmp/optimized-cloud-recipes
   - cd /tmp/optimized-cloud-recipes/recipes/intel-azure-linux-tdx-ita 
   - ansible-playbook recipe.yml
+  - echo 'First command set executed successfully!'
+  - sleep 300  # Pause for 5 minutes (300 seconds)
+  - cd /trustauthority-client/tdx-cli
+  - sudo make cli
+  - sudo cp /home/adminuser/intel-ita/config.json /trustauthority-client/tdx-cli/config.json
+  - sudo ./trustauthority-cli token --config config.json --no-eventlog > ITA-Token.tok
+  - sudo ./trustauthority-cli verify --config config.json --token $(cat ITA-Token.tok) > ITA-Verify.tok
+  - echo 'Second command executed after 5 minutes!'
 

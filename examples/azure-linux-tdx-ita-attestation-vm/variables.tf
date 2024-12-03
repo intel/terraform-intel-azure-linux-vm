@@ -5,7 +5,7 @@
 variable "trustauthority_api_key" {
   description = "trustauthority_api_key"
     type        = string
-    default     = "<YOUR trustauthority_api_key HERE>"
+    default     = "djE6ODdhZDExZjctYmZjNS00MjY1LTlmN2UtYjRiZDFiZGMzNjcwOmtEaU5kZ2U2TzE0cGR3aG1QVGNzTzVVN1FUQnBScDRINFhOUE1aUGo="
 }
 
 ######REQUIRED variables that have default alrady set but you can change as needed########
