@@ -41,6 +41,12 @@ resource "azurerm_managed_disk" "managed_disk" {
   location = "eastus"
   create_option        = "Empty"
   disk_size_gb         = 8
+  source_image_reference = {
+    "offer"     = "0001-com-ubuntu-server-jammy"
+    "sku"       = "22_04-lts-gen2"
+    "publisher" = "Canonical"
+    "version"   = "latest"
+  }
   tags = {
     "owner"    = "user@company.com"
     "duration" = "1"

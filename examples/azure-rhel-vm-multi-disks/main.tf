@@ -26,17 +26,19 @@ resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
 }
 
 module "azurerm_linux_virtual_machine" {
+  #source                              = "../.."
   source                              = "intel/azure-linux-vm/intel"
   azurerm_resource_group_name         = "terraform-testing-rg"
   azurerm_virtual_network_name        = "vm-vnet1"
   virtual_network_resource_group_name = "terraform-testing-rg"
   azurerm_subnet_name                 = "default"
   admin_password                      = var.admin_password
-  source_image_reference_offer        = "RHEL"
-  source_image_reference_sku          = "8-LVM-gen2"
-  source_image_reference_publisher    = "RedHat"
-  source_image_reference_version      = "latest"
-  
+  source_image_reference = {
+    "offer"     = "RHEL"
+    "sku"       = "8-LVM-gen2"
+    "publisher" = "RedHat"
+    "version"   = "latest"
+  }
   tags = {
     "owner"    = "user@company.com"
     "duration" = "1"

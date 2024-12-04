@@ -23,6 +23,7 @@ If the Ansible playbook was deployed successfully, you will see a message in the
 
 
 module "azurerm_linux_virtual_machine" {
+  #source                              = "../.."
   source                              = "intel/azure-linux-vm/intel"
   azurerm_resource_group_name         = "terraform-testing-rg"
   azurerm_virtual_network_name        = "vm-vnet1"
@@ -31,18 +32,17 @@ module "azurerm_linux_virtual_machine" {
   admin_password                      = var.admin_password
 
   #SGX-Capable Host
-  vm_name                               = "sgx-demo-recipe-test"
-  virtual_machine_size                  = "Standard_DC8s_v3"
-  ip_configuration_public_ip_address_id = "/subscriptions/d4ab7583-eee6-45fe-9487-a7a0b59a389a/resourceGroups/terraform-testing-rg/providers/Microsoft.Network/publicIPAddresses/terraform-testing-public-ip"
+  vm_name              = "intel-sgx-vm"
+  virtual_machine_size = "Standard_DC8s_v3"
 
-  #Calling the SGX-Ansible Recipe avaliable here : //TODO ADD github link
-  custom_data                            = data.cloudinit_config.ansible.rendered
-
-  source_image_reference_offer          = "0001-com-ubuntu-server-focal"
-  source_image_reference_publisher      = "Canonical"
-  source_image_reference_sku            = "20_04-lts-gen2"
-  source_image_reference_version        = "latest"
-
+  #Calling the SGX-Ansible Recipe avaliable here : https://github.com/intel/optimized-cloud-recipes/tree/main/recipes/ai-pytorch-sgx-ubuntu
+  custom_data = data.cloudinit_config.ansible.rendered
+  source_image_reference = {
+    "offer"     = "0001-com-ubuntu-server-focal"
+    "sku"       = "20_04-lts-gen2"
+    "publisher" = "Canonical"
+    "version"   = "latest"
+  }
   tags = {
     "owner"    = "user@company.com"
     "duration" = "1"

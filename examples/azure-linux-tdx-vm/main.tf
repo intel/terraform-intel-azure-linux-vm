@@ -10,9 +10,9 @@
 #  name = "terraform-testing-rg"
 #}
 
-  data "azurerm_client_config" "current" {}
+data "azurerm_client_config" "current" {}
 
-  resource "azurerm_key_vault" "example" {
+resource "azurerm_key_vault" "example" {
   name                        = "tdxkeyvault"
   resource_group_name         = "terraform-testing-rg"
   location                    = "eastus2"
@@ -27,7 +27,7 @@
     tenant_id = data.azurerm_client_config.current.tenant_id
     object_id = data.azurerm_client_config.current.object_id
 
-key_permissions = [
+    key_permissions = [
       "Create",
       "Delete",
       "Get",
@@ -77,6 +77,7 @@ resource "azurerm_key_vault_key" "generated" {
 ################################################################################
 
 module "azurerm_linux_virtual_machine" {
+  #source                              = "../.."
   source                              = "intel/azure-linux-vm/intel"
   azurerm_resource_group_name         = "terraform-testing-rg"
   azurerm_virtual_network_name        = "vm-vnet1"
@@ -89,6 +90,7 @@ module "azurerm_linux_virtual_machine" {
   tdx_flag                            = true
   secure_boot_flag                    = true
   encryption_at_host_flag             = true
+
   #Choose the images supporting Intel Confidential Compute VMs with Intel TDX
   source_image_reference = {
     "offer"     = "0001-com-ubuntu-confidential-vm-jammy"
@@ -100,6 +102,6 @@ module "azurerm_linux_virtual_machine" {
     "owner"    = "user@company.com"
     "duration" = "1"
   }
-}   
- 
+}
+
 
