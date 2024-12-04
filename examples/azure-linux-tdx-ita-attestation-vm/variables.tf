@@ -1,11 +1,12 @@
 ############################################################################################
 # Replace the default values with your own values - your trustauthority_api_key (token)    #
 ############################################################################################
-# Variable for trustauthority_api_key
+# Variable for trustauthority_api_key: replace with your ITA-Token inthe "defult =" line where it indicates <YOUR TOKEN HERE>
 variable "trustauthority_api_key" {
   description = "trustauthority_api_key"
     type        = string
-    default     = "<YOUR ITA TOKEN HERE>"
+    #default     = "<YOUR ITA TOKEN HERE>"
+    default     = "djE6ODdhZDExZjctYmZjNS00MjY1LTlmN2UtYjRiZDFiZGMzNjcwOmtEaU5kZ2U2TzE0cGR3aG1QVGNzTzVVN1FUQnBScDRINFhOUE1aUGo="
 }
 
 ######REQUIRED variables that have default alrady set but you can change as needed########

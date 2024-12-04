@@ -30,5 +30,4 @@ override.tf.json
 
 # Include tfplan files to ignore the plan output of command: terraform plan -out=tfplan
 # example: *tfplan*
-examples/azure-linux-tdx-vm/main.tf
-examples/azure-rhel-tdx-vm/main.tf
+

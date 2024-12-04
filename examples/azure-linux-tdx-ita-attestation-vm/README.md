@@ -39,20 +39,20 @@ After the buildout is complete, you will need to assiciate your Public IP to the
 
 ## Usage
 
-** See examples folder for code ./examples/azure-linux-multi-disks/main.tf **
+** See examples folder for code ./examples/azure-linux-tdx-ita-attestation-vm/main.tf **
 
 variables.tf
 
 ```hcl
 
-################################################################################################
-# Replace the default values with your own values - your trustauthority_api_key (ITA token)    #
-################################################################################################
-# Variable for trustauthority_api_key
+############################################################################################
+# Replace the default values with your own values - your trustauthority_api_key (token)    #
+############################################################################################
+# Variable for trustauthority_api_key: replace with your ITA-Token inthe "defult =" line where it indicates <YOUR TOKEN HERE>
 variable "trustauthority_api_key" {
   description = "trustauthority_api_key"
     type        = string
-    default     = "<YOUR ITA TOKEN HERE>="
+    default     = "<YOUR ITA TOKEN HERE>"
 }
 
 ###### REQUIRED variables that have default alrady set but you can change as needed ########

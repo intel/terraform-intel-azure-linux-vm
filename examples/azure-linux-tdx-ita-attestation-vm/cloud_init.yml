@@ -41,6 +41,7 @@ runcmd:
   - cd /trustauthority-client/tdx-cli
   - sudo make cli
   - sudo cp /home/adminuser/intel-ita/config.json /trustauthority-client/tdx-cli/config.json
+  - sudo cp /home/adminuser/intel-ita/config.json /trustauthority-client/tdx-cli/config.json
   - sudo ./trustauthority-cli token --config config.json --no-eventlog > ITA-Token.tok
   - sudo ./trustauthority-cli verify --config config.json --token $(cat ITA-Token.tok) > ITA-Verify.tok
   - echo 'Second command executed after 5 minutes!'
