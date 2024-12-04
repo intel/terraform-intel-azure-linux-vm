@@ -1,0 +1,48 @@
+#######
+
+  # The cloud-init script you provided will do the following:
+    # Update and upgrade the system packages.
+    # Install the git package.
+    # Install Ansible using the distro installation method and the ansible package name.
+    # Pull the Ansible playbook from the https://github.com/intel/optimized-cloud-recipes.git repository and execute the recipes/sqlite-flask-sgx-ubuntu/gramine.recipe.yml playbook.
+ 
+  # To learn more about Cloud - Init : https://cloudinit.readthedocs.io/en/latest/index.html
+#######
+
+#cloud-config
+package_update: true
+package_upgrade: true
+
+packages:
+  - git
+
+write_files:
+    - path: /home/adminuser/intel-ita/config.json
+      content: |
+        {
+            "trustauthority_url": "https://portal.trustauthority.intel.com",
+            "trustauthority_api_url": "https://api.trustauthority.intel.com",
+            "trustauthority_api_key": "${trustauthority_api_key}"
+        }
+      permissions: '0644'
+      create_directories: true
+
+runcmd:
+  - apt install git -y
+  - apt install software-properties-common -y
+  - add-apt-repository --yes --update ppa:ansible/ansible
+  - apt install ansible -y
+  - export trustauthority_api_key=${trustauthority_api_key}
+  - git clone https://github.com/intel/optimized-cloud-recipes.git /tmp/optimized-cloud-recipes
+  - cd /tmp/optimized-cloud-recipes/recipes/intel-azure-linux-tdx-ita 
+  - ansible-playbook recipe.yml
+  - echo 'First command set executed successfully!'
+  - sleep 300  # Pause for 5 minutes (300 seconds)
+  - cd /trustauthority-client/tdx-cli
+  - sudo make cli
+  - sudo cp /home/adminuser/intel-ita/config.json /trustauthority-client/tdx-cli/config.json
+  - sudo cp /home/adminuser/intel-ita/config.json /trustauthority-client/tdx-cli/config.json
+  - sudo ./trustauthority-cli token --config config.json --no-eventlog > ITA-Token.tok
+  - sudo ./trustauthority-cli verify --config config.json --token $(cat ITA-Token.tok) > ITA-Verify.tok
+  - echo 'Second command executed after 5 minutes!'
+
