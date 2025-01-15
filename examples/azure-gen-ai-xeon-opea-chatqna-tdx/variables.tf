@@ -6,7 +6,7 @@
 variable "source_address_prefix" {
   description = "Your Public IP/32. Use https://whatismyipaddress.com/ to find your IP"
   type        = string
-  #default     = "192.55.55.48/32" #Just an example, please replace with your IP. USE https://whatismyipaddress.com/ to find your IP
+  #default     = "3.20.43.52/32" #Just an example, please replace with your IP. USE https://whatismyipaddress.com/ to find your IP
 }
 
 variable "azurerm_resource_group_name" {
