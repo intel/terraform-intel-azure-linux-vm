@@ -9,7 +9,7 @@
 
 ## Terraform Intel Azure VM - Linux VM Creating Multiple Disks
 
-This example creates multiple disks on an Azure virtual machine on Intel Icelake CPU on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_D2_v5 by default.
+This example creates multiple disks on an Azure virtual machine on Intel Icelake CPU on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_D2_v6 by default.
 
 As you configure your application's environment, choose the configurations for your infrastructure that matches your application's requirements.
 
