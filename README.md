@@ -7,7 +7,7 @@
 © Copyright 2024, Intel Corporation
 
 ## Terraform Intel Azure VM - Linux VM
-This module creates an Azure virtual machine on Intel Icelake (for Intel Non-TDX VMs) and Sapphire Rapids CPUs (for Intel Confidential Compute VMs with Intel TDX) on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_D2_v5 by default and if using Intel Confidential Computing VMs with Intel TDX the default will be Intel Sapphire Rapids Standard_DC2es_v5.
+This module creates an Azure virtual machine on Intel Icelake (for Intel Non-TDX VMs) and Emerald Rapids CPUs (for Intel Confidential Compute VMs with Intel TDX) on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_D2_v5 by default and if using Intel Confidential Computing VMs with Intel TDX the default will be Intel Emerald Rapids Standard_DC2es_v6.
 
 As you configure your application's environment, choose the configurations for your infrastructure that matches your application's requirements.
 

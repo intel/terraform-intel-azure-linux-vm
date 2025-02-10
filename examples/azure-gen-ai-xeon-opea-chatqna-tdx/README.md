@@ -6,10 +6,10 @@
 
 © Copyright 2024, Intel Corporation
 
-## Azure Standard_DC32es_v5 Instance (currently in Azure Public Preview, thus make sure your surbscription has access to it and is available in your region) & Open Platform for Enterprise AI (OPEA) ChatQnA Example
+## Azure Standard_DC32es_v6 Instance (currently in Azure Public Preview, thus make sure your subscription has access to it and is available in your region) & Open Platform for Enterprise AI (OPEA) ChatQnA Example
 
 
-This demo will showcase Retrieval Augmented Generation (RAG) CPU inference using Intel® 4th Generation Xeon® Scalable processors (Sapphire Rapids) featuring Intel® Trust Domain Extensions (TDX) and Intel® AMX for AI acceleration on Azure using the OPEA ChatQnA Example. For more information about OPEA, go [here](https://opea.dev/). For more information on this specific example, go [here](https://github.com/opea-project/GenAIExamples/tree/main/ChatQnA).
+This demo will showcase Retrieval Augmented Generation (RAG) CPU inference using Intel® 5th Generation Xeon® Scalable processors (Emrald Rapids) featuring Intel® Trust Domain Extensions (TDX) and Intel® AMX for AI acceleration on Azure using the OPEA ChatQnA Example. For more information about OPEA, go [here](https://opea.dev/). For more information on this specific example, go [here](https://github.com/opea-project/GenAIExamples/tree/main/ChatQnA).
 
 
 NOTE: If you get this error: "The property 'securityProfile.encryptionAtHost' is not valid because the 'Microsoft.Compute/EncryptionAtHost' feature is not enabled for this subscription."  -- Make sure you EncryptionAtHost is registred for your subsctiption. You can issue following AZ CLI command: az feature register --namespace Microsoft.Compute --name EncryptionAtHost

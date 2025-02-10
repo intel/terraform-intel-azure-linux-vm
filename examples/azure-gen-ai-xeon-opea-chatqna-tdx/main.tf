@@ -119,7 +119,7 @@ module "azurerm_linux_virtual_machine"  {
   ip_configuration_public_ip_address_id  = azurerm_public_ip.public_ip.id
 
   vm_name                             = "ai-opea-chatqna-${random_id.rid.dec}"
-  virtual_machine_size                = "Standard_DC32es_v5"
+  virtual_machine_size                = "Standard_DC32es_v6"
   os_disk_name                        = var.os_disk_name  
   disk_size_gb                        = 500
   custom_data = data.cloudinit_config.ansible.rendered

@@ -14,7 +14,7 @@
 variable "virtual_machine_size" {
   description = "The SKU that will be configured for the provisioned virtual machine"
   type        = string
-  default     = "Standard_D2s_v5"
+  default     = "Standard_D2s_v6"
 }
 
 ########################
