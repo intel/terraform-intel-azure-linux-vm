@@ -9,7 +9,7 @@
 
 ## Terraform Intel Azure VM - Linux VM Creating Multiple Disks
 
-This example creates multiple disks on an Azure virtual machine on Intel Emerald Rapids CPU on Linux Operating System. The virtual machine is created on an Intel Emerald Rapids Standard_D2_v6 by default.
+This example creates multiple disks on an Azure virtual machine on Intel® 5th Generation Xeon® Scalable Emerald Rapids CPUs on Linux Operating System. The virtual machine is created on an Intel Emerald Rapids Standard_D2_v6 by default.
 
 As you configure your application's environment, choose the configurations for your infrastructure that matches your application's requirements.
 
@@ -62,8 +62,7 @@ resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
 }
 
 module "azurerm_linux_virtual_machine" {
-  source                              = "../.."
-  #source                              = "intel/azure-linux-vm/intel"
+  source                              = "intel/azure-linux-vm/intel"
   azurerm_resource_group_name         = "terraform-testing-rg"
   azurerm_virtual_network_name        = "vm-vnet1"
   virtual_network_resource_group_name = "terraform-testing-rg"

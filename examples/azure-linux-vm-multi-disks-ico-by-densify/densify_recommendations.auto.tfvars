@@ -1,7 +1,7 @@
 densify_recommendations = {
   "ico-test" = {
     currentType          = "Standard_D2ds_v2"
-    recommendedType      = "Standard_D2ds_v5"
+    recommendedType      = "Standard_D2ds_v6"
     approvalType         = "na"
     predictedUptime      = "84.38"
     recommendationType   = "Modernize - Optimal Family"

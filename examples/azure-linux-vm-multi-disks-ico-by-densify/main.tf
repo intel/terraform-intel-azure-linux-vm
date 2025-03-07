@@ -16,7 +16,7 @@ resource "azurerm_managed_disk" "managed_disk" {
   name                 = "managed_disk_name"
   resource_group_name  = "terraform-testing-rg"
   storage_account_type = "Standard_LRS"
-  location             = "eastus"
+  location             = "eastus2"
   create_option        = "Empty"
   disk_size_gb         = 8
   tags = {
@@ -33,7 +33,6 @@ resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
 }
 
 module "azurerm_linux_virtual_machine" {
-  #source                              = "../.."
   source                              = "intel/azure-linux-vm/intel"
   azurerm_resource_group_name         = "terraform-testing-rg"
   azurerm_virtual_network_name        = "vm-vnet1"
