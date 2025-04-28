@@ -8,13 +8,12 @@
 © Copyright 2024, Intel Corporation
 
 ## Terraform Intel Azure Linux TDX VM
-This example creates an Azure Virtual Machine on Intel® 4th Generation Xeon® Scalable Sapphire Rapids, processors featuring Intel Trusted Domain Extensions (TDX). These TDX Intel Confidential Computing VMs are hardned from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. The virtual machine is created on an Azure Standard_DC2es_v5 by default currently in Azure Preview, thus make sure you have access to it and is available in your region.
+This example creates an Azure Virtual Machine on Intel® 5th Generation Xeon® Scalable Emerald Rapids, processors featuring Intel Trusted Domain Extensions (TDX). These TDX Intel Confidential Computing VMs are hardned from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. The virtual machine is created on an Azure Standard_DC2es_v6 by default currently in Azure Preview, thus make sure you have access to it and is available in your region.
 
 Supported Intel Confidential Computing VMs with Intel TDX include:
--DCesv5-series
--DCedsv5-series
--ECesv5-series
--ECedsv5-series
+-DCesv6-series: Intel® 5th Generation Xeon® Scalable Emerald Rapids processors (Public Preview)
+-DCedsv5-series: Intel® 4th Generation Xeon® Scalable Sapphire Rapids processors
+-ECesv6-series: Intel® 5th Generation Xeon® Scalable Emerald Rapids processors (Public Preview)
 
 See root policies.md for full list of Intel Confidential VMs with TDX.
 
@@ -54,7 +53,7 @@ module "azurerm_linux_virtual_machine" {
   azurerm_virtual_network_name        = "vnet1"
   virtual_network_resource_group_name = "terraform-testing-rg"
   azurerm_subnet_name                 = "default"
-  virtual_machine_size                = "Standard_DC2es_v5"
+  virtual_machine_size                = "Standard_DC2es_v6"
   vm_name                             = "tdx-linuxvm1"
   admin_password                      = var.admin_password
   #Set to flag below to use Intel Confidential VM with TDX

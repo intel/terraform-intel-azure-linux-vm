@@ -7,7 +7,7 @@
 
 © Copyright 2024, Intel Corporation
 
-## Terraform Intel Azure VM - DC_Sv3 Instance with 3rd Generation Intel® Xeon® Scalable Processor (Ice Lake) & Intel® Cloud Optimized Recipe for SGX & Gramine 
+## Terraform Intel Azure VM - DC_sv3 Instance with 3rd Generation Intel® Xeon® Scalable Processor (Ice Lake) & Intel® Cloud Optimized Recipe for SGX & Gramine 
 
 This demo will showcase an Pytorch Application Example running in SGX - Enabled Enclave using Gramine 
 

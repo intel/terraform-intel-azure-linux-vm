@@ -1,4 +1,4 @@
-#This example deploys a Intel TDX-Capable Azure Virtual Machine (Standard_DC8es_v5) with Intel Trust Authority Attestation (ITA)
+#This example deploys a Intel TDX-Capable Azure Virtual Machine (Standard_DC8es_v6) with Intel Trust Authority Attestation (ITA)
 #In order for you to use this example, you will need to have registered with Intel Trust Authority and have created your ITA Token
 #This example uses Terraform in combination with Cloud-Init and Ansible to deploty the Azure TDX VM and to configure ITA
  
@@ -100,7 +100,7 @@ module "azurerm_linux_virtual_machine" {
   azurerm_virtual_network_name        = var.azurerm_virtual_network_name
   virtual_network_resource_group_name = var.virtual_network_resource_group_name
   azurerm_subnet_name                 = var.azurerm_subnet_name
-  virtual_machine_size                = "Standard_DC8es_v5"
+  virtual_machine_size                = "Standard_DC8es_v6"
   vm_name                             = "tdx-linuxvm1"
   admin_password                      = var.admin_password
   

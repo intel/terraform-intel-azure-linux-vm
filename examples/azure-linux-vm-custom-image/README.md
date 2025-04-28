@@ -9,7 +9,7 @@
 
 ## Terraform Intel Azure VM - Linux VM with Custom Compute Gallery Image
 
-This example creates a Spot Azure Virtual Machine on Intel® 5th Generation Xeon® Scalable Emerald Rapids CPUs on Linux Operating System. The virtual machine is created on an Standard_D2s_v6 by default.
+This example creates an Azure Virtual Machine on Intel® 5th Generation Xeon® Scalable Emerald Rapids CPUs on Linux Operating System using Custom image from Intel Marketplace gallery . The virtual machine is created on an Standard_D2s_v6 by default.
 
 More information about Intel Linux Virtual Machines on [Azure Virtual Machine Pricing](<https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/>)
 
