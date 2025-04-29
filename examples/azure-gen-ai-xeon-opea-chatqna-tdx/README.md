@@ -13,7 +13,7 @@
 - **Standard_DCes_v6 is currently in Azure Public Preview, thus make sure your subscription has access to it and is available in your region.**
 --These VMs are available in West Europe, East US, West US, and West US 3 as of April 2025--
 
-This demo will showcase Retrieval Augmented Generation (RAG) CPU inference using Intel® 5th Generation Xeon® Scalable processors (Emeralad Rapids) featuring Intel® Trust Domain Extensions (TDX) and Intel® AMX for AI acceleration on Azure using the OPEA ChatQnA Example.
+This demo will showcase Retrieval Augmented Generation (RAG) CPU inference using Intel® 5th Generation Xeon® Scalable processors (Emerald Rapids) featuring Intel® Trust Domain Extensions (TDX) and Intel® AMX for AI acceleration on Azure using the OPEA ChatQnA Example.
 
 For more information about OPEA, go [here](https://opea.dev/). For more information on this specific example, go [here](https://github.com/opea-project/GenAIExamples/tree/main/ChatQnA).
 
