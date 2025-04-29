@@ -10,9 +10,10 @@
 
 **NOTE:**
 
-- **Standard_DCes_v5 is currently in Azure Public Preview, thus make sure your subscription has access to it and is available in your region.**
+- **Standard_DCes_v6 is currently in Azure Public Preview, thus make sure your subscription has access to it and is available in your region.**
+--These VMs are available in West Europe, East US, West US, and West US 3 as of April 2025--
 
-This demo will showcase Retrieval Augmented Generation (RAG) CPU inference using Intel® 4th Generation Xeon® Scalable processors (Sapphire Rapids) featuring Intel® Trust Domain Extensions (TDX) and Intel® AMX for AI acceleration on Azure using the OPEA ChatQnA Example.
+This demo will showcase Retrieval Augmented Generation (RAG) CPU inference using Intel® 5th Generation Xeon® Scalable processors (Emerald Rapids) featuring Intel® Trust Domain Extensions (TDX) and Intel® AMX for AI acceleration on Azure using the OPEA ChatQnA Example.
 
 For more information about OPEA, go [here](https://opea.dev/). For more information on this specific example, go [here](https://github.com/opea-project/GenAIExamples/tree/main/ChatQnA).
 
@@ -135,7 +136,7 @@ You can access the demos using the following:
 
 - OPEA ChatQnA: `http://yourpublicip:5174`
 
-- Note: This module is created using the Standard_DC64es_v5 instance size, you can change your instance type by modifying the **virtual_machine_size = "Standard_DC64es_v5 "** in the main.tf under the **azurerm_linux_virtual_machine** section of the code. If you just change to an 8xlarge and then run **terraform apply** the module will destroy the old instance and rebuild with a larger instance size.
+- Note: This module is created using the Standard_DC64es_v6 instance size, you can change your instance type by modifying the **virtual_machine_size = "Standard_DC64es_v6"** in the main.tf under the **azurerm_linux_virtual_machine** section of the code. If you just change to an 8xlarge and then run **terraform apply** the module will destroy the old instance and rebuild with a larger instance size.
 
 ## Deleting the Demo
 

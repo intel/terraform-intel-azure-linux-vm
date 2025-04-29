@@ -1,7 +1,7 @@
-# Provisions Azure VM on Intel® 4th Generation Xeon® Scalable processors (Sapphire Rapids) featuring Intel® Trust Domain Extensions (TDX) and Intel® AMX for AI acceleration on Azure Linux OS. 
-# It is configured to create the VM in US-East 2 region. The region is provided in variables.tf in this example folder.
+# Provisions Azure VM on Intel® 5th Generation Xeon® Scalable processors (Emerald Rapids) featuring Intel® Trust Domain Extensions (TDX) and Intel® AMX for AI acceleration on Azure Linux OS. 
+# It is configured to create the VM in US-East region. The region is provided in variables.tf in this example folder.
 # Make sure you have an existing (pre-created) Azure resource group, virtual network, and subnet in your subscription- see variable.tf to make necessary changes, lines 1-32 
-# in the local system where terraform apply is done. Also make sure you subscription has access to public preview for the DCv5 Azure Instances in the region where your resource group is in
+# in the local system where terraform apply is done. Also make sure you subscription has access to public preview for the DCv6 Azure Instances in the region where your resource group is in
 # Creates a new security group required for ChatQNA from ANY source 
 
 ################################################################################
@@ -120,7 +120,7 @@ module "azurerm_linux_virtual_machine" {
   ip_configuration_public_ip_address_id = azurerm_public_ip.public_ip.id
 
   vm_name              = "ai-opea-chatqna-${random_id.rid.dec}"
-  virtual_machine_size = "Standard_DC64es_v5"
+  virtual_machine_size = "Standard_DC64es_v6" 
   os_disk_name         = var.os_disk_name
   disk_size_gb         = 500
   custom_data          = data.cloudinit_config.ansible.rendered
