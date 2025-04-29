@@ -5,7 +5,8 @@
 
 
 module "azurerm_linux_virtual_machine" {
-  source                              = "intel/azure-linux-vm/intel"
+  #source                              = "intel/azure-linux-vm/intel"
+  source                              = "../.."
   azurerm_resource_group_name         = "terraform-testing-rg"
   azurerm_virtual_network_name        = "vm-vnet1"
   virtual_network_resource_group_name = "terraform-testing-rg"

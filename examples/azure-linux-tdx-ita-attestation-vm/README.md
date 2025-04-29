@@ -8,10 +8,12 @@
 © Copyright 2024, Intel Corporation
 
 ## Terraform Intel Azure Linux TDX VM with Intel Trust Autority Attestation (ITA)
-This example creates an Azure Virtual Machine on Intel® 5th Generation Xeon® Scalable Emerald Rapids processors featuring Intel Trusted Domain Extensions (TDX) and also installs all Intel Trust Authority (ITA) client and its Trustauthority CLI with the your ITA Token that you specify (you will need to add your ITA token in the trustauthority_api_key section of variables.tf - if you do not yet ave ITA toen you go to https://www.intel.com/content/www/us/en/security/trust-authority.html to create an account and create yoru ITA token). 
+This example creates an Azure Virtual Machine on Intel® 5th Generation Xeon® Scalable Emerald Rapids processors featuring Intel Trusted Domain Extensions (TDX) and also installs all Intel Trust Authority (ITA) client and its Trustauthority CLI with the your ITA Token that you specify (you will need to add your ITA token in the trustauthority_api_key section of variables.tf - if you do not yet ave ITA token you go to https://www.intel.com/content/www/us/en/security/trust-authority.html to create an account and create yoru ITA token). 
 
-The TDX Intel Confidential Computing VM is hardened from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. The virtual machine is created on an Azure Standard_DC2es_v5 by default.
+The TDX Intel Confidential Computing VM is hardened from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. 
 
+- **Standard_DCes_v6 is currently in Azure Public Preview, thus make sure your subscription has access to it and is available in your region.**
+--These VMs are available in West Europe, East US, West US, and West US 3 as of April 2025--
 
 Supported Intel Confidential Computing VMs with Intel TDX include:
 -DCesv6-series: Intel® 5th Generation Xeon® Scalable Emerald Rapids processors (Public Preview)

@@ -12,13 +12,13 @@ variable "trustauthority_api_key" {
 variable "azurerm_resource_group_name" {
   description = "Name of the resource group to be imported"
   type        = string
-  default     = "terraform-testing-rg"
+  default     = "terraform-testing-rg-eastus"
 }
 
 variable "region" {
   description = "Target Azure region to deploy VM in."
   type        = string
-  default     = "eastus2"
+  default     = "eastus"
 }
 
 variable "azurerm_virtual_network_name" {
@@ -30,7 +30,7 @@ variable "azurerm_virtual_network_name" {
 variable "virtual_network_resource_group_name" {
   description = "Name of the resource group of the virtual network"
   type        = string
-  default     = "terraform-testing-rg"
+  default     = "terraform-testing-rg-eastus"
 }
 
 variable "azurerm_subnet_name" {

@@ -1,5 +1,5 @@
-# Provisions Azure VM on Intel® 5h Generation Xeon® Scalable processors (Emerald Rapids) featuring Intel® Trust Domain Extensions (TDX) and Intel® AMX for AI acceleration on Azure Linux OS. 
-# It is configured to create the VM in US-East 2 region. The region is provided in variables.tf in this example folder.
+# Provisions Azure VM on Intel® 5th Generation Xeon® Scalable processors (Emerald Rapids) featuring Intel® Trust Domain Extensions (TDX) and Intel® AMX for AI acceleration on Azure Linux OS. 
+# It is configured to create the VM in US-East region. The region is provided in variables.tf in this example folder.
 # Make sure you have an existing (pre-created) Azure resource group, virtual network, and subnet in your subscription- see variable.tf to make necessary changes, lines 1-32 
 # in the local system where terraform apply is done. Also make sure you subscription has access to public preview for the DCv6 Azure Instances in the region where your resource group is in
 # Creates a new security group required for ChatQNA from ANY source 

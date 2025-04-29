@@ -12,13 +12,13 @@ variable "source_address_prefix" {
 variable "azurerm_resource_group_name" {
   description = "Name of the existing resource group to be imported"
   type        = string
-  #default     = "terraform-testing-eastus2-rg"
+  #default     = "terraform-testing-rg-eastus"
 }
 
 variable "region" {
   description = "Target Azure region. Should be the same as RG/VNET/Subnet"
   type        = string
-  #default     = "eastus2"
+  #default     = "eastus"
 }
 
 variable "azurerm_virtual_network_name" {
@@ -30,7 +30,7 @@ variable "azurerm_virtual_network_name" {
 variable "virtual_network_resource_group_name" {
   description = "Name of the existing resource group of the virtual network"
   type        = string
-  #default     = "terraform-testing-eastus2-rg"
+  #default     = "terraform-testing-rg-eastus"
 }
 
 variable "azurerm_subnet_name" {

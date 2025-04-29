@@ -8,7 +8,10 @@
 © Copyright 2024, Intel Corporation
 
 ## Terraform Intel Azure Linux TDX VM
-This example creates an Azure Virtual Machine on Intel® 5th Generation Xeon® Scalable Emerald Rapids, processors featuring Intel Trusted Domain Extensions (TDX). These TDX Intel Confidential Computing VMs are hardned from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. The virtual machine is created on an Azure Standard_DC2es_v6 by default currently in Azure Preview, thus make sure you have access to it and is available in your region.
+This example creates an Azure Virtual Machine on Intel® 5th Generation Xeon® Scalable Emerald Rapids, processors featuring Intel Trusted Domain Extensions (TDX). These TDX Intel Confidential Computing VMs are hardned from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. 
+
+- **Standard_DCes_v6 is currently in Azure Public Preview, thus make sure your subscription has access to it and is available in your region.**
+--These VMs are available in West Europe, East US, West US, and West US 3 as of April 2025--
 
 Supported Intel Confidential Computing VMs with Intel TDX include:
 -DCesv6-series: Intel® 5th Generation Xeon® Scalable Emerald Rapids processors (Public Preview)
