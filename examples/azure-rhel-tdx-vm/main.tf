@@ -1,7 +1,9 @@
 # Example of how to pass variable for database password:
 # terraform apply -var="db_password=..."
 # Environment variables can also be used https://www.terraform.io/language/values/variables#environment-variables
-# Resource azurerm_linux_virtual_machine requires a preconfigured resource group, virtual network, and subnet in Azure - make sure the Azure region supports Intel Confidential VMs with TDX
+
+# Make sure you have an existing (pre-created) Azure resource group, virtual network, and subnet in your subscription- see variable.tf to make necessary changes, lines 1-32 
+# in the local system where terraform apply is done. Also make sure you subscription has access to public preview for the DCv6 Azure Instances in the region where your resource group is in
 
 ################################################################################
 # For Azure Key Vault - This is Optional
@@ -79,25 +81,27 @@ resource "azurerm_key_vault_key" "generated" {
 module "azurerm_linux_virtual_machine" {
   #source                              = "../.."
   source                              = "intel/azure-linux-vm/intel"
-  azurerm_resource_group_name         = "terraform-testing-rg"
+  azurerm_resource_group_name         = "terraform-testing-rg-eastus"
   azurerm_virtual_network_name        = "vm-vnet1"
-  virtual_network_resource_group_name = "terraform-testing-rg"
+  virtual_network_resource_group_name = "terraform-testing-rg-eastus"
   azurerm_subnet_name                 = "default"
-  virtual_machine_size                = "Standard_DC2es_v5"
+  virtual_machine_size                = "Standard_DC2es_v6"
   vm_name                             = "tdx-linuxvm1"
   admin_password                      = var.admin_password
   #Set to flag below to use Intel Confidential VM with TDX
-  tdx_flag                = true
-  secure_boot_flag        = true
-  encryption_at_host_flag = true
-  #Chose the images supporting Intel Confidential Compute VMs with Intel TDX
+  tdx_flag                            = true
+  secure_boot_flag                    = true
+  encryption_at_host_flag             = true
+  #Choose the images supporting Intel Confidential Compute VMs with Intel TDX
+
   source_image_reference = {
     "offer"     = "rhel_test_offers"
     "sku"       = "rhel93_tdxpreview"
     "publisher" = "redhat"
     "version"   = "latest"
   }
-  tags = {
+
+    tags = {
     "owner"    = "user@company.com"
     "duration" = "1"
   }

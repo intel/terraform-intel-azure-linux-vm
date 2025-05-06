@@ -9,7 +9,7 @@
 
 ## Terraform Intel Azure VM - Linux VM Creating Spot Virtual Machine
 
-This example creates a Spot Azure Virtual Machine on Intel Icelake CPU on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_D2_v5 by default.
+This example creates a Spot Azure Virtual Machine on Intel® 5th Generation Xeon® Scalable Emerald Rapids CPUs on Linux Operating System. The virtual machine is created on Standard_D2s_v6 by default.
 
 More information about Intel Linux Virtual Machines on [Azure Virtual Machine Pricing](<https://azure.microsoft.com/en-us/pricing/details/virtual-machines/linux/>)
 
@@ -47,12 +47,12 @@ variable "admin_password" {
 main.tf
 ```hcl
 module "azurerm_linux_virtual_machine" {
-  source                              = "../.."
+  source                              = "intel/azure-linux-vm/intel"
   azurerm_resource_group_name         = "terraform-testing-rg"
   azurerm_virtual_network_name        = "vm-vnet1"
   virtual_network_resource_group_name = "terraform-testing-rg"
-  vm_name = "redhat8-vm01"
-  os_disk_name = "value"
+  vm_name                             = "redhat8-vm01"
+  os_disk_name                        = "value"
   azurerm_network_interface_name      = "redhat8-nic01"
   azurerm_subnet_name                 = "default"
   admin_password                      = var.admin_password
@@ -62,9 +62,9 @@ module "azurerm_linux_virtual_machine" {
     "publisher" = "RedHat"
     "version"   = "latest"
   }
-  priority                            = "Spot"
-  max_bid_price                       = 0.0874
-  eviction_policy                     = "Deallocate"
+  priority        = "Spot"
+  max_bid_price   = 0.0874
+  eviction_policy = "Deallocate"
   tags = {
     "owner"    = "user@company.com"
     "duration" = "1"
