@@ -172,7 +172,4 @@ No modules.
 | <a name="output_storage_account_tier"></a> [storage\_account\_tier](#output\_storage\_account\_tier) | Tier to identify the storage account associated with the virtual machine |
 | <a name="output_tags"></a> [tags](#output\_tags) | Tags that are assigned to the virtual machine |
 | <a name="output_virtual_machine_id"></a> [virtual\_machine\_id](#output\_virtual\_machine\_id) | ID assigned to the virtual machine after it has been created |
-
-## Links
-https://github.com/intel/intel-policy-library
 <!-- END_TF_DOCS -->
