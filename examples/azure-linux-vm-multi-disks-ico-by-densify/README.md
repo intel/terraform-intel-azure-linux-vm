@@ -13,7 +13,7 @@
   <img src="https://github.com/intel/terraform-intel-azure-linux-vm/blob/main/images/azure-vm-ico.png?raw=true" alt="Intel + Densify Logo" width="250"/>
 </p>
 
-This example creates multiple disks on an Azure virtual machine on Intel Icelake CPU on Linux Operating System using recommended instance from Intel Cloud Optimizer by Densify. The virtual machine is created on an Intel Icelake Standard_D4ds_v5 by as an example of recommendation by ICO by Densify.
+This example creates multiple disks on an Azure virtual machine on Intel® 5th Generation Xeon® Scalable Emerald Rapids CPUs on Linux Operating System using recommended instance from Intel Cloud Optimizer by Densify. The virtual machine is created on an Intel Emerald Rapids Standard_D4ds_v6 by as an example of recommendation by ICO by Densify.
 
 Intel® Cloud Optimizer is a collaboration between Densify and Intel targeted at getting you the most from your cloud investment. 
 
@@ -55,7 +55,7 @@ variable "densify_recommendations" {
   #To see how it would work you can change the approvalType from all to na. As all assumes you have approved all changes and na would be used to say haven't approved the change and just want to make the system self-aware. 
   default = { 
     test = {
-      recommendedType = "Standard_D4ds_v5"
+      recommendedType = "Standard_D4ds_v6"
       currentType = "Standard_D4ds_v2"
       approvalType = "all"
       savingsEstimate = "31.43"
@@ -70,7 +70,7 @@ variable "densify_recommendations" {
 variable "densify_fallback"{
   type = map(string)
   default = {
-      	recommendedType = "Standard_D4ds_v5"
+      	recommendedType = "Standard_D4ds_v6"
      	currentType = "Standard_D4ds_v2"
 	approvalType = "all"
 	savingsEstimate = "0"
@@ -117,8 +117,7 @@ resource "azurerm_virtual_machine_data_disk_attachment" "disk_attachment" {
 }
 
 module "azurerm_linux_virtual_machine" {
-  source                              = "../.."
-  #source                              = "intel/azure-linux-vm/intel"
+  source                              = "intel/azure-linux-vm/intel"
   azurerm_resource_group_name         = "terraform-testing-rg"
   azurerm_virtual_network_name        = "vm-vnet1"
   virtual_network_resource_group_name = "terraform-testing-rg"

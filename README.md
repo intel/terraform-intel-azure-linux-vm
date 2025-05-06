@@ -7,7 +7,9 @@
 © Copyright 2025, Intel Corporation
 
 ## Terraform Intel Azure VM - Linux VM
+
 This module creates an Azure virtual machine on Intel Icelake (for Intel Non-TDX VMs) and Emerald Rapids CPUs (for Intel Confidential Compute VMs with Intel TDX) on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_D2_v5 by default and if using Intel Confidential Computing VMs with Intel TDX the default will be Intel Emerald Rapids Standard_DC2es_v6.
+
 
 As you configure your application's environment, choose the configurations for your infrastructure that matches your application's requirements.
 
@@ -150,7 +152,7 @@ No modules.
 | <a name="input_source_image_reference"></a> [source\_image\_reference](#input\_source\_image\_reference) | n/a | `map(any)` | `null` | no |
 | <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the resource | `map(any)` | `{}` | no |
 | <a name="input_tdx_flag"></a> [tdx\_flag](#input\_tdx\_flag) | Determines whether a VM is TDX Confidential Compute VM | `bool` | `false` | no |
-| <a name="input_virtual_machine_size"></a> [virtual\_machine\_size](#input\_virtual\_machine\_size) | The SKU that will be configured for the provisioned virtual machine | `string` | `"Standard_D2s_v5"` | no |
+| <a name="input_virtual_machine_size"></a> [virtual\_machine\_size](#input\_virtual\_machine\_size) | The SKU that will be configured for the provisioned virtual machine | `string` | `"Standard_D2s_v6"` | no |
 | <a name="input_virtual_network_resource_group_name"></a> [virtual\_network\_resource\_group\_name](#input\_virtual\_network\_resource\_group\_name) | Name of the resource group of the virtual network | `string` | n/a | yes |
 | <a name="input_vm_name"></a> [vm\_name](#input\_vm\_name) | The unique name of the Linux virtual machine | `string` | `"vm1"` | no |
 | <a name="input_write_accelerator_enabled"></a> [write\_accelerator\_enabled](#input\_write\_accelerator\_enabled) | Should write accelerator be enabled for this OS disk? Defaults to false | `bool` | `false` | no |

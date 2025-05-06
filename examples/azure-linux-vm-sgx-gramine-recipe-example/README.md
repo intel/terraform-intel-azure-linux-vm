@@ -7,13 +7,13 @@
 
 © Copyright 2025, Intel Corporation
 
-## Terraform Intel Azure VM - DC_Sv3 Instance with 3rd Generation Intel® Xeon® Scalable Processor (Ice Lake) & Intel® Cloud Optimized Recipe for SGX & Gramine 
+## Terraform Intel Azure VM -Standard_DC2s_v3 Instance with 3rd Generation Intel® Xeon® Scalable Processor (Ice Lake) & Intel® Cloud Optimized Recipe for SGX & Gramine 
 
 This demo will showcase an Pytorch Application Example running in SGX - Enabled Enclave using Gramine 
 
-This example creates Azure virtual machine on Intel Icelake CPU on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_DCs_v3
+This example creates Azure virtual machine on Intel Icelake CPU on Linux Operating System. The virtual machine is created on an Intel Icelake Standard_DC2s_v3
 
-SGX-enabled Azure VMs: At Azure, VMs of the DCsv3 and DCdsv3-series should be used. Azure provides a quickstart guide to setup such VMs. During the selection of the VM, one has to carefully select a machine providing the necessary amount of EPC memory suiting the application. A table with the provided EPC memory size can be found on the DCsv3 and DCdsv3-series overview.
+SGX-enabled Azure VMs: In Azure, VMs of the DCs_v3 and DCds_v3-series should be used. Azure provides a quickstart guide to setup such VMs. During the selection of the VM, one has to carefully select a machine providing the necessary amount of EPC memory suiting the application. A table with the provided EPC memory size can be found on the DCs_v3 and DCds_v3-series overview.
 
 
 As you configure your application's environment, choose the configurations for your infrastructure that matches your application's requirements.

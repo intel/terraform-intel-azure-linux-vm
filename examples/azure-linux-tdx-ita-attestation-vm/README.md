@@ -8,20 +8,21 @@
 © Copyright 2025, Intel Corporation
 
 ## Terraform Intel Azure Linux TDX VM with Intel Trust Autority Attestation (ITA)
-This example creates an Azure Virtual Machine on Intel® 4th Generation Xeon® Scalable Sapphire Rapids processors featuring Intel Trusted Domain Extensions (TDX) and also installs all Intel Trust Authority (ITA) client and its Trustauthority CLI with the your ITA Token that you specify (you will need to add your ITA token in the trustauthority_api_key section of variables.tf - if you do not yet ave ITA toen you go to https://www.intel.com/content/www/us/en/security/trust-authority.html to create an account and create yoru ITA token). 
+This example creates an Azure Virtual Machine on Intel® 5th Generation Xeon® Scalable Emerald Rapids processors featuring Intel Trusted Domain Extensions (TDX) and also installs all Intel Trust Authority (ITA) client and its Trustauthority CLI with the your ITA Token that you specify (you will need to add your ITA token in the trustauthority_api_key section of variables.tf - if you do not yet ave ITA token you go to https://www.intel.com/content/www/us/en/security/trust-authority.html to create an account and create yoru ITA token). 
 
-The TDX Intel Confidential Computing VM is hardened from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. The virtual machine is created on an Azure Standard_DC2es_v5 by default.
+The TDX Intel Confidential Computing VM is hardened from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. 
 
+- **Standard_DCes_v6 is currently in Azure Public Preview, thus make sure your subscription has access to it and is available in your region.**
+--These VMs are available in West Europe, East US, West US, and West US 3 as of April 2025--
 
 Supported Intel Confidential Computing VMs with Intel TDX include:
--DCesv5-series
--DCedsv5-series
--ECesv5-series
--ECedsv5-series
+-DCesv6-series: Intel® 5th Generation Xeon® Scalable Emerald Rapids processors (Public Preview)
+-DCedsv5-series: Intel® 4th Generation Xeon® Scalable Sapphire Rapids processors
+-ECesv6-series: Intel® 5th Generation Xeon® Scalable Emerald Rapids processors (Public Preview)
 
 See root policies.md for full list of Intel Confidential VMs with TDX.
 
-By default this example will provision Azure "Standard_DC8es_v5" instance, feel free to change the size of the VM as needed.
+By default this example will provision Azure "Standard_DC8es_v6" instance, feel free to change the size of the VM as needed.
 
 Azure VM Security Type will be set to Confidential amd Virtualized Trusted Platform Module (vTPM) enabled as requried with optional Secure Boot, OS disk encrypted at host.
 
@@ -147,7 +148,7 @@ module "azurerm_linux_virtual_machine" {
   azurerm_virtual_network_name        = var.azurerm_virtual_network_name
   virtual_network_resource_group_name = var.virtual_network_resource_group_name
   azurerm_subnet_name                 = var.azurerm_subnet_name
-  virtual_machine_size                = "Standard_DC8es_v5"
+  virtual_machine_size                = "Standard_DC8es_v6"
   vm_name                             = "tdx-linuxvm1"
   admin_password                      = var.admin_password
   
