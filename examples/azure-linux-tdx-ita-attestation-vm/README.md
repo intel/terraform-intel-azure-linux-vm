@@ -5,7 +5,7 @@
 
 # Intel® Optimized Cloud Modules for Terraform
 
-© Copyright 2024, Intel Corporation
+© Copyright 2025, Intel Corporation
 
 ## Terraform Intel Azure Linux TDX VM with Intel Trust Autority Attestation (ITA)
 This example creates an Azure Virtual Machine on Intel® 5th Generation Xeon® Scalable Emerald Rapids processors featuring Intel Trusted Domain Extensions (TDX) and also installs all Intel Trust Authority (ITA) client and its Trustauthority CLI with the your ITA Token that you specify (you will need to add your ITA token in the trustauthority_api_key section of variables.tf - if you do not yet ave ITA token you go to https://www.intel.com/content/www/us/en/security/trust-authority.html to create an account and create yoru ITA token). 

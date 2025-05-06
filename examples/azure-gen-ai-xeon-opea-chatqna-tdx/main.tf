@@ -106,8 +106,9 @@ resource "azurerm_public_ip" "public_ip" {
 }
 
 # Modify the `vm_count` variable in the variables.tf file to create the required number of Azure VMs 
+=======
 module "azurerm_linux_virtual_machine" {
-  #source = "../.."
+
   source                              = "intel/azure-linux-vm/intel"
   version                             = "v2.0.5"
   azurerm_resource_group_name         = var.azurerm_resource_group_name

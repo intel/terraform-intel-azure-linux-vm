@@ -5,7 +5,7 @@
 
 # Intel® Optimized Cloud Modules for Terraform
 
-© Copyright 2024, Intel Corporation
+© Copyright 2025, Intel Corporation
 
 ## Terraform Intel Azure VM - Linux VM Creating Multiple Disks using Intel Cloud Optimzier(ICO) by Densify recommendations
 

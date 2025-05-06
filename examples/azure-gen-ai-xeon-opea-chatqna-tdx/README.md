@@ -4,14 +4,17 @@
 
 # Intel® Optimized Cloud Modules for Terraform
 
-© Copyright 2024, Intel Corporation
+© Copyright 2025, Intel Corporation
 
-## Intel AMX, Intel TDX, Azure Standard_DCes_v5 Instance, and Open Platform for Enterprise AI (OPEA) ChatQnA Example
+
+## Azure Standard_DC32es_v6 Instance (currently in Azure Public Preview, thus make sure your subscription has access to it and is available in your region) & Open Platform for Enterprise AI (OPEA) ChatQnA Example
+
 
 **NOTE:**
 
-- **Standard_DCes_v6 is currently in Azure Public Preview, thus make sure your subscription has access to it and is available in your region.**
---These VMs are available in West Europe, East US, West US, and West US 3 as of April 2025--
+
+This demo will showcase Retrieval Augmented Generation (RAG) CPU inference using Intel® 5th Generation Xeon® Scalable processors (Emrald Rapids) featuring Intel® Trust Domain Extensions (TDX) and Intel® AMX for AI acceleration on Azure using the OPEA ChatQnA Example. For more information about OPEA, go [here](https://opea.dev/). For more information on this specific example, go [here](https://github.com/opea-project/GenAIExamples/tree/main/ChatQnA).
+
 
 This demo will showcase Retrieval Augmented Generation (RAG) CPU inference using Intel® 5th Generation Xeon® Scalable processors (Emerald Rapids) featuring Intel® Trust Domain Extensions (TDX) and Intel® AMX for AI acceleration on Azure using the OPEA ChatQnA Example.
 

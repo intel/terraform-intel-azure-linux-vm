@@ -5,7 +5,7 @@
 
 # Intel® Optimized Cloud Modules for Terraform
 
-© Copyright 2024, Intel Corporation
+© Copyright 2025, Intel Corporation
 
 ## Terraform Intel Azure Linux TDX VM
 This example creates an Azure Virtual Machine on Intel® 5th Generation Xeon® Scalable Emerald Rapids, processors featuring Intel Trusted Domain Extensions (TDX). These TDX Intel Confidential Computing VMs are hardned from the cloud virtualized environment by denying the hypervisor, other host management code and administrators access to the VM memory and state. 
