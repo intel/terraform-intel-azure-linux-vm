@@ -4,7 +4,7 @@
 
 # Intel® Optimized Cloud Modules for Terraform
 
-© Copyright 2024, Intel Corporation
+© Copyright 2025, Intel Corporation
 
 ## Azure Standard_DC32es_v6 Instance (currently in Azure Public Preview, thus make sure your subscription has access to it and is available in your region) & Open Platform for Enterprise AI (OPEA) ChatQnA Example
 
